@@ -1,10 +1,14 @@
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, createTheme } from "@mantine/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
 import { routeTree } from "./routeTree.gen";
 
 const queryClient = new QueryClient();
+
+const theme = createTheme({
+	fontFamily: "Inter, sans-serif",
+});
 
 // Set up a Router instance
 const router = createRouter({
@@ -29,7 +33,7 @@ const rootElement = document.getElementById("app")!;
 if (!rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
 	root.render(
-		<MantineProvider>
+		<MantineProvider theme={theme}>
 			<QueryClientProvider client={queryClient}>
 				<RouterProvider router={router} />
 			</QueryClientProvider>
