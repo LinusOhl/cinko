@@ -1,3 +1,4 @@
+import { Anchor, Container, Title } from "@mantine/core";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
@@ -17,10 +18,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootComponent() {
 	return (
-		<>
+		<Container>
+			<Anchor component={Link} to={"/"} c={"#e6e8e6"} underline="never">
+				<Title order={1}>Revue</Title>
+			</Anchor>
+
 			<Outlet />
 			<ReactQueryDevtools buttonPosition="bottom-left" />
 			<TanStackRouterDevtools position="bottom-right" />
-		</>
+		</Container>
 	);
 }
