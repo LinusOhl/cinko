@@ -3,16 +3,13 @@ import {
 	Box,
 	Card,
 	Flex,
-	Grid,
 	Image,
-	List,
 	ScrollArea,
 	Text,
 	Title,
 } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { TbChevronRight } from "react-icons/tb";
 import {
 	nowPlayingMoviesQueryOptions,
 	popularMoviesQueryOptions,
