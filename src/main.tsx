@@ -8,6 +8,8 @@ const queryClient = new QueryClient();
 
 const theme = createTheme({
 	fontFamily: "Inter, sans-serif",
+	black: "#071013",
+	white: "#E6E8E6",
 	colors: {
 		"r-yellow": [
 			"#fff9e0",
