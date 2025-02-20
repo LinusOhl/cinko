@@ -39,7 +39,7 @@ function HomeComponent() {
 	return (
 		<div>
 			<Box my={"lg"}>
-				<Anchor component={Link} to="/movies/popular" c={"#e6e8e6"}>
+				<Anchor component={Link} to="/movies/popular" c={"white"}>
 					<Title order={2} mb={"xs"}>
 						Popular movies
 					</Title>
@@ -70,7 +70,7 @@ function HomeComponent() {
 			</Box>
 
 			<Box my={"lg"}>
-				<Anchor component={Link} to="/movies/top_rated" c={"#e6e8e6"}>
+				<Anchor component={Link} to="/movies/top_rated" c={"white"}>
 					<Title order={2} mb={"xs"}>
 						Top rated movies
 					</Title>
@@ -101,7 +101,7 @@ function HomeComponent() {
 			</Box>
 
 			<Box my={"lg"}>
-				<Anchor component={Link} to="/movies/now_playing" c={"#e6e8e6"}>
+				<Anchor component={Link} to="/movies/now_playing" c={"white"}>
 					<Title order={2} mb={"xs"}>
 						Now playing movies
 					</Title>

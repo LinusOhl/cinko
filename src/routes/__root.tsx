@@ -19,7 +19,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootComponent() {
 	return (
 		<Container>
-			<Anchor component={Link} to={"/"} c={"#e6e8e6"} underline="never">
+			<Anchor component={Link} to={"/"} c={"white"} underline="never">
 				<Title order={1}>Revue</Title>
 			</Anchor>
 
