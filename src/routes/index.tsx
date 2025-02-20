@@ -1,6 +1,18 @@
-import { List, Title } from "@mantine/core";
+import {
+	Anchor,
+	Box,
+	Card,
+	Flex,
+	Grid,
+	Image,
+	List,
+	ScrollArea,
+	Text,
+	Title,
+} from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
+import { TbChevronRight } from "react-icons/tb";
 import {
 	nowPlayingMoviesQueryOptions,
 	popularMoviesQueryOptions,
@@ -26,32 +38,98 @@ function HomeComponent() {
 
 	return (
 		<div>
-			<div>
-				<Title order={2}>Popular movies</Title>
-				<List>
-					{popularMovies?.results.map((movie) => (
-						<List.Item key={movie.id}>{movie.title}</List.Item>
-					))}
-				</List>
-			</div>
+			<Box my={"lg"}>
+				<Anchor component={Link} to="/movies/popular" c={"#e6e8e6"}>
+					<Title order={2} mb={"xs"}>
+						Popular movies
+					</Title>
+				</Anchor>
 
-			<div>
-				<Title order={2}>Top rated movies</Title>
-				<List>
-					{topRatedMovies?.results.map((movie) => (
-						<List.Item key={movie.id}>{movie.title}</List.Item>
-					))}
-				</List>
-			</div>
+				<ScrollArea scrollbars="x">
+					<Flex gap={"md"}>
+						{popularMovies?.results.map((movie) => (
+							<Card key={movie.id} w={160} padding={"xs"} bg={"dark"}>
+								<Card.Section>
+									<Image
+										src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+										height={240}
+										alt={movie.title}
+									/>
+								</Card.Section>
 
-			<div>
-				<Title order={2}>Now playing movies</Title>
-				<List>
-					{nowPlayingMovies?.results.map((movie) => (
-						<List.Item key={movie.id}>{movie.title}</List.Item>
-					))}
-				</List>
-			</div>
+								<Text c={"white"} truncate>
+									{movie.title}
+								</Text>
+								<Text c={"dimmed"} size="sm">
+									{movie.release_date}
+								</Text>
+							</Card>
+						))}
+					</Flex>
+				</ScrollArea>
+			</Box>
+
+			<Box my={"lg"}>
+				<Anchor component={Link} to="/movies/top_rated" c={"#e6e8e6"}>
+					<Title order={2} mb={"xs"}>
+						Top rated movies
+					</Title>
+				</Anchor>
+
+				<ScrollArea scrollbars="x">
+					<Flex gap={"md"}>
+						{topRatedMovies?.results.map((movie) => (
+							<Card key={movie.id} w={160} padding={"xs"} bg={"dark"}>
+								<Card.Section>
+									<Image
+										src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+										height={240}
+										alt={movie.title}
+									/>
+								</Card.Section>
+
+								<Text c={"white"} truncate>
+									{movie.title}
+								</Text>
+								<Text c={"dimmed"} size="sm">
+									{movie.release_date}
+								</Text>
+							</Card>
+						))}
+					</Flex>
+				</ScrollArea>
+			</Box>
+
+			<Box my={"lg"}>
+				<Anchor component={Link} to="/movies/now_playing" c={"#e6e8e6"}>
+					<Title order={2} mb={"xs"}>
+						Now playing movies
+					</Title>
+				</Anchor>
+
+				<ScrollArea scrollbars="x">
+					<Flex gap={"md"}>
+						{nowPlayingMovies?.results.map((movie) => (
+							<Card key={movie.id} w={160} padding={"xs"} bg={"dark"}>
+								<Card.Section>
+									<Image
+										src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+										height={240}
+										alt={movie.title}
+									/>
+								</Card.Section>
+
+								<Text c={"white"} truncate>
+									{movie.title}
+								</Text>
+								<Text c={"dimmed"} size="sm">
+									{movie.release_date}
+								</Text>
+							</Card>
+						))}
+					</Flex>
+				</ScrollArea>
+			</Box>
 		</div>
 	);
 }
