@@ -23,10 +23,10 @@ export const Route = createFileRoute("/")({
 			queryClient.ensureQueryData(topRatedMoviesQueryOptions),
 			queryClient.ensureQueryData(nowPlayingMoviesQueryOptions),
 		]),
-	component: HomeComponent,
+	component: IndexView,
 });
 
-function HomeComponent() {
+function IndexView() {
 	const { data: popularMovies } = useSuspenseQuery(popularMoviesQueryOptions);
 	const { data: topRatedMovies } = useSuspenseQuery(topRatedMoviesQueryOptions);
 	const { data: nowPlayingMovies } = useSuspenseQuery(
