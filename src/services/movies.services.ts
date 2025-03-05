@@ -1,4 +1,5 @@
 import type {
+	Movie,
 	MovieListResponse,
 	NowPlayingMoviesResponse,
 } from "../types/movies.types";
@@ -59,3 +60,23 @@ export const fetchNowPlayingMovies =
 			return null;
 		}
 	};
+
+export const fetchMovieById = async (
+	movieId: string,
+): Promise<Movie | null> => {
+	const url = `${import.meta.env.VITE_API_URL}/movies/details/${movieId}`;
+
+	try {
+		const response = await fetch(url);
+
+		if (!response.ok) {
+			console.error(`HTTP Error: ${response.status} ${response.statusText}`);
+			return null;
+		}
+
+		return (await response.json()) as Movie;
+	} catch (error: unknown) {
+		console.error(`Fetch failed: ${error}`);
+		return null;
+	}
+};

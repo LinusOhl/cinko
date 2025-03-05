@@ -1,5 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 import {
+	fetchMovieById,
 	fetchNowPlayingMovies,
 	fetchPopularMovies,
 	fetchTopRatedMovies,
@@ -19,3 +20,9 @@ export const topRatedMoviesQueryOptions = queryOptions({
 	queryKey: ["topRatedMovies"],
 	queryFn: fetchTopRatedMovies,
 });
+
+export const movieQueryOptions = (movieId: string) =>
+	queryOptions({
+		queryKey: ["movie", movieId],
+		queryFn: () => fetchMovieById(movieId),
+	});
