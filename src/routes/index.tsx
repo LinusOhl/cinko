@@ -10,6 +10,7 @@ import {
 } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, createFileRoute } from "@tanstack/react-router";
+import { MovieCard } from "../components/MovieCard";
 import {
   nowPlayingMoviesQueryOptions,
   popularMoviesQueryOptions,
@@ -45,29 +46,7 @@ function IndexView() {
         <ScrollArea scrollbars="x">
           <Flex gap={"md"}>
             {popularMovies?.results.map((movie) => (
-              <Card
-                key={movie.id}
-                w={160}
-                padding={"xs"}
-                bg={"dark"}
-                component={Link}
-                to={`/movies/${movie.id}`}
-              >
-                <Card.Section>
-                  <Image
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    height={240}
-                    alt={movie.title}
-                  />
-                </Card.Section>
-
-                <Text c={"white"} truncate>
-                  {movie.title}
-                </Text>
-                <Text c={"dimmed"} size="sm">
-                  {movie.release_date}
-                </Text>
-              </Card>
+              <MovieCard key={movie.id} movie={movie} />
             ))}
           </Flex>
         </ScrollArea>
@@ -83,22 +62,7 @@ function IndexView() {
         <ScrollArea scrollbars="x">
           <Flex gap={"md"}>
             {topRatedMovies?.results.map((movie) => (
-              <Card key={movie.id} w={160} padding={"xs"} bg={"dark"}>
-                <Card.Section>
-                  <Image
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    height={240}
-                    alt={movie.title}
-                  />
-                </Card.Section>
-
-                <Text c={"white"} truncate>
-                  {movie.title}
-                </Text>
-                <Text c={"dimmed"} size="sm">
-                  {movie.release_date}
-                </Text>
-              </Card>
+              <MovieCard key={movie.id} movie={movie} />
             ))}
           </Flex>
         </ScrollArea>
@@ -114,22 +78,7 @@ function IndexView() {
         <ScrollArea scrollbars="x">
           <Flex gap={"md"}>
             {nowPlayingMovies?.results.map((movie) => (
-              <Card key={movie.id} w={160} padding={"xs"} bg={"dark"}>
-                <Card.Section>
-                  <Image
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    height={240}
-                    alt={movie.title}
-                  />
-                </Card.Section>
-
-                <Text c={"white"} truncate>
-                  {movie.title}
-                </Text>
-                <Text c={"dimmed"} size="sm">
-                  {movie.release_date}
-                </Text>
-              </Card>
+              <MovieCard key={movie.id} movie={movie} />
             ))}
           </Flex>
         </ScrollArea>
