@@ -1,6 +1,6 @@
-import { Flex, Image, Text, Title } from "@mantine/core";
+import { Anchor, Flex, Image, Text, Title } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { movieQueryOptions } from "../queries/movies.queries";
 
 export const Route = createFileRoute("/movies/$movieId")({
@@ -15,6 +15,10 @@ function MovieView() {
   const isMobile = useMediaQuery("(max-width: 36em)");
 
   const movie = Route.useLoaderData();
+
+  const director = movie?.credits?.crew?.find(
+    (person) => person.job === "Director",
+  );
 
   return (
     <div>
@@ -48,9 +52,14 @@ function MovieView() {
 
             <Text c={"gray.5"}>
               directed by{" "}
-              <Text c={"white"} span>
-                Sean Baker
-              </Text>
+              <Anchor
+                underline="hover"
+                c={"white"}
+                component={Link}
+                to={`/people/${director?.id}`}
+              >
+                {director?.name}
+              </Anchor>
             </Text>
           </Flex>
 
