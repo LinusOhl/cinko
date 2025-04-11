@@ -5,24 +5,21 @@ import type {
   NowPlayingMoviesResponse,
 } from "../types/movies.types";
 
-export const fetchPopularMovies =
-  async (): Promise<MovieListResponse | null> => {
-    const url = `${import.meta.env.VITE_API_URL}/movies/popular`;
+export const fetchPopularMovies = async (): Promise<MovieListResponse> => {
+  const url = `${import.meta.env.VITE_API_URL}/movies/popular`;
 
-    try {
-      const response = await fetch(url);
+  try {
+    const response = await fetch(url);
 
-      if (!response.ok) {
-        console.error(`HTTP Error: ${response.status} ${response.statusText}`);
-        return null;
-      }
-
-      return (await response.json()) as MovieListResponse;
-    } catch (error: unknown) {
-      console.error(`Fetch failed: ${error}`);
-      return null;
+    if (!response.ok) {
+      throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
     }
-  };
+
+    return (await response.json()) as MovieListResponse;
+  } catch (error: unknown) {
+    throw new Error(`Fetch failed: ${error}`);
+  }
+};
 
 export const fetchTopRatedMovies =
   async (): Promise<MovieListResponse | null> => {
