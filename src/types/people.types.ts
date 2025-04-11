@@ -1,4 +1,4 @@
-import type { Movie } from "./movies.types";
+import type { CastCredit, CrewCredit, MovieCredits } from "./movies.types";
 
 type Picture = {
   aspect_ratio: number;
@@ -25,8 +25,5 @@ export type Person = {
   images?: {
     profiles: Picture[];
   };
-  movie_credits?: {
-    cast?: Movie[];
-    crew?: Movie[];
-  };
+  movie_credits?: MovieCredits;
 };
