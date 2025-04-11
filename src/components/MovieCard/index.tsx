@@ -7,11 +7,13 @@ interface MovieCardProps {
 }
 
 export const MovieCard = ({ movie }: MovieCardProps) => {
+  const movieReleaseYear = movie.release_date.slice(0, 4);
+
   return (
     <Card
       w={160}
-      padding={"xs"}
-      bg={"dark"}
+      padding={"none"}
+      bg={"none"}
       component={Link}
       to={`/movies/${movie.id}`}
     >
@@ -23,11 +25,11 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
         />
       </Card.Section>
 
-      <Text c={"white"} truncate>
+      <Text c={"white"} mt={"xs"} truncate>
         {movie.title}
       </Text>
       <Text c={"dimmed"} size="sm">
-        {movie.release_date}
+        {movieReleaseYear}
       </Text>
     </Card>
   );
