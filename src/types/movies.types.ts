@@ -64,6 +64,7 @@ type Video = {
 export type BaseCredit = Movie & {
   credit_id: string;
   known_for_department: string;
+  name: string;
 };
 
 export type CastCredit = BaseCredit & {
