@@ -21,60 +21,55 @@ export const fetchPopularMovies = async (): Promise<MovieListResponse> => {
   }
 };
 
-export const fetchTopRatedMovies =
-  async (): Promise<MovieListResponse | null> => {
-    const url = `${import.meta.env.VITE_API_URL}/movies/top_rated`;
+export const fetchTopRatedMovies = async (): Promise<MovieListResponse> => {
+  const url = `${import.meta.env.VITE_API_URL}/movies/top_rated`;
 
-    try {
-      const response = await fetch(url);
+  try {
+    const response = await fetch(url);
 
-      if (!response.ok) {
-        console.error(`HTTP Error: ${response.status} ${response.statusText}`);
-        return null;
-      }
-
-      return (await response.json()) as MovieListResponse;
-    } catch (error: unknown) {
-      console.error(`Fetch failed: ${error}`);
-      return null;
+    if (!response.ok) {
+      throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
     }
-  };
+
+    return (await response.json()) as MovieListResponse;
+  } catch (error: unknown) {
+    throw new Error(`Fetch failed: ${error}`);
+  }
+};
 
 export const fetchNowPlayingMovies =
-  async (): Promise<NowPlayingMoviesResponse | null> => {
+  async (): Promise<NowPlayingMoviesResponse> => {
     const url = `${import.meta.env.VITE_API_URL}/movies/now_playing`;
 
     try {
       const response = await fetch(url);
 
       if (!response.ok) {
-        console.error(`HTTP Error: ${response.status} ${response.statusText}`);
-        return null;
+        throw new Error(
+          `HTTP Error: ${response.status} ${response.statusText}`,
+        );
       }
 
       return (await response.json()) as NowPlayingMoviesResponse;
     } catch (error: unknown) {
-      console.error(`Fetch failed: ${error}`);
-      return null;
+      throw new Error(`Fetch failed: ${error}`);
     }
   };
 
 export const fetchMovieById = async (
   movieId: string,
-): Promise<MovieDetails | null> => {
+): Promise<MovieDetails> => {
   const url = `${import.meta.env.VITE_API_URL}/movies/details/${movieId}?append_to_response=credits`;
 
   try {
     const response = await fetch(url);
 
     if (!response.ok) {
-      console.error(`HTTP Error: ${response.status} ${response.statusText}`);
-      return null;
+      throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
     }
 
     return (await response.json()) as MovieDetails;
   } catch (error: unknown) {
-    console.error(`Fetch failed: ${error}`);
-    return null;
+    throw new Error(`Fetch failed: ${error}`);
   }
 };
