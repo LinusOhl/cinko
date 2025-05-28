@@ -12,6 +12,6 @@ export const fetchPersonById = async (personId: string): Promise<Person> => {
 
     return (await response.json()) as Person;
   } catch (error: unknown) {
-    throw new Error(`Fetch failed: ${error}`);
+    throw new Error("Fetch failed", { cause: error });
   }
 };

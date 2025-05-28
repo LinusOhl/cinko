@@ -1,35 +1,42 @@
-import { Anchor, Flex, Image, Text, Title } from "@mantine/core";
+import { Anchor, Box, Flex, Image, Text, Title } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { movieQueryOptions } from "../queries/movies.queries";
+import { movieQueryOptions } from "../queryOptions/movies.queryOptions";
 
 export const Route = createFileRoute("/movies/$movieId")({
   loader: async ({ params, context: { queryClient } }) => {
     return queryClient.ensureQueryData(movieQueryOptions(params.movieId));
   },
-  component: MovieView,
+  component: RouteComponent,
 });
 
-function MovieView() {
+function RouteComponent() {
   // TODO: possible to use Mantine CSS variable instead?
   const isMobile = useMediaQuery("(max-width: 36em)");
 
-  const movie = Route.useLoaderData();
+  const movieId = Route.useParams().movieId;
+  const { data: movie } = useSuspenseQuery(movieQueryOptions(movieId));
 
-  const director = movie?.credits?.crew?.find(
+  console.log("hasMovie:", !!movie);
+
+  const movieReleaseYear = movie.release_date.slice(0, 4);
+  const director = movie.credits?.crew?.find(
     (person) => person.job === "Director",
   );
 
   return (
-    <div>
+    <Box mt={"xl"}>
       {/* Backdrop image */}
       <Image
-        src={`http://image.tmdb.org/t/p/w1280/${movie?.backdrop_path}`}
-        alt={movie?.title || "Movie backdrop"}
+        src={`http://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}
+        fallbackSrc="https://placehold.co/1280x720"
+        alt={movie.title || "Movie backdrop"}
         style={{
           width: isMobile ? "100vw" : "",
           marginLeft: isMobile ? "calc(-50vw + 50%)" : "",
         }}
+        radius={"md"}
       />
 
       {/* Content */}
@@ -37,9 +44,10 @@ function MovieView() {
         {/* Poster image, rendered if NOT on mobile */}
         {!isMobile && (
           <Image
-            src={`http://image.tmdb.org/t/p/w185/${movie?.poster_path}`}
-            alt={movie?.title || "Movie poster"}
+            src={`http://image.tmdb.org/t/p/w185/${movie.poster_path}`}
+            alt={movie.title || "Movie poster"}
             w={"180"}
+            radius={"md"}
           />
         )}
 
@@ -47,7 +55,7 @@ function MovieView() {
           {/* Title and director */}
           <Flex align={"baseline"} justify={"space-between"}>
             <Title order={1} size={"h2"}>
-              {movie?.title}
+              {movie.title}
             </Title>
 
             <Text c={"gray.5"}>
@@ -56,7 +64,10 @@ function MovieView() {
                 underline="hover"
                 c={"white"}
                 component={Link}
-                to={`/people/${director?.id}`}
+                to={"/people/$personId"}
+                params={{
+                  personId: `${director?.id}`,
+                }}
               >
                 {director?.name}
               </Anchor>
@@ -65,15 +76,15 @@ function MovieView() {
 
           {/* Release date */}
           <Text size="sm" c={"gray.5"}>
-            {movie?.release_date.slice(0, 4)}
+            {movieReleaseYear}
           </Text>
 
           {/* Overview */}
           <Text mt={"lg"} c={"gray.5"}>
-            {movie?.overview}
+            {movie.overview}
           </Text>
         </div>
       </Flex>
-    </div>
+    </Box>
   );
 }
