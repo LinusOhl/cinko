@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import "@mantine/core/styles.css";
-import "../index.css";
+import "../global.css";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   {
@@ -20,8 +20,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootComponent() {
   return (
     <Container>
-      <Anchor component={Link} to={"/"} c={"white"} underline="never">
-        <Title order={1}>Revue</Title>
+      <Anchor component={Link} to={"/"} underline="never">
+        <Title order={1} c={"cinkoYellow.7"}>
+          CINKO
+        </Title>
       </Anchor>
 
       <Outlet />
