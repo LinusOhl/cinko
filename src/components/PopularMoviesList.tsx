@@ -1,16 +1,6 @@
-import {
-  Alert,
-  Anchor,
-  Box,
-  Flex,
-  Loader,
-  ScrollArea,
-  Title,
-} from "@mantine/core";
+import { Anchor, Box, Flex, ScrollArea, Title } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import { Suspense } from "react";
-import { ErrorBoundary } from "react-error-boundary";
 import { popularMoviesQueryOptions } from "../queryOptions/movies.queryOptions";
 import { MovieCard } from "./MovieCard";
 
@@ -27,15 +17,9 @@ export const PopularMoviesList = () => {
 
       <ScrollArea scrollbars="x">
         <Flex gap={"md"}>
-          <ErrorBoundary
-            fallback={<Alert color="red">Something went wrong!</Alert>}
-          >
-            <Suspense fallback={<Loader color="blue" />}>
-              {popularMovies.results.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
-              ))}
-            </Suspense>
-          </ErrorBoundary>
+          {popularMovies.results.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
         </Flex>
       </ScrollArea>
     </Box>
