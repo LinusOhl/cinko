@@ -17,20 +17,29 @@ import {
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { z } from "zod";
 import { IMAGES_BASE_URL, getGender } from "../../helpers";
 import { personQueryOptions } from "../../queryOptions/people.queryOptions";
 
 export const Route = createFileRoute("/people/$personId")({
-  loader: async ({ params, context: { queryClient } }) => {
-    return queryClient.ensureQueryData(personQueryOptions(params.personId));
+  params: {
+    parse: (params) => ({
+      personId: z.number().int().parse(Number(params.personId)),
+    }),
   },
+  loader: (opts) =>
+    opts.context.queryClient.ensureQueryData(
+      personQueryOptions(opts.params.personId),
+    ),
   component: RouteComponent,
 });
 
 function RouteComponent() {
   // Fetch person data
-  const personId = Route.useParams().personId;
-  const { data: person } = useSuspenseQuery(personQueryOptions(personId));
+  const params = Route.useParams();
+  const { data: person } = useSuspenseQuery(
+    personQueryOptions(params.personId),
+  );
 
   // Filter out duplicates
   const uniqueMovies = Array.from(
@@ -183,8 +192,6 @@ function RouteComponent() {
           <InputBase
             component="button"
             type="button"
-            // c={"cyan"}
-            // color="black"
             rightSection={<Combobox.Chevron />}
             rightSectionPointerEvents="none"
             onClick={() => combobox.toggleDropdown()}

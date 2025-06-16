@@ -1,6 +1,6 @@
 import type { Person } from "../types/people.types";
 
-export const fetchPersonById = async (personId: string): Promise<Person> => {
+export const fetchPersonById = async (personId: number): Promise<Person> => {
   const url = `${import.meta.env.VITE_API_URL}/people/${personId}?append_to_response=movie_credits`;
 
   try {

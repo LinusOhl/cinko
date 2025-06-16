@@ -71,7 +71,7 @@ function RouteComponent() {
                 c={"white"}
                 to={"/people/$personId"}
                 params={{
-                  personId: `${director?.id}`,
+                  personId: Number(director?.id),
                 }}
               >
                 {director?.name}
