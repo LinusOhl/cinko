@@ -14,10 +14,12 @@ export const Route = createFileRoute("/")({
 });
 
 function IndexView() {
-  const { data: popularMovies } = useSuspenseQuery(popularMoviesQueryOptions);
-  const { data: topRatedMovies } = useSuspenseQuery(topRatedMoviesQueryOptions);
+  const { data: popularMovies } = useSuspenseQuery(popularMoviesQueryOptions());
+  const { data: topRatedMovies } = useSuspenseQuery(
+    topRatedMoviesQueryOptions(),
+  );
   const { data: nowPlayingMovies } = useSuspenseQuery(
-    nowPlayingMoviesQueryOptions,
+    nowPlayingMoviesQueryOptions(),
   );
 
   return (
