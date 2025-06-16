@@ -24,7 +24,7 @@ export const topRatedMoviesQueryOptions = () =>
     queryFn: () => fetchTopRatedMovies(),
   });
 
-export const movieQueryOptions = (movieId: string) =>
+export const movieQueryOptions = (movieId: number) =>
   queryOptions({
     queryKey: ["movie", movieId],
     queryFn: () => fetchMovieById(movieId),

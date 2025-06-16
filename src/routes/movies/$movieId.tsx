@@ -2,13 +2,20 @@ import { Box, Flex, Image, Text, Title } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { z } from "zod";
 import { CustomLink } from "../../components/CustomLink";
 import { movieQueryOptions } from "../../queryOptions/movies.queryOptions";
 
 export const Route = createFileRoute("/movies/$movieId")({
-  loader: async ({ params, context: { queryClient } }) => {
-    return queryClient.ensureQueryData(movieQueryOptions(params.movieId));
+  params: {
+    parse: (params) => ({
+      movieId: z.number().int().parse(Number(params.movieId)),
+    }),
   },
+  loader: (opts) =>
+    opts.context.queryClient.ensureQueryData(
+      movieQueryOptions(opts.params.movieId),
+    ),
   component: RouteComponent,
 });
 
@@ -16,8 +23,8 @@ function RouteComponent() {
   // TODO: possible to use Mantine CSS variable instead?
   const isMobile = useMediaQuery("(max-width: 36em)");
 
-  const movieId = Route.useParams().movieId;
-  const { data: movie } = useSuspenseQuery(movieQueryOptions(movieId));
+  const params = Route.useParams();
+  const { data: movie } = useSuspenseQuery(movieQueryOptions(params.movieId));
 
   const movieReleaseYear = movie.release_date.slice(0, 4);
   const director = movie.credits?.crew?.find(

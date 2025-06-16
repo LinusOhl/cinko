@@ -57,7 +57,7 @@ export const fetchNowPlayingMovies =
   };
 
 export const fetchMovieById = async (
-  movieId: string,
+  movieId: number,
 ): Promise<MovieDetails> => {
   const url = `${import.meta.env.VITE_API_URL}/movies/details/${movieId}?append_to_response=credits`;
 
