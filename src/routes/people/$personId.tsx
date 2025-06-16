@@ -213,7 +213,7 @@ function RouteComponent() {
               position="bottom"
               withArrow
             >
-              <Link to="/movies/$movieId" params={{ movieId: `${movie.id}` }}>
+              <Link to="/movies/$movieId" params={{ movieId: movie.id }}>
                 <Card w={100} radius={"md"}>
                   <Card.Section>
                     {movie.poster_path ? (
