@@ -1,10 +1,7 @@
 import { Anchor, Box, ScrollArea, Title } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { Suspense } from "react";
-import { ErrorBoundary } from "react-error-boundary";
 import { MovieCard } from "../components/MovieCard";
-import { PopularMoviesList } from "../components/PopularMoviesList";
 import {
   nowPlayingMoviesQueryOptions,
   popularMoviesQueryOptions,
@@ -12,21 +9,6 @@ import {
 } from "../queryOptions/movies.queryOptions";
 
 export const Route = createFileRoute("/")({
-  // loader:
-  //   ({ context: { queryClient } }) =>
-  //   // Promise.all([
-  //   //   queryClient.ensureQueryData(popularMoviesQueryOptions),
-  //   //   queryClient.ensureQueryData(topRatedMoviesQueryOptions),
-  //   //   queryClient.ensureQueryData(nowPlayingMoviesQueryOptions),
-  //   // ]),
-  //   () =>
-  //     useQueries({
-  //       queries: [
-  //         popularMoviesQueryOptions,
-  //         topRatedMoviesQueryOptions,
-  //         nowPlayingMoviesQueryOptions,
-  //       ],
-  //     }),
   component: IndexView,
   errorComponent: () => <div>Something went wrooooong!!</div>,
 });
