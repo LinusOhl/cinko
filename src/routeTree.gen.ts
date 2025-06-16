@@ -12,8 +12,8 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
-import { Route as PeoplePersonIdImport } from './routes/people.$personId'
-import { Route as MoviesMovieIdImport } from './routes/movies.$movieId'
+import { Route as PeoplePersonIdImport } from './routes/people/$personId'
+import { Route as MoviesMovieIdImport } from './routes/movies/$movieId'
 
 // Create/Update Routes
 
@@ -124,10 +124,10 @@ export const routeTree = rootRoute
       "filePath": "index.tsx"
     },
     "/movies/$movieId": {
-      "filePath": "movies.$movieId.tsx"
+      "filePath": "movies/$movieId.tsx"
     },
     "/people/$personId": {
-      "filePath": "people.$personId.tsx"
+      "filePath": "people/$personId.tsx"
     }
   }
 }

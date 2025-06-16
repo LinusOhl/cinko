@@ -1,8 +1,9 @@
-import { Anchor, Box, Flex, Image, Text, Title } from "@mantine/core";
+import { Box, Flex, Image, Text, Title } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Link, createFileRoute } from "@tanstack/react-router";
-import { movieQueryOptions } from "../queryOptions/movies.queryOptions";
+import { createFileRoute } from "@tanstack/react-router";
+import { CustomLink } from "../../components/CustomLink";
+import { movieQueryOptions } from "../../queryOptions/movies.queryOptions";
 
 export const Route = createFileRoute("/movies/$movieId")({
   loader: async ({ params, context: { queryClient } }) => {
@@ -17,8 +18,6 @@ function RouteComponent() {
 
   const movieId = Route.useParams().movieId;
   const { data: movie } = useSuspenseQuery(movieQueryOptions(movieId));
-
-  console.log("hasMovie:", !!movie);
 
   const movieReleaseYear = movie.release_date.slice(0, 4);
   const director = movie.credits?.crew?.find(
@@ -60,17 +59,16 @@ function RouteComponent() {
 
             <Text c={"gray.5"}>
               directed by{" "}
-              <Anchor
+              <CustomLink
                 underline="hover"
                 c={"white"}
-                component={Link}
                 to={"/people/$personId"}
                 params={{
                   personId: `${director?.id}`,
                 }}
               >
                 {director?.name}
-              </Anchor>
+              </CustomLink>
             </Text>
           </Flex>
 

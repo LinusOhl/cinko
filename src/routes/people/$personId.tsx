@@ -17,8 +17,8 @@ import {
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { IMAGES_BASE_URL, getGender } from "../helpers";
-import { personQueryOptions } from "../queryOptions/people.queryOptions";
+import { IMAGES_BASE_URL, getGender } from "../../helpers";
+import { personQueryOptions } from "../../queryOptions/people.queryOptions";
 
 export const Route = createFileRoute("/people/$personId")({
   loader: async ({ params, context: { queryClient } }) => {
@@ -178,10 +178,6 @@ function RouteComponent() {
           setValue(val);
           combobox.closeDropdown();
         }}
-        // styles={{
-        //   dropdown: { backgroundColor: "darkgray" },
-        //   group: { backgroundColor: "darkblue" },
-        // }}
       >
         <Combobox.Target>
           <InputBase
@@ -217,34 +213,28 @@ function RouteComponent() {
               position="bottom"
               withArrow
             >
-              <Card
-                w={100}
-                radius={"md"}
-                component={Link}
-                to="/movies/$movieId"
-                params={{
-                  movieId: movie.id,
-                }}
-              >
-                <Card.Section>
-                  {movie.poster_path ? (
-                    <Image
-                      src={`${IMAGES_BASE_URL}/w154/${movie.poster_path}`}
-                      fallbackSrc="https://placehold.co/80x120"
-                      w={100}
-                      h={140}
-                    />
-                  ) : (
-                    <Box w={100} h={140} bg={"dark"}>
-                      <Center w={100} h={140}>
-                        <Text c={"dimmed"} ta={"center"}>
-                          {movie.title}
-                        </Text>
-                      </Center>
-                    </Box>
-                  )}
-                </Card.Section>
-              </Card>
+              <Link to="/movies/$movieId" params={{ movieId: `${movie.id}` }}>
+                <Card w={100} radius={"md"}>
+                  <Card.Section>
+                    {movie.poster_path ? (
+                      <Image
+                        src={`${IMAGES_BASE_URL}/w154/${movie.poster_path}`}
+                        fallbackSrc="https://placehold.co/80x120"
+                        w={100}
+                        h={140}
+                      />
+                    ) : (
+                      <Box w={100} h={140} bg={"dark"}>
+                        <Center w={100} h={140}>
+                          <Text c={"dimmed"} ta={"center"}>
+                            {movie.title}
+                          </Text>
+                        </Center>
+                      </Box>
+                    )}
+                  </Card.Section>
+                </Card>
+              </Link>
             </Tooltip>
           ))}
       </Flex>
