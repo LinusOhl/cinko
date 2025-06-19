@@ -5,7 +5,13 @@ import ReactDOM from "react-dom/client";
 import { theme } from "./config/theme";
 import { routeTree } from "./routeTree.gen";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 // Set up a Router instance
 const router = createRouter({
