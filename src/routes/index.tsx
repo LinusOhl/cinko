@@ -1,6 +1,7 @@
-import { Anchor, Box, ScrollArea, Title } from "@mantine/core";
+import { Box, ScrollArea, Title } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { CustomLink } from "../components/CustomLink";
 import { MovieCard } from "../components/MovieCard";
 import {
   nowPlayingMoviesQueryOptions,
@@ -9,6 +10,12 @@ import {
 } from "../queryOptions/movies.queryOptions";
 
 export const Route = createFileRoute("/")({
+  loader: (opts) =>
+    Promise.all([
+      opts.context.queryClient.ensureQueryData(nowPlayingMoviesQueryOptions()),
+      opts.context.queryClient.ensureQueryData(popularMoviesQueryOptions()),
+      opts.context.queryClient.ensureQueryData(topRatedMoviesQueryOptions()),
+    ]),
   component: IndexView,
   errorComponent: () => <div>Something went wrooooong!!</div>,
 });
@@ -25,11 +32,11 @@ function IndexView() {
   return (
     <div>
       <Box my={"xl"}>
-        <Anchor component={Link} to="/movies/popular" c={"white"}>
+        <CustomLink to="/" c={"white"} preload={"intent"}>
           <Title order={2} mb={"xs"}>
             Popular movies
           </Title>
-        </Anchor>
+        </CustomLink>
 
         <ScrollArea type="always" scrollbars="x" offsetScrollbars>
           <Box display={"inline-flex"} style={{ gap: 16 }}>
@@ -41,11 +48,11 @@ function IndexView() {
       </Box>
 
       <Box my={"xl"}>
-        <Anchor component={Link} to="/movies/top_rated" c={"white"}>
+        <CustomLink to="/" c={"white"} preload={"intent"}>
           <Title order={2} mb={"xs"}>
             Top rated movies
           </Title>
-        </Anchor>
+        </CustomLink>
 
         <ScrollArea type="always" scrollbars="x" offsetScrollbars>
           <Box display={"inline-flex"} style={{ gap: 16 }}>
@@ -57,11 +64,11 @@ function IndexView() {
       </Box>
 
       <Box my={"xl"}>
-        <Anchor component={Link} to="/movies/now_playing" c={"white"}>
+        <CustomLink to="/" c={"white"} preload={"intent"}>
           <Title order={2} mb={"xs"}>
             Now playing movies
           </Title>
-        </Anchor>
+        </CustomLink>
 
         <ScrollArea type="always" scrollbars="x" offsetScrollbars>
           <Box display={"inline-flex"} style={{ gap: 16 }}>
