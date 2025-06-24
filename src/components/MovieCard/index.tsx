@@ -11,30 +11,31 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
   const movieReleaseYear = movie.release_date.slice(0, 4);
 
   return (
-    <Card
-      w={160}
-      padding={"none"}
-      bg={"none"}
-      component={Link}
-      to={`/movies/${movie.id}`}
+    <Link
+      to="/movies/$movieId"
+      params={{ movieId: movie.id }}
+      preloadDelay={3000}
+      style={{ textDecoration: "none" }}
     >
-      <Card.Section>
-        <Image
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          height={240}
-          alt={movie.title}
-          classNames={{
-            root: styles.imageRoot,
-          }}
-        />
-      </Card.Section>
+      <Card w={160} padding={"none"} bg={"none"}>
+        <Card.Section>
+          <Image
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            height={240}
+            alt={movie.title}
+            classNames={{
+              root: styles.imageRoot,
+            }}
+          />
+        </Card.Section>
 
-      <Text c={"white"} mt={"xs"} truncate>
-        {movie.title}
-      </Text>
-      <Text c={"cinkoGrey.3"} size="sm">
-        {movieReleaseYear}
-      </Text>
-    </Card>
+        <Text c={"white"} mt={"xs"} fw={500} truncate>
+          {movie.title}
+        </Text>
+        <Text c={"cinkoGrey.3"} size="sm">
+          {movieReleaseYear}
+        </Text>
+      </Card>
+    </Link>
   );
 };
