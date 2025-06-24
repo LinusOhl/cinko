@@ -1,4 +1,13 @@
-import { Box, Flex, Image, Text, Title } from "@mantine/core";
+import {
+  Box,
+  Flex,
+  Group,
+  Image,
+  NumberFormatter,
+  Paper,
+  Text,
+  Title,
+} from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -53,11 +62,12 @@ function RouteComponent() {
             src={`http://image.tmdb.org/t/p/w185/${movie.poster_path}`}
             alt={movie.title || "Movie poster"}
             w={"180"}
+            h={"260"}
             radius={"md"}
           />
         )}
 
-        <div>
+        <Box>
           {/* Title and director */}
           <Flex align={"baseline"} justify={"space-between"}>
             <Title order={1} size={"h2"}>
@@ -73,6 +83,7 @@ function RouteComponent() {
                 params={{
                   personId: Number(director?.id),
                 }}
+                preloadDelay={2000}
               >
                 {director?.name}
               </CustomLink>
@@ -84,11 +95,55 @@ function RouteComponent() {
             {movieReleaseYear}
           </Text>
 
+          <Text mt={"md"} fs={"italic"} c={"gray"}>
+            {movie.tagline}
+          </Text>
+
           {/* Overview */}
-          <Text mt={"lg"} c={"gray.5"}>
+          <Text mt={"md"} c={"gray.5"}>
             {movie.overview}
           </Text>
-        </div>
+
+          {/* Quick facts */}
+          <Group mt={"md"}>
+            <Paper shadow="sm" p={"sm"} bg={"dark.8"}>
+              <Flex direction={"column"} align={"center"}>
+                <Text size="sm" fw={500}>
+                  Runtime
+                </Text>
+                <Text size="lg">{movie.runtime}min</Text>
+              </Flex>
+            </Paper>
+            <Paper shadow="sm" p={"sm"} bg={"dark.8"}>
+              <Flex direction={"column"} align={"center"}>
+                <Text size="sm" fw={500}>
+                  Budget
+                </Text>
+                <Text size="lg">
+                  <NumberFormatter
+                    prefix="$"
+                    value={movie.budget}
+                    thousandSeparator
+                  />
+                </Text>
+              </Flex>
+            </Paper>
+            <Paper shadow="sm" p={"sm"} bg={"dark.8"}>
+              <Flex direction={"column"} align={"center"}>
+                <Text size="sm" fw={500}>
+                  Revenue
+                </Text>
+                <Text size="lg">
+                  <NumberFormatter
+                    prefix="$"
+                    value={movie.revenue}
+                    thousandSeparator
+                  />
+                </Text>
+              </Flex>
+            </Paper>
+          </Group>
+        </Box>
       </Flex>
     </Box>
   );
