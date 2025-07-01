@@ -14,6 +14,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { CustomLink } from "../../components/CustomLink";
+import { IMAGES_BASE_URL, groupCrewByJob } from "../../helpers";
 import { movieQueryOptions } from "../../queryOptions/movies.queryOptions";
 
 export const Route = createFileRoute("/movies/$movieId")({
@@ -41,11 +42,13 @@ function RouteComponent() {
     (person) => person.job === "Director",
   );
 
+  const groupedCrew = groupCrewByJob(movie.credits?.crew);
+
   return (
     <Box mt={"xl"}>
       {/* Backdrop image */}
       <Image
-        src={`http://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}
+        src={`${IMAGES_BASE_URL}/w1280/${movie.backdrop_path}`}
         fallbackSrc="https://placehold.co/1280x720"
         alt={movie.title || "Movie backdrop"}
         style={{
@@ -60,7 +63,7 @@ function RouteComponent() {
         {/* Poster image, rendered if NOT on mobile */}
         {!isMobile && (
           <Image
-            src={`http://image.tmdb.org/t/p/w185/${movie.poster_path}`}
+            src={`${IMAGES_BASE_URL}/w185/${movie.poster_path}`}
             alt={movie.title || "Movie poster"}
             w={"180"}
             h={"260"}
@@ -153,7 +156,7 @@ function RouteComponent() {
               {movie.credits?.cast?.map((person) => (
                 <Flex key={person.id} align={"center"} gap={"xl"}>
                   <Avatar
-                    src={`http://image.tmdb.org/t/p/w185/${person.profile_path}`}
+                    src={`${IMAGES_BASE_URL}/w185/${person.profile_path}`}
                     alt={person.name}
                     size={"lg"}
                     radius={"xl"}
@@ -170,6 +173,26 @@ function RouteComponent() {
                 </Flex>
               ))}
             </Flex>
+          </Box>
+
+          {/* Crew credits */}
+          <Box my={"xl"}>
+            <Title order={2}>Crew</Title>
+            {groupedCrew
+              ?.sort((a, b) => a.department.localeCompare(b.department))
+              .map((group) => (
+                <Box key={group.department} mt={"md"}>
+                  <Text fw={700}>{group.department}</Text>
+                  {group.members
+                    .sort((a, b) => a.job.localeCompare(b.job))
+                    .map((member) => (
+                      <Flex key={member.credit_id}>
+                        <Text>{member.name}</Text>
+                        <Text ml={"auto"}>{member.job}</Text>
+                      </Flex>
+                    ))}
+                </Box>
+              ))}
           </Box>
         </Box>
       </Flex>
