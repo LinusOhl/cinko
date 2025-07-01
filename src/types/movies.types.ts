@@ -82,10 +82,19 @@ export type CastCredit = {
   profile_path: string
 }
 
-export type CrewCredit = BaseCredit & {
-  department: string;
-  job: string;
-};
+export type CrewCredit = {
+  id: number
+  adult: boolean
+  credit_id: string
+  department: string
+  gender: number
+  job: string
+  known_for_department: string
+  name: string
+  original_name: string
+  popularity: number
+  profile_path: string
+}
 
 export type MovieCredits = {
   cast: CastCredit[];
