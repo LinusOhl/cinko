@@ -187,7 +187,14 @@ function RouteComponent() {
                     .sort((a, b) => a.job.localeCompare(b.job))
                     .map((member) => (
                       <Flex key={member.credit_id}>
-                        <Text>{member.name}</Text>
+                        <CustomLink
+                          to="/people/$personId"
+                          params={{ personId: member.id }}
+                          preloadDelay={2500}
+                          c={"white"}
+                        >
+                          <Text>{member.name}</Text>
+                        </CustomLink>
                         <Text ml={"auto"}>{member.job}</Text>
                       </Flex>
                     ))}
