@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Flex,
   Group,
@@ -95,7 +96,7 @@ function RouteComponent() {
             {movieReleaseYear}
           </Text>
 
-          <Text mt={"md"} fs={"italic"} c={"gray"}>
+          <Text mt={"xl"} fs={"italic"} c={"gray"}>
             {movie.tagline}
           </Text>
 
@@ -105,7 +106,7 @@ function RouteComponent() {
           </Text>
 
           {/* Quick facts */}
-          <Group mt={"md"}>
+          <Group mt={"xl"}>
             <Paper shadow="sm" p={"sm"} bg={"dark.8"}>
               <Flex direction={"column"} align={"center"}>
                 <Text size="sm" fw={500}>
@@ -143,6 +144,33 @@ function RouteComponent() {
               </Flex>
             </Paper>
           </Group>
+
+          {/* Credits */}
+          {/* Cast credits */}
+          <Box mt={"xl"}>
+            <Title order={2}>Cast</Title>
+            <Flex direction={"column"} gap={"md"} mt={"sm"}>
+              {movie.credits?.cast?.map((person) => (
+                <Flex key={person.id} align={"center"} gap={"xl"}>
+                  <Avatar
+                    src={`http://image.tmdb.org/t/p/w185/${person.profile_path}`}
+                    alt={person.name}
+                    size={"lg"}
+                    radius={"xl"}
+                  />
+                  <CustomLink
+                    to="/people/$personId"
+                    params={{ personId: person.id }}
+                    c={"white"}
+                    preloadDelay={2500}
+                  >
+                    <Text fw={500}>{person.name}</Text>
+                  </CustomLink>
+                  <Text ml={"auto"}>{person.character}</Text>
+                </Flex>
+              ))}
+            </Flex>
+          </Box>
         </Box>
       </Flex>
     </Box>
