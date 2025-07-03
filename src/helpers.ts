@@ -1,6 +1,6 @@
 import type { CrewCredit } from "./types/movies.types";
 
-export const IMAGES_BASE_URL = "https://image.tmdb.org/t/p";
+export const IMAGES_BASE_URL = "http://image.tmdb.org/t/p";
 
 export const getGender = (genderNumber?: number) => {
   switch (genderNumber) {
@@ -35,3 +35,20 @@ export const groupCrewByJob = (crew?: CrewCredit[]) => {
     members
   }))
 }
+
+export const getAge = (birthDateString?: string) => {
+  if (!birthDateString) return;
+
+  const birthDate = new Date(birthDateString);
+  const today = new Date();
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  const dayDiff = today.getDate() - birthDate.getDate();
+
+  if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+    age--;
+  }
+
+  return age;
+};
