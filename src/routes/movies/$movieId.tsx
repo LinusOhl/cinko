@@ -1,17 +1,18 @@
 import {
   Avatar,
+  Badge,
   Box,
   Flex,
   Group,
   Image,
-  NumberFormatter,
-  Paper,
   Text,
+  ThemeIcon,
   Title,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { FaCircle } from "react-icons/fa6";
 import { z } from "zod";
 import { CustomLink } from "../../components/CustomLink";
 import { IMAGES_BASE_URL, groupCrewByJob } from "../../helpers";
@@ -94,10 +95,34 @@ function RouteComponent() {
             </Text>
           </Flex>
 
-          {/* Release date */}
-          <Text size="sm" c={"gray.5"}>
-            {movieReleaseYear}
-          </Text>
+          {/* Quick facts */}
+          <Group gap={"xs"}>
+            {/* Release year */}
+            <Text size="sm" c={"gray.5"}>
+              {movieReleaseYear}
+            </Text>
+
+            <FaCircle size={6} color="#adb5bd" />
+
+            {/* Runtime */}
+            <Text size="sm" c={"gray.5"}>
+              {movie.runtime}min
+            </Text>
+
+            <FaCircle size={6} color="#adb5bd" />
+
+            {/* Genres */}
+            {movie.genres.map((genre) => (
+              <Badge
+                key={genre.id}
+                variant="light"
+                size="sm"
+                color="cinkoYellow"
+              >
+                {genre.name}
+              </Badge>
+            ))}
+          </Group>
 
           <Text mt={"xl"} fs={"italic"} c={"gray"}>
             {movie.tagline}
@@ -108,46 +133,6 @@ function RouteComponent() {
             {movie.overview}
           </Text>
 
-          {/* Quick facts */}
-          <Group mt={"xl"}>
-            <Paper shadow="sm" p={"sm"} bg={"dark.8"}>
-              <Flex direction={"column"} align={"center"}>
-                <Text size="sm" fw={500}>
-                  Runtime
-                </Text>
-                <Text size="lg">{movie.runtime}min</Text>
-              </Flex>
-            </Paper>
-            <Paper shadow="sm" p={"sm"} bg={"dark.8"}>
-              <Flex direction={"column"} align={"center"}>
-                <Text size="sm" fw={500}>
-                  Budget
-                </Text>
-                <Text size="lg">
-                  <NumberFormatter
-                    prefix="$"
-                    value={movie.budget}
-                    thousandSeparator
-                  />
-                </Text>
-              </Flex>
-            </Paper>
-            <Paper shadow="sm" p={"sm"} bg={"dark.8"}>
-              <Flex direction={"column"} align={"center"}>
-                <Text size="sm" fw={500}>
-                  Revenue
-                </Text>
-                <Text size="lg">
-                  <NumberFormatter
-                    prefix="$"
-                    value={movie.revenue}
-                    thousandSeparator
-                  />
-                </Text>
-              </Flex>
-            </Paper>
-          </Group>
-
           {/* Credits */}
           {/* Cast credits */}
           <Box mt={"xl"}>
@@ -156,7 +141,11 @@ function RouteComponent() {
               {movie.credits?.cast?.map((person) => (
                 <Flex key={person.id} align={"center"} gap={"xl"}>
                   <Avatar
-                    src={`${IMAGES_BASE_URL}/w185/${person.profile_path}`}
+                    src={
+                      person.profile_path
+                        ? `${IMAGES_BASE_URL}/w185/${person.profile_path}`
+                        : null
+                    }
                     alt={person.name}
                     size={"lg"}
                     radius={"xl"}
