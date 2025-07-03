@@ -1,5 +1,3 @@
-import type { CastCredit, CrewCredit, MovieCredits } from "./movies.types";
-
 type Picture = {
   aspect_ratio: number;
   height: number;
@@ -7,6 +5,40 @@ type Picture = {
   file_path: string;
   width: number;
 };
+
+type MovieCastCredit = {
+  id: number
+  adult: boolean
+  backdrop_path: string | null
+  genre_ids: number[]
+  original_language: string
+  original_title: string
+  overview: string
+  popularity: number
+  poster_path: string
+  release_date: string
+  title: string
+  character: string
+  credit_id: string
+  order: number
+}
+
+type MovieCrewCredit = {
+  id: number
+  adult: boolean
+  backdrop_path: string
+  genre_ids: number[]
+  original_language: string
+  original_title: string
+  overview: string
+  popularity: number
+  poster_path: string
+  release_date: string
+  title: string
+  credit_id: string
+  department: string
+  job: string
+}
 
 export type Person = {
   id: number;
@@ -25,5 +57,8 @@ export type Person = {
   images?: {
     profiles: Picture[];
   };
-  movie_credits?: MovieCredits;
+  movie_credits?: {
+    cast: MovieCastCredit[];
+    crew: MovieCrewCredit[];
+  };
 };
