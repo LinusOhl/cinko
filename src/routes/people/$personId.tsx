@@ -11,6 +11,7 @@ import {
   ScrollArea,
   Table,
   Text,
+  Title,
   Tooltip,
   useCombobox,
 } from "@mantine/core";
@@ -18,7 +19,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { z } from "zod";
-import { IMAGES_BASE_URL, getGender } from "../../helpers";
+import { IMAGES_BASE_URL, getAge, getGender } from "../../helpers";
 import { personQueryOptions } from "../../queryOptions/people.queryOptions";
 
 export const Route = createFileRoute("/people/$personId")({
@@ -41,19 +42,19 @@ function RouteComponent() {
     personQueryOptions(params.personId),
   );
 
-  // Filter out duplicates
-  const uniqueMovies = Array.from(
-    new Map(
-      person.movie_credits?.crew?.map((movie) => [movie.id, movie]),
-    ).values(),
-  );
-
-  const jobs = useMemo(() => {
-    const values = Array.from(
-      new Set(person.movie_credits?.crew.map((item) => item.job)),
+  const getAllJobs = () => {
+    const jobs = Array.from(
+      new Set(person.movie_credits?.crew.map((credit) => credit.job)),
     );
-    return values;
-  }, [person]);
+
+    if (person.movie_credits?.cast && person.movie_credits.cast.length > 0) {
+      jobs.push("Acting");
+    }
+
+    return jobs.sort();
+  };
+
+  const jobs = getAllJobs();
 
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
@@ -67,27 +68,10 @@ function RouteComponent() {
     </Combobox.Option>
   ));
 
-  const filteredMovies = useMemo(() => {
-    return person.movie_credits?.crew.filter((item) => item.job === value);
-  }, [person, value]);
-
-  // Gets the age of the person
-  const getAge = (birthDateString: string | undefined) => {
-    if (!birthDateString) return;
-
-    const birthDate = new Date(birthDateString);
-    const today = new Date();
-
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const monthDiff = today.getMonth() - birthDate.getMonth();
-    const dayDiff = today.getDate() - birthDate.getDate();
-
-    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
-      age--;
-    }
-
-    return age;
-  };
+  const filteredMovies =
+    value === "Acting"
+      ? person.movie_credits?.cast
+      : person.movie_credits?.crew.filter((credit) => credit.job === value);
 
   const personGender = getGender(person.gender);
   const personAge = getAge(person.birthday);
@@ -167,12 +151,11 @@ function RouteComponent() {
           </Card>
         </Grid.Col>
 
+        {/* Biography */}
         <Grid.Col span={8}>
-          {/* Biography */}
           <Box>
-            <Text size="xl" fw={"500"}>
-              {person.name}
-            </Text>
+            <Title order={1}>{person.name}</Title>
+
             <ScrollArea h={250} type="always" scrollbars="y">
               <Text c={"dimmed"}>{person.biography}</Text>
             </ScrollArea>
@@ -181,36 +164,42 @@ function RouteComponent() {
       </Grid>
 
       {/* Credits */}
-      <Combobox
-        store={combobox}
-        onOptionSubmit={(val) => {
-          setValue(val);
-          combobox.closeDropdown();
-        }}
-      >
-        <Combobox.Target>
-          <InputBase
-            component="button"
-            type="button"
-            rightSection={<Combobox.Chevron />}
-            rightSectionPointerEvents="none"
-            onClick={() => combobox.toggleDropdown()}
-            pointer
-          >
-            {value || <Input.Placeholder>Pick value</Input.Placeholder>}
-          </InputBase>
-        </Combobox.Target>
+      <Box mt={"xl"}>
+        <Title order={2} mb={"sm"}>
+          Credits
+        </Title>
 
-        <Combobox.Dropdown color="dark" bg={"dark"}>
-          <Combobox.Options color="dark">
-            <ScrollArea.Autosize type="scroll" mah={200}>
-              {options}
-            </ScrollArea.Autosize>
-          </Combobox.Options>
-        </Combobox.Dropdown>
-      </Combobox>
+        <Combobox
+          store={combobox}
+          onOptionSubmit={(val) => {
+            setValue(val);
+            combobox.closeDropdown();
+          }}
+        >
+          <Combobox.Target>
+            <InputBase
+              component="button"
+              type="button"
+              rightSection={<Combobox.Chevron />}
+              rightSectionPointerEvents="none"
+              onClick={() => combobox.toggleDropdown()}
+              pointer
+            >
+              {value || <Input.Placeholder>Pick value</Input.Placeholder>}
+            </InputBase>
+          </Combobox.Target>
 
-      <Flex mt={"xl"} wrap={"wrap"} gap={"sm"}>
+          <Combobox.Dropdown color="dark" bg={"dark"}>
+            <Combobox.Options color="dark">
+              <ScrollArea.Autosize type="scroll" mah={200}>
+                {options}
+              </ScrollArea.Autosize>
+            </Combobox.Options>
+          </Combobox.Dropdown>
+        </Combobox>
+      </Box>
+
+      <Flex my={"md"} wrap={"wrap"} gap={"sm"}>
         {filteredMovies
           ?.sort((a, b) => b.popularity - a.popularity)
           .map((movie) => (
@@ -220,7 +209,12 @@ function RouteComponent() {
               position="bottom"
               withArrow
             >
-              <Link to="/movies/$movieId" params={{ movieId: movie.id }}>
+              <Link
+                to="/movies/$movieId"
+                params={{ movieId: movie.id }}
+                from="/"
+                preloadDelay={2500}
+              >
                 <Card w={100} radius={"md"}>
                   <Card.Section>
                     {movie.poster_path ? (
