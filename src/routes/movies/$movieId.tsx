@@ -88,6 +88,7 @@ function RouteComponent() {
                 params={{
                   personId: Number(director?.id),
                 }}
+                from="/"
                 preloadDelay={2000}
               >
                 {director?.name}
@@ -151,9 +152,10 @@ function RouteComponent() {
                     radius={"xl"}
                   />
                   <CustomLink
+                    c={"white"}
                     to="/people/$personId"
                     params={{ personId: person.id }}
-                    c={"white"}
+                    from="/"
                     preloadDelay={2500}
                   >
                     <Text fw={500}>{person.name}</Text>
@@ -177,10 +179,11 @@ function RouteComponent() {
                     .map((member) => (
                       <Flex key={member.credit_id}>
                         <CustomLink
+                          c={"white"}
                           to="/people/$personId"
                           params={{ personId: member.id }}
+                          from="/"
                           preloadDelay={2500}
-                          c={"white"}
                         >
                           <Text>{member.name}</Text>
                         </CustomLink>
