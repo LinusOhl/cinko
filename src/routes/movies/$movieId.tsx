@@ -3,10 +3,10 @@ import {
   Badge,
   Box,
   Flex,
+  Grid,
   Group,
   Image,
   Text,
-  ThemeIcon,
   Title,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
@@ -75,15 +75,14 @@ function RouteComponent() {
         <Box>
           {/* Title and director */}
           <Flex align={"baseline"} justify={"space-between"}>
-            <Title order={1} size={"h2"}>
-              {movie.title}
-            </Title>
+            <Title order={1}>{movie.title}</Title>
 
-            <Text c={"gray.5"}>
+            <Text c={"cinkoGrey.3"}>
               directed by{" "}
               <CustomLink
                 underline="hover"
                 c={"white"}
+                fw={500}
                 to={"/people/$personId"}
                 params={{
                   personId: Number(director?.id),
@@ -99,18 +98,18 @@ function RouteComponent() {
           {/* Quick facts */}
           <Group gap={"xs"}>
             {/* Release year */}
-            <Text size="sm" c={"gray.5"}>
+            <Text size="sm" c={"cinkoGrey.3"}>
               {movieReleaseYear}
             </Text>
 
-            <FaCircle size={6} color="#adb5bd" />
+            <FaCircle size={6} color="#bba6a6" />
 
             {/* Runtime */}
-            <Text size="sm" c={"gray.5"}>
+            <Text size="sm" c={"cinkoGrey.3"}>
               {movie.runtime}min
             </Text>
 
-            <FaCircle size={6} color="#adb5bd" />
+            <FaCircle size={6} color="#bba6a6" />
 
             {/* Genres */}
             {movie.genres.map((genre) => (
@@ -125,12 +124,12 @@ function RouteComponent() {
             ))}
           </Group>
 
-          <Text mt={"xl"} fs={"italic"} c={"gray"}>
+          <Text mt={"xl"} fs={"italic"} c={"cinkoGrey.2"}>
             {movie.tagline}
           </Text>
 
           {/* Overview */}
-          <Text mt={"md"} c={"gray.5"}>
+          <Text mt={"md"} c={"cinkoGrey.3"}>
             {movie.overview}
           </Text>
 
@@ -139,30 +138,38 @@ function RouteComponent() {
           <Box mt={"xl"}>
             <Title order={2}>Cast</Title>
             <Flex direction={"column"} gap={"md"} mt={"sm"}>
-              {movie.credits?.cast?.map((person) => (
-                <Flex key={person.id} align={"center"} gap={"xl"}>
-                  <Avatar
-                    src={
-                      person.profile_path
-                        ? `${IMAGES_BASE_URL}/w185/${person.profile_path}`
-                        : null
-                    }
-                    alt={person.name}
-                    size={"lg"}
-                    radius={"xl"}
-                  />
-                  <CustomLink
-                    c={"white"}
-                    to="/people/$personId"
-                    params={{ personId: person.id }}
-                    from="/"
-                    preloadDelay={2500}
-                  >
-                    <Text fw={500}>{person.name}</Text>
-                  </CustomLink>
-                  <Text ml={"auto"}>{person.character}</Text>
-                </Flex>
-              ))}
+              <Grid>
+                {movie.credits?.cast?.map((person) => (
+                  <Grid.Col key={person.id} span={6}>
+                    <Flex align={"center"} gap={"xl"}>
+                      <Avatar
+                        src={
+                          person.profile_path
+                            ? `${IMAGES_BASE_URL}/w185/${person.profile_path}`
+                            : null
+                        }
+                        alt={person.name}
+                        size={"lg"}
+                        radius={"xl"}
+                      />
+
+                      <Flex direction={"column"}>
+                        <CustomLink
+                          c={"white"}
+                          to="/people/$personId"
+                          params={{ personId: person.id }}
+                          from="/"
+                          preloadDelay={2500}
+                        >
+                          <Text fw={500}>{person.name}</Text>
+                        </CustomLink>
+
+                        <Text c={"cinkoGrey.3"}>{person.character}</Text>
+                      </Flex>
+                    </Flex>
+                  </Grid.Col>
+                ))}
+              </Grid>
             </Flex>
           </Box>
 

@@ -1,4 +1,5 @@
 import {
+  AspectRatio,
   Box,
   Card,
   Center,
@@ -17,7 +18,7 @@ import {
 } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { z } from "zod";
 import { IMAGES_BASE_URL, getAge, getGender } from "../../helpers";
 import { personQueryOptions } from "../../queryOptions/people.queryOptions";
@@ -100,7 +101,7 @@ function RouteComponent() {
             <Table
               variant="vertical"
               layout="fixed"
-              c={"dimmed"}
+              c={"cinkoGrey.3"}
               withRowBorders={false}
             >
               <Table.Tbody>
@@ -157,7 +158,7 @@ function RouteComponent() {
             <Title order={1}>{person.name}</Title>
 
             <ScrollArea h={250} type="always" scrollbars="y">
-              <Text c={"dimmed"}>{person.biography}</Text>
+              <Text c={"cinkoGrey.3"}>{person.biography}</Text>
             </ScrollArea>
           </Box>
         </Grid.Col>
@@ -199,7 +200,7 @@ function RouteComponent() {
         </Combobox>
       </Box>
 
-      <Flex my={"md"} wrap={"wrap"} gap={"sm"}>
+      <Flex my={"md"} wrap={"wrap"} gap={"md"}>
         {filteredMovies
           ?.sort((a, b) => b.popularity - a.popularity)
           .map((movie) => (
@@ -215,19 +216,21 @@ function RouteComponent() {
                 from="/"
                 preloadDelay={2500}
               >
-                <Card w={100} radius={"md"}>
+                <Card w={160} radius={"md"}>
                   <Card.Section>
                     {movie.poster_path ? (
-                      <Image
-                        src={`${IMAGES_BASE_URL}/w154/${movie.poster_path}`}
-                        fallbackSrc="https://placehold.co/80x120"
-                        w={100}
-                        h={140}
-                      />
+                      <AspectRatio ratio={720 / 1080}>
+                        <Image
+                          src={`${IMAGES_BASE_URL}/w154/${movie.poster_path}`}
+                          alt=""
+                          fallbackSrc="https://placehold.co/80x120"
+                          fit="cover"
+                        />
+                      </AspectRatio>
                     ) : (
-                      <Box w={100} h={140} bg={"dark"}>
-                        <Center w={100} h={140}>
-                          <Text c={"dimmed"} ta={"center"}>
+                      <Box w={160} h={240} bg={"dark"}>
+                        <Center w={160} h={240}>
+                          <Text c={"cinkoGrey.3"} ta={"center"}>
                             {movie.title}
                           </Text>
                         </Center>
