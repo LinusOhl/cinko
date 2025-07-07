@@ -10,3 +10,11 @@
 * Filter/sort movies and cast/crew. 
 * Earn achievements/badges for interacting on the site. 
 * Customize my personal page. 
+
+Movie page:
+* Display similar movies. 
+* Showcase trailer, if one exists. (Embedded, AspectRatio from Mantine). 
+* Showcase images from movie. 
+* If the movie belongs to a collection (franchise), show all. 
+* Display "quick facts" (budget, revenue, language, full release date, production companies). 
+* Display watch providers. 
