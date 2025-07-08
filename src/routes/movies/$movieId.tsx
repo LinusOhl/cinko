@@ -1,4 +1,5 @@
 import {
+  Accordion,
   Avatar,
   Badge,
   Box,
@@ -6,6 +7,7 @@ import {
   Grid,
   Group,
   Image,
+  Spoiler,
   Text,
   Title,
 } from "@mantine/core";
@@ -136,69 +138,91 @@ function RouteComponent() {
           {/* Credits */}
           {/* Cast credits */}
           <Box mt={"xl"}>
-            <Title order={2}>Cast</Title>
-            <Flex direction={"column"} gap={"md"} mt={"sm"}>
-              <Grid>
-                {movie.credits?.cast?.map((person) => (
-                  <Grid.Col key={person.id} span={6}>
-                    <Flex align={"center"} gap={"xl"}>
-                      <Avatar
-                        src={
-                          person.profile_path
-                            ? `${IMAGES_BASE_URL}/w185/${person.profile_path}`
-                            : null
-                        }
-                        alt={person.name}
-                        size={"lg"}
-                        radius={"xl"}
-                      />
+            <Title order={2} mb={"sm"}>
+              Cast
+            </Title>
 
-                      <Flex direction={"column"}>
-                        <CustomLink
-                          c={"white"}
-                          to="/people/$personId"
-                          params={{ personId: person.id }}
-                          from="/"
-                          preloadDelay={2500}
-                        >
-                          <Text fw={500}>{person.name}</Text>
-                        </CustomLink>
+            <Spoiler showLabel="Show more" hideLabel={"Hide"} maxHeight={360}>
+              <Flex direction={"column"} gap={"md"} mt={"sm"}>
+                <Grid>
+                  {movie.credits?.cast?.map((person) => (
+                    <Grid.Col key={person.id} span={6}>
+                      <Flex align={"center"} gap={"xl"}>
+                        <Avatar
+                          src={
+                            person.profile_path
+                              ? `${IMAGES_BASE_URL}/w185/${person.profile_path}`
+                              : null
+                          }
+                          alt={person.name}
+                          size={"lg"}
+                          radius={"xl"}
+                        />
 
-                        <Text c={"cinkoGrey.3"}>{person.character}</Text>
+                        <Flex direction={"column"}>
+                          <CustomLink
+                            c={"white"}
+                            to="/people/$personId"
+                            params={{ personId: person.id }}
+                            from="/"
+                            preloadDelay={2500}
+                          >
+                            <Text fw={500}>{person.name}</Text>
+                          </CustomLink>
+
+                          <Text c={"cinkoGrey.3"}>{person.character}</Text>
+                        </Flex>
                       </Flex>
-                    </Flex>
-                  </Grid.Col>
-                ))}
-              </Grid>
-            </Flex>
+                    </Grid.Col>
+                  ))}
+                </Grid>
+              </Flex>
+            </Spoiler>
           </Box>
 
           {/* Crew credits */}
-          <Box my={"xl"}>
-            <Title order={2}>Crew</Title>
-            {groupedCrew
-              ?.sort((a, b) => a.department.localeCompare(b.department))
-              .map((group) => (
-                <Box key={group.department} mt={"md"}>
-                  <Text fw={700}>{group.department}</Text>
-                  {group.members
-                    .sort((a, b) => a.job.localeCompare(b.job))
-                    .map((member) => (
-                      <Flex key={member.credit_id}>
-                        <CustomLink
-                          c={"white"}
-                          to="/people/$personId"
-                          params={{ personId: member.id }}
-                          from="/"
-                          preloadDelay={2500}
-                        >
-                          <Text>{member.name}</Text>
-                        </CustomLink>
-                        <Text ml={"auto"}>{member.job}</Text>
-                      </Flex>
-                    ))}
-                </Box>
-              ))}
+          <Box my={48}>
+            <Title order={2} mb={"sm"}>
+              Crew
+            </Title>
+
+            <Accordion variant="contained">
+              {groupedCrew
+                ?.sort((a, b) => a.department.localeCompare(b.department))
+                .map((group) => (
+                  <Accordion.Item
+                    key={group.department}
+                    value={group.department}
+                    bg={"transparent"}
+                  >
+                    <Accordion.Control>
+                      <Text fw={700} c={"white"}>
+                        {group.department}
+                      </Text>
+                    </Accordion.Control>
+
+                    <Accordion.Panel>
+                      {group.members
+                        .sort((a, b) => a.job.localeCompare(b.job))
+                        .map((member) => (
+                          <Flex key={member.credit_id}>
+                            <CustomLink
+                              c={"white"}
+                              to="/people/$personId"
+                              params={{ personId: member.id }}
+                              from="/"
+                              preloadDelay={2500}
+                            >
+                              <Text>{member.name}</Text>
+                            </CustomLink>
+
+                            <Text ml={"auto"}>{member.job}</Text>
+                          </Flex>
+                        ))}
+                    </Accordion.Panel>
+                  </Accordion.Item>
+                ))}
+            </Accordion>
           </Box>
         </Box>
       </Flex>
