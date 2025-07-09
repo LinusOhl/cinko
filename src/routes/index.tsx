@@ -32,7 +32,7 @@ function IndexView() {
   return (
     <div>
       <Box my={"xl"}>
-        <CustomLink to="/" c={"white"} preload={"intent"}>
+        <CustomLink to="/" c={"white"} preload={false}>
           <Title order={2} mb={"xs"}>
             Popular movies
           </Title>
@@ -48,7 +48,7 @@ function IndexView() {
       </Box>
 
       <Box my={"xl"}>
-        <CustomLink to="/" c={"white"} preload={"intent"}>
+        <CustomLink to="/" c={"white"} preload={false}>
           <Title order={2} mb={"xs"}>
             Top rated movies
           </Title>
@@ -64,7 +64,7 @@ function IndexView() {
       </Box>
 
       <Box my={"xl"}>
-        <CustomLink to="/" c={"white"} preload={"intent"}>
+        <CustomLink to="/" c={"white"} preload={false}>
           <Title order={2} mb={"xs"}>
             Now playing movies
           </Title>

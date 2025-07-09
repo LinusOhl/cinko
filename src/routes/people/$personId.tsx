@@ -214,7 +214,7 @@ function RouteComponent() {
                 to="/movies/$movieId"
                 params={{ movieId: movie.id }}
                 from="/"
-                preloadDelay={2500}
+                preload={false}
               >
                 <Card w={160} radius={"md"}>
                   <Card.Section>
