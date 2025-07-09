@@ -77,7 +77,9 @@ function RouteComponent() {
         <Box>
           {/* Title and director */}
           <Flex align={"baseline"} justify={"space-between"}>
-            <Title order={1}>{movie.title}</Title>
+            <Title order={1} style={{ textWrap: "balance" }}>
+              {movie.title}
+            </Title>
 
             <Text c={"cinkoGrey.3"}>
               directed by{" "}
@@ -90,7 +92,7 @@ function RouteComponent() {
                   personId: Number(director?.id),
                 }}
                 from="/"
-                preloadDelay={2000}
+                preload={false}
               >
                 {director?.name}
               </CustomLink>
@@ -98,7 +100,7 @@ function RouteComponent() {
           </Flex>
 
           {/* Quick facts */}
-          <Group gap={"xs"}>
+          <Group gap={"xs"} mt={"xs"}>
             {/* Release year */}
             <Text size="sm" c={"cinkoGrey.3"}>
               {movieReleaseYear}
@@ -165,7 +167,7 @@ function RouteComponent() {
                             to="/people/$personId"
                             params={{ personId: person.id }}
                             from="/"
-                            preloadDelay={2500}
+                            preload={false}
                           >
                             <Text fw={500}>{person.name}</Text>
                           </CustomLink>
@@ -211,7 +213,7 @@ function RouteComponent() {
                               to="/people/$personId"
                               params={{ personId: member.id }}
                               from="/"
-                              preloadDelay={2500}
+                              preload={false}
                             >
                               <Text>{member.name}</Text>
                             </CustomLink>
