@@ -14,7 +14,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
     <Link
       to="/movies/$movieId"
       params={{ movieId: movie.id }}
-      preloadDelay={3000}
+      preload={false}
       style={{ textDecoration: "none" }}
     >
       <Card w={160} padding={"none"} bg={"none"}>
