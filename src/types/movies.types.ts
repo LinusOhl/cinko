@@ -47,6 +47,14 @@ type ReleaseDateDetails = {
   type: number;
 };
 
+type Image = {
+  aspect_ratio: number;
+  height: number;
+  width: number;
+  iso_639_1: string | null;
+  file_path: string;
+};
+
 type Video = {
   id: string;
   iso_639_1: string;
@@ -137,11 +145,11 @@ export type MovieDetails = Movie & {
   alternative_titles?: {
     titles: AlternativeTitle[];
   };
-  // images?: { // Doesn't seem to actually give you the data...
-  // 	backdrops: [];
-  // 	logos: [];
-  // 	posters: [];
-  // };
+  images?: {
+    backdrops: Image[];
+    logos: Image[];
+    posters: Image[];
+  };
   release_dates?: {
     results: ReleaseDate[];
   };
