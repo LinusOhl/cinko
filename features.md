@@ -18,3 +18,4 @@ Movie page:
 * If the movie belongs to a collection (franchise), show all. 
 * Display "quick facts" (budget, revenue, language, full release date, production companies). 
 * Display watch providers. 
+* Fetch logo of movie and display on backdrop image. 
