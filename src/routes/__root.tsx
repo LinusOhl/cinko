@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import "@mantine/core/styles.css";
+import "@mantine/carousel/styles.css";
 import "../global.css";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
