@@ -1,3 +1,4 @@
+import { Carousel } from "@mantine/carousel";
 import { Box, ScrollArea, Title } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -38,13 +39,17 @@ function IndexView() {
           </Title>
         </CustomLink>
 
-        <ScrollArea type="always" scrollbars="x" offsetScrollbars>
-          <Box display={"inline-flex"} style={{ gap: 16 }}>
-            {popularMovies.results.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))}
-          </Box>
-        </ScrollArea>
+        <Carousel
+          slideGap={"md"}
+          slideSize={"10%"}
+          emblaOptions={{ dragFree: true }}
+        >
+          {popularMovies.results.map((movie) => (
+            <Carousel.Slide key={movie.id}>
+              <MovieCard movie={movie} />
+            </Carousel.Slide>
+          ))}
+        </Carousel>
       </Box>
 
       <Box my={"xl"}>
@@ -54,13 +59,17 @@ function IndexView() {
           </Title>
         </CustomLink>
 
-        <ScrollArea type="always" scrollbars="x" offsetScrollbars>
-          <Box display={"inline-flex"} style={{ gap: 16 }}>
-            {topRatedMovies.results.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))}
-          </Box>
-        </ScrollArea>
+        <Carousel
+          slideGap={"md"}
+          slideSize={"10%"}
+          emblaOptions={{ dragFree: true }}
+        >
+          {topRatedMovies.results.map((movie) => (
+            <Carousel.Slide key={movie.id}>
+              <MovieCard movie={movie} />
+            </Carousel.Slide>
+          ))}
+        </Carousel>
       </Box>
 
       <Box my={"xl"}>
@@ -70,13 +79,17 @@ function IndexView() {
           </Title>
         </CustomLink>
 
-        <ScrollArea type="always" scrollbars="x" offsetScrollbars>
-          <Box display={"inline-flex"} style={{ gap: 16 }}>
-            {nowPlayingMovies.results.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))}
-          </Box>
-        </ScrollArea>
+        <Carousel
+          slideGap={"md"}
+          slideSize={"10%"}
+          emblaOptions={{ dragFree: true }}
+        >
+          {nowPlayingMovies.results.map((movie) => (
+            <Carousel.Slide key={movie.id}>
+              <MovieCard movie={movie} />
+            </Carousel.Slide>
+          ))}
+        </Carousel>
       </Box>
     </div>
   );
