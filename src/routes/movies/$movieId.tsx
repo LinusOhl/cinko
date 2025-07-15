@@ -60,8 +60,6 @@ function RouteComponent() {
   return (
     <Box mt={"xl"}>
       {/* Backdrop image */}
-      {/* <Box pos={"relative"}> */}
-      {/* <AspectRatio ratio={16 / 9} pos={"relative"}> */}
       <Skeleton h={522} visible={!movie}>
         <Box pos={"relative"}>
           <Image
@@ -96,8 +94,6 @@ function RouteComponent() {
           </div>
         </Box>
       </Skeleton>
-      {/* </AspectRatio> */}
-      {/* </Box> */}
 
       {/* Content */}
       <Grid mt={"xs"}>
@@ -123,7 +119,7 @@ function RouteComponent() {
             </Card.Section>
 
             {/* TODO: Rating system */}
-            <Center p={"xs"}>
+            <Center py={"xs"}>
               <Rating size={"xl"} />
             </Center>
 
