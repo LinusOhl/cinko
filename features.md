@@ -19,3 +19,4 @@ Movie page:
 * Display "quick facts" (budget, revenue, language, full release date, production companies). 
 * Display watch providers. 
 * Maybe, divide the page into smaller dedicated "pages". For example: /movie/389/similar or /movie/389/credits or /...
+* Possibly change/add background color(s) depending on movie poster/logo. More lively. 
