@@ -257,7 +257,7 @@ function RouteComponent() {
               Crew
             </Title>
 
-            <Accordion variant="contained">
+            <Accordion variant="default">
               {groupedCrew
                 ?.sort((a, b) => a.department.localeCompare(b.department))
                 .map((group) => (
