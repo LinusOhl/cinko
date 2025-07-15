@@ -20,7 +20,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootComponent() {
   return (
     <Container>
-      <Anchor component={Link} to={"/"} underline="never">
+      <Anchor component={Link} to={"/"} underline="never" preload={false}>
         <Title order={1} c={"cinkoYellow.7"}>
           CINKO
         </Title>
