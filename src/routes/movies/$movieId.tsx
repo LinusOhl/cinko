@@ -1,3 +1,4 @@
+import { Carousel } from "@mantine/carousel";
 import {
   Accordion,
   Avatar,
@@ -306,11 +307,17 @@ function RouteComponent() {
               Similar movies
             </Title>
 
-            <Group>
-              {movie.similar?.results.slice(0, 4).map((m) => (
-                <MovieCard key={m.id} movie={m} />
+            <Carousel
+              slideGap={"md"}
+              slideSize={"20%"}
+              emblaOptions={{ dragFree: true }}
+            >
+              {movie.similar?.results.slice(0, 12).map((m) => (
+                <Carousel.Slide key={m.id}>
+                  <MovieCard movie={m} />
+                </Carousel.Slide>
               ))}
-            </Group>
+            </Carousel>
           </Box>
         </Grid.Col>
       </Grid>
