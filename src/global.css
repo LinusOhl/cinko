@@ -2,3 +2,16 @@ body {
   background-color: #02040f;
   color: #e5dada;
 }
+
+.movie-logo-wrapper {
+  position: absolute;
+  bottom: 50px;
+  width: 280px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 201;
+}

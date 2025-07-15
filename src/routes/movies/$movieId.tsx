@@ -3,20 +3,28 @@ import {
   Avatar,
   Badge,
   Box,
+  Button,
+  Card,
+  Center,
   Flex,
   Grid,
   Group,
   Image,
+  Overlay,
+  Rating,
+  Skeleton,
   Spoiler,
+  Stack,
   Text,
   Title,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import { IconCircleFilled, IconPlus } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { FaCircle } from "react-icons/fa6";
 import { z } from "zod";
 import { CustomLink } from "../../components/CustomLink";
+import { MovieCard } from "../../components/MovieCard";
 import { IMAGES_BASE_URL, groupCrewByJob } from "../../helpers";
 import { movieQueryOptions } from "../../queryOptions/movies.queryOptions";
 
@@ -41,62 +49,123 @@ function RouteComponent() {
   const { data: movie } = useSuspenseQuery(movieQueryOptions(params.movieId));
 
   const movieReleaseYear = movie.release_date.slice(0, 4);
-  const director = movie.credits?.crew?.find(
+  const directors = movie.credits?.crew?.filter(
     (person) => person.job === "Director",
   );
+
+  const movieLogo = movie.images?.logos.find((logo) => logo.iso_639_1 === "en");
 
   const groupedCrew = groupCrewByJob(movie.credits?.crew);
 
   return (
     <Box mt={"xl"}>
       {/* Backdrop image */}
-      <Image
-        src={`${IMAGES_BASE_URL}/w1280/${movie.backdrop_path}`}
-        fallbackSrc="https://placehold.co/1280x720"
-        alt={movie.title || "Movie backdrop"}
-        style={{
-          width: isMobile ? "100vw" : "",
-          marginLeft: isMobile ? "calc(-50vw + 50%)" : "",
-        }}
-        radius={"md"}
-      />
-
-      {/* Content */}
-      <Flex mt={isMobile ? "xs" : "lg"} gap={"md"}>
-        {/* Poster image, rendered if NOT on mobile */}
-        {!isMobile && (
+      {/* <Box pos={"relative"}> */}
+      {/* <AspectRatio ratio={16 / 9} pos={"relative"}> */}
+      <Skeleton h={522} visible={!movie}>
+        <Box pos={"relative"}>
           <Image
-            src={`${IMAGES_BASE_URL}/w185/${movie.poster_path}`}
-            alt={movie.title || "Movie poster"}
-            w={"180"}
-            h={"260"}
+            src={`${IMAGES_BASE_URL}/w1280/${movie.backdrop_path}`}
+            fallbackSrc="https://placehold.co/1280x720"
+            alt={movie.title || "Movie backdrop"}
+            style={{
+              width: isMobile ? "100vw" : "",
+              marginLeft: isMobile ? "calc(-50vw + 50%)" : "",
+            }}
             radius={"md"}
           />
-        )}
 
-        <Box>
+          {/* Fade-effect of backdrop image */}
+          <Overlay
+            bg={`
+              radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 60%, #02040f 100%), 
+              linear-gradient(to bottom, rgba(0, 0, 0, 0) 70%, #02040f 100%),
+              linear-gradient(to left, rgba(0, 0, 0, 0) 90%, #02040f 100%),
+              linear-gradient(to right, rgba(0, 0, 0, 0) 90%, #02040f 100%)
+            `}
+          />
+
+          {/* Movie logo */}
+          <div className="movie-logo-wrapper">
+            <Image
+              src={`${IMAGES_BASE_URL}/w300/${movieLogo?.file_path}`}
+              maw={"100%"}
+              mah={"100%"}
+              fit="contain"
+            />
+          </div>
+        </Box>
+      </Skeleton>
+      {/* </AspectRatio> */}
+      {/* </Box> */}
+
+      {/* Content */}
+      <Grid mt={"xs"}>
+        {/* Left section */}
+        <Grid.Col span={3}>
+          {/* Poster */}
+          <Card
+            w={220}
+            shadow="md"
+            bg={"black"}
+            radius={"md"}
+            p={"0"}
+            bd={"1px solid dark"}
+          >
+            <Card.Section>
+              {/* TODO: set up fallback src/element */}
+              <Skeleton h={375} visible={!movie}>
+                <Image
+                  src={`${IMAGES_BASE_URL}/h632/${movie.poster_path}`}
+                  alt={movie.title}
+                />
+              </Skeleton>
+            </Card.Section>
+
+            {/* TODO: Rating system */}
+            <Center p={"xs"}>
+              <Rating size={"xl"} />
+            </Center>
+
+            {/* TODO: Add to watchlist */}
+            <Button
+              color="cinkoBlue"
+              leftSection={<IconPlus size={18} color="#e5dada" stroke={3} />}
+              radius={"0"}
+            >
+              Add to watchlist
+            </Button>
+          </Card>
+        </Grid.Col>
+
+        {/* Right section */}
+        <Grid.Col span={9}>
           {/* Title and director */}
           <Flex align={"baseline"} justify={"space-between"}>
             <Title order={1} style={{ textWrap: "balance" }}>
               {movie.title}
             </Title>
 
-            <Text c={"cinkoGrey.3"}>
-              directed by{" "}
-              <CustomLink
-                underline="hover"
-                c={"white"}
-                fw={500}
-                to={"/people/$personId"}
-                params={{
-                  personId: Number(director?.id),
-                }}
-                from="/"
-                preload={false}
-              >
-                {director?.name}
-              </CustomLink>
-            </Text>
+            <Group align="baseline" gap={"xs"}>
+              <Text c={"cinkoGrey.3"}>directed by</Text>
+
+              <Stack gap={"xs"}>
+                {directors?.map((director) => (
+                  <CustomLink
+                    key={director.id}
+                    underline="hover"
+                    c={"white"}
+                    fw={500}
+                    to="/people/$personId"
+                    params={{ personId: Number(director.id) }}
+                    from="/"
+                    preload={false}
+                  >
+                    {director.name}
+                  </CustomLink>
+                ))}
+              </Stack>
+            </Group>
           </Flex>
 
           {/* Quick facts */}
@@ -106,14 +175,14 @@ function RouteComponent() {
               {movieReleaseYear}
             </Text>
 
-            <FaCircle size={6} color="#bba6a6" />
+            <IconCircleFilled size={6} color="#bba6a6" />
 
             {/* Runtime */}
             <Text size="sm" c={"cinkoGrey.3"}>
               {movie.runtime}min
             </Text>
 
-            <FaCircle size={6} color="#bba6a6" />
+            <IconCircleFilled size={6} color="#bba6a6" />
 
             {/* Genres */}
             {movie.genres.map((genre) => (
@@ -140,7 +209,11 @@ function RouteComponent() {
           {/* Credits */}
           {/* Cast credits */}
           <Box mt={"xl"}>
-            <Title order={2} mb={"sm"}>
+            <Title order={2} mb={"sm"} c={"cinkoGrey.2"}>
+              Credits
+            </Title>
+
+            <Title order={3} mb={"sm"} c={"cinkoGrey.3"}>
               Cast
             </Title>
 
@@ -183,8 +256,8 @@ function RouteComponent() {
           </Box>
 
           {/* Crew credits */}
-          <Box my={48}>
-            <Title order={2} mb={"sm"}>
+          <Box mt={"xl"}>
+            <Title order={3} mb={"sm"} c={"cinkoGrey.3"}>
               Crew
             </Title>
 
@@ -226,8 +299,25 @@ function RouteComponent() {
                 ))}
             </Accordion>
           </Box>
-        </Box>
-      </Flex>
+
+          {/* Extra */}
+          <Box mt={"xl"}>
+            <Title order={2} mb={"sm"} c={"cinkoGrey.2"}>
+              Extra
+            </Title>
+
+            <Title order={3} mb={"sm"} c={"cinkoGrey.3"}>
+              Similar movies
+            </Title>
+
+            <Group>
+              {movie.similar?.results.slice(0, 4).map((m) => (
+                <MovieCard key={m.id} movie={m} />
+              ))}
+            </Group>
+          </Box>
+        </Grid.Col>
+      </Grid>
     </Box>
   );
 }
