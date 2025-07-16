@@ -310,7 +310,7 @@ function RouteComponent() {
             <Carousel
               slideGap={"md"}
               slideSize={"20%"}
-              emblaOptions={{ dragFree: true }}
+              emblaOptions={{ dragFree: true, slidesToScroll: 4 }}
             >
               {movie.similar?.results.slice(0, 12).map((m) => (
                 <Carousel.Slide key={m.id}>
