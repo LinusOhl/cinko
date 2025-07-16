@@ -1,5 +1,5 @@
 import { Carousel } from "@mantine/carousel";
-import { Box, ScrollArea, Title } from "@mantine/core";
+import { Box, Title } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { CustomLink } from "../components/CustomLink";
