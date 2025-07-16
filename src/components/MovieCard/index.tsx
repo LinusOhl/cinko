@@ -1,6 +1,7 @@
-import { Card, Image, Text } from "@mantine/core";
-import { Link } from "@tanstack/react-router";
+import { Box, Text } from "@mantine/core";
+import { IMAGES_BASE_URL } from "../../helpers";
 import type { Movie } from "../../types/movies.types";
+import { CustomLink } from "../CustomLink";
 import styles from "./styles.module.css";
 
 interface MovieCardProps {
@@ -8,34 +9,31 @@ interface MovieCardProps {
 }
 
 export const MovieCard = ({ movie }: MovieCardProps) => {
-  const movieReleaseYear = movie.release_date.slice(0, 4);
-
   return (
-    <Link
+    <CustomLink
       to="/movies/$movieId"
       params={{ movieId: movie.id }}
       preload={false}
-      style={{ textDecoration: "none" }}
     >
-      <Card w={160} padding={"none"} bg={"none"}>
-        <Card.Section>
-          <Image
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            height={240}
-            alt={movie.title}
-            classNames={{
-              root: styles.imageRoot,
-            }}
-          />
-        </Card.Section>
+      <Box w={160} display={"inline-block"}>
+        {/* Poster */}
+        <div
+          style={{
+            backgroundImage: `url(${IMAGES_BASE_URL}/w500/${movie.poster_path})`,
+          }}
+          className={styles.movieCardImageBox}
+        >
+          <div className={styles.movieCardBorderBox} />
+        </div>
 
         <Text c={"white"} mt={"xs"} fw={500} truncate>
           {movie.title}
         </Text>
+
         <Text c={"cinkoGrey.3"} size="sm">
-          {movieReleaseYear}
+          {movie.release_date.slice(0, 4)}
         </Text>
-      </Card>
-    </Link>
+      </Box>
+    </CustomLink>
   );
 };
