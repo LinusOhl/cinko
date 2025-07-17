@@ -86,12 +86,14 @@ function RouteComponent() {
 
           {/* Movie logo */}
           <div className="movie-logo-wrapper">
-            <Image
-              src={`${IMAGES_BASE_URL}/w300/${movieLogo?.file_path}`}
-              maw={"100%"}
-              mah={"100%"}
-              fit="contain"
-            />
+            {movieLogo?.file_path && (
+              <Image
+                src={`${IMAGES_BASE_URL}/w300/${movieLogo?.file_path}`}
+                maw={"100%"}
+                mah={"100%"}
+                fit="contain"
+              />
+            )}
           </div>
         </Box>
       </Skeleton>
@@ -101,21 +103,22 @@ function RouteComponent() {
         {/* Left section */}
         <Grid.Col span={3}>
           {/* Poster */}
-          <Card
-            w={220}
-            shadow="md"
-            bg={"black"}
-            radius={"md"}
-            p={"0"}
-            bd={"1px solid dark"}
-          >
-            <Card.Section>
+          {/* TODO: this might not need to be a card component! try chaning! look at letterboxd */}
+          <Card w={220} bg={"black"} radius={"md"} p={"0"}>
+            <Card.Section m={0}>
               {/* TODO: set up fallback src/element */}
               <Skeleton h={375} visible={!movie}>
-                <Image
-                  src={`${IMAGES_BASE_URL}/h632/${movie.poster_path}`}
-                  alt={movie.title}
-                />
+                <Box w={"100%"}>
+                  {/* Poster */}
+                  <div
+                    style={{
+                      backgroundImage: `url(${IMAGES_BASE_URL}/w500/${movie.poster_path})`,
+                    }}
+                    className={"movieCardImageBox"}
+                  >
+                    <div className={"movieCardBorderBox"} />
+                  </div>
+                </Box>
               </Skeleton>
             </Card.Section>
 
