@@ -20,3 +20,6 @@ Movie page:
 * Display watch providers. 
 * Maybe, divide the page into smaller dedicated "pages". For example: /movie/389/similar or /movie/389/credits or /...
 * Possibly change/add background color(s) depending on movie poster/logo. More lively. 
+
+* Look at the link below for exclusion of files/folders in routes folder (useful for css modules):
+* https://tanstack.com/router/latest/docs/framework/react/routing/routing-concepts#excluding-files-and-folders-from-routes 
