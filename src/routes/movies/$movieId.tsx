@@ -5,27 +5,26 @@ import {
   Badge,
   Box,
   Button,
-  Card,
   Center,
   Flex,
   Grid,
   Group,
   Image,
   Overlay,
-  Rating,
+  Paper,
   Skeleton,
   Spoiler,
   Stack,
   Text,
   Title,
 } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
 import { IconCircleFilled, IconPlus } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { CustomLink } from "../../components/CustomLink";
 import { MovieCard } from "../../components/MovieCard";
+import { MovieRating } from "../../components/MovieRating/MovieRating";
 import { IMAGES_BASE_URL, groupCrewByJob } from "../../helpers";
 import { movieQueryOptions } from "../../queryOptions/movies.queryOptions";
 
@@ -43,9 +42,6 @@ export const Route = createFileRoute("/movies/$movieId")({
 });
 
 function RouteComponent() {
-  // TODO: possible to use Mantine CSS variable instead?
-  const isMobile = useMediaQuery("(max-width: 36em)");
-
   const params = Route.useParams();
   const { data: movie } = useSuspenseQuery(movieQueryOptions(params.movieId));
 
@@ -67,10 +63,6 @@ function RouteComponent() {
             src={`${IMAGES_BASE_URL}/w1280/${movie.backdrop_path}`}
             fallbackSrc="https://placehold.co/1280x720"
             alt={movie.title || "Movie backdrop"}
-            style={{
-              width: isMobile ? "100vw" : "",
-              marginLeft: isMobile ? "calc(-50vw + 50%)" : "",
-            }}
             radius={"md"}
           />
 
@@ -103,39 +95,41 @@ function RouteComponent() {
         {/* Left section */}
         <Grid.Col span={3}>
           {/* Poster */}
-          {/* TODO: this might not need to be a card component! try chaning! look at letterboxd */}
-          <Card w={220} bg={"black"} radius={"md"} p={"0"}>
-            <Card.Section m={0}>
-              {/* TODO: set up fallback src/element */}
-              <Skeleton h={375} visible={!movie}>
-                <Box w={"100%"}>
-                  {/* Poster */}
-                  <div
-                    style={{
-                      backgroundImage: `url(${IMAGES_BASE_URL}/w500/${movie.poster_path})`,
-                    }}
-                    className={"movieCardImageBox"}
-                  >
-                    <div className={"movieCardBorderBox"} />
-                  </div>
-                </Box>
-              </Skeleton>
-            </Card.Section>
+          {/* TODO: set up fallback src/element */}
+          <Skeleton h={375} visible={!movie}>
+            <Box w={"100%"}>
+              {/* Poster */}
+              <div
+                style={{
+                  backgroundImage: `url(${IMAGES_BASE_URL}/w500/${movie.poster_path})`,
+                }}
+                className={"movieCardImageBox"}
+              >
+                <div className={"movieCardBorderBox"} />
+              </div>
+            </Box>
+          </Skeleton>
 
-            {/* TODO: Rating system */}
-            <Center py={"xs"}>
-              <Rating size={"xl"} />
+          {/* User actions */}
+          {/* TODO: Rating system */}
+          <Paper radius={"md"} p={"xs"} mt={"sm"}>
+            <Center>
+              <MovieRating
+                userRating={Math.floor(Math.random() * (5 - 0 + 1)) + 0}
+              />
             </Center>
 
             {/* TODO: Add to watchlist */}
             <Button
               color="cinkoBlue"
               leftSection={<IconPlus size={18} color="#e5dada" stroke={3} />}
-              radius={"0"}
+              radius={"md"}
+              mt={"xs"}
+              fullWidth
             >
               Add to watchlist
             </Button>
-          </Card>
+          </Paper>
         </Grid.Col>
 
         {/* Right section */}
@@ -256,6 +250,7 @@ function RouteComponent() {
           </Box>
 
           {/* Crew credits */}
+          {/* TODO: turn into its separate page, like IMDb */}
           <Box mt={"xl"}>
             <Title order={3} mb={"sm"} c={"cinkoGrey.3"}>
               Crew
