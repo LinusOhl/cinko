@@ -1,7 +1,4 @@
-import { Carousel } from "@mantine/carousel";
 import {
-  Accordion,
-  Avatar,
   Badge,
   Box,
   Button,
@@ -13,19 +10,17 @@ import {
   Overlay,
   Paper,
   Skeleton,
-  Spoiler,
   Stack,
   Text,
   Title,
 } from "@mantine/core";
 import { IconCircleFilled, IconPlus } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { Outlet, createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { CustomLink } from "../../components/CustomLink";
-import { MovieCard } from "../../components/MovieCard";
 import { MovieRating } from "../../components/MovieRating/MovieRating";
-import { IMAGES_BASE_URL, groupCrewByJob } from "../../helpers";
+import { IMAGES_BASE_URL } from "../../helpers";
 import { movieQueryOptions } from "../../queryOptions/movies.queryOptions";
 
 export const Route = createFileRoute("/movies/$movieId")({
@@ -51,8 +46,6 @@ function RouteComponent() {
   );
 
   const movieLogo = movie.images?.logos.find((logo) => logo.iso_639_1 === "en");
-
-  const groupedCrew = groupCrewByJob(movie.credits?.crew);
 
   return (
     <Box mt={"xl"}>
@@ -191,132 +184,7 @@ function RouteComponent() {
             ))}
           </Group>
 
-          <Text mt={"xl"} fs={"italic"} c={"cinkoGrey.2"}>
-            {movie.tagline}
-          </Text>
-
-          {/* Overview */}
-          <Text mt={"md"} c={"cinkoGrey.3"}>
-            {movie.overview}
-          </Text>
-
-          {/* Credits */}
-          {/* Cast credits */}
-          <Box mt={"xl"}>
-            <Title order={2} mb={"sm"} c={"cinkoGrey.2"}>
-              Credits
-            </Title>
-
-            <Title order={3} mb={"sm"} c={"cinkoGrey.3"}>
-              Cast
-            </Title>
-
-            <Spoiler showLabel="Show more" hideLabel={"Hide"} maxHeight={360}>
-              <Flex direction={"column"} gap={"md"} mt={"sm"}>
-                <Grid>
-                  {movie.credits?.cast?.map((person) => (
-                    <Grid.Col key={person.id} span={6}>
-                      <Flex align={"center"} gap={"xl"}>
-                        <Avatar
-                          src={
-                            person.profile_path
-                              ? `${IMAGES_BASE_URL}/w185/${person.profile_path}`
-                              : null
-                          }
-                          alt={person.name}
-                          size={"lg"}
-                          radius={"xl"}
-                        />
-
-                        <Flex direction={"column"}>
-                          <CustomLink
-                            c={"white"}
-                            to="/people/$personId"
-                            params={{ personId: person.id }}
-                            from="/"
-                            preload={false}
-                          >
-                            <Text fw={500}>{person.name}</Text>
-                          </CustomLink>
-
-                          <Text c={"cinkoGrey.3"}>{person.character}</Text>
-                        </Flex>
-                      </Flex>
-                    </Grid.Col>
-                  ))}
-                </Grid>
-              </Flex>
-            </Spoiler>
-          </Box>
-
-          {/* Crew credits */}
-          {/* TODO: turn into its separate page, like IMDb */}
-          <Box mt={"xl"}>
-            <Title order={3} mb={"sm"} c={"cinkoGrey.3"}>
-              Crew
-            </Title>
-
-            <Accordion variant="default">
-              {groupedCrew
-                ?.sort((a, b) => a.department.localeCompare(b.department))
-                .map((group) => (
-                  <Accordion.Item
-                    key={group.department}
-                    value={group.department}
-                    bg={"transparent"}
-                  >
-                    <Accordion.Control>
-                      <Text fw={700} c={"white"}>
-                        {group.department}
-                      </Text>
-                    </Accordion.Control>
-
-                    <Accordion.Panel>
-                      {group.members
-                        .sort((a, b) => a.job.localeCompare(b.job))
-                        .map((member) => (
-                          <Flex key={member.credit_id}>
-                            <CustomLink
-                              c={"white"}
-                              to="/people/$personId"
-                              params={{ personId: member.id }}
-                              from="/"
-                              preload={false}
-                            >
-                              <Text>{member.name}</Text>
-                            </CustomLink>
-
-                            <Text ml={"auto"}>{member.job}</Text>
-                          </Flex>
-                        ))}
-                    </Accordion.Panel>
-                  </Accordion.Item>
-                ))}
-            </Accordion>
-          </Box>
-
-          {/* Extra */}
-          <Box mt={"xl"}>
-            <Title order={2} mb={"sm"} c={"cinkoGrey.2"}>
-              Extra
-            </Title>
-
-            <Title order={3} mb={"sm"} c={"cinkoGrey.3"}>
-              Similar movies
-            </Title>
-
-            <Carousel
-              slideGap={"md"}
-              slideSize={"20%"}
-              emblaOptions={{ dragFree: true, slidesToScroll: 4 }}
-            >
-              {movie.similar?.results.slice(0, 12).map((m) => (
-                <Carousel.Slide key={m.id}>
-                  <MovieCard movie={m} />
-                </Carousel.Slide>
-              ))}
-            </Carousel>
-          </Box>
+          <Outlet />
         </Grid.Col>
       </Grid>
     </Box>
