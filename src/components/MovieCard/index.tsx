@@ -11,7 +11,7 @@ interface MovieCardProps {
 export const MovieCard = ({ movie }: MovieCardProps) => {
   return (
     <CustomLink
-      to="/movies/$movieId"
+      to="/movies/$movieId/details"
       params={{ movieId: movie.id }}
       preload={false}
     >
