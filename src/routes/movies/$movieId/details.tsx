@@ -1,5 +1,13 @@
 import { Carousel } from "@mantine/carousel";
-import { Avatar, Box, Flex, Grid, Text, Title } from "@mantine/core";
+import {
+  AspectRatio,
+  Avatar,
+  Box,
+  Flex,
+  Grid,
+  Text,
+  Title,
+} from "@mantine/core";
 import { IconChevronRight } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -19,6 +27,10 @@ export const Route = createFileRoute("/movies/$movieId/details")({
 function RouteComponent() {
   const params = Route.useParams();
   const { data: movie } = useSuspenseQuery(movieQueryOptions(params.movieId));
+
+  const movieTrailer = movie.videos?.results.find(
+    (v) => v.type === "Trailer" && v.iso_639_1 === "en",
+  );
 
   return (
     <>
@@ -106,6 +118,14 @@ function RouteComponent() {
             </Carousel.Slide>
           ))}
         </Carousel>
+
+        <AspectRatio ratio={16 / 9} mt={"xl"}>
+          <iframe
+            src={`https://www.youtube.com/embed/${movieTrailer?.key}`}
+            title={movieTrailer?.name}
+            style={{ border: 0 }}
+          />
+        </AspectRatio>
       </Box>
     </>
   );
