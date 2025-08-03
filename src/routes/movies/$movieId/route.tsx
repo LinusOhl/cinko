@@ -18,10 +18,10 @@ import { IconCircleFilled, IconPlus } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Outlet, createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import { CustomLink } from "../../components/CustomLink";
-import { MovieRating } from "../../components/MovieRating/MovieRating";
-import { IMAGES_BASE_URL } from "../../helpers";
-import { movieQueryOptions } from "../../queryOptions/movies.queryOptions";
+import { CustomLink } from "../../../components/CustomLink";
+import { MovieRating } from "../../../components/MovieRating/MovieRating";
+import { IMAGES_BASE_URL } from "../../../helpers";
+import { movieQueryOptions } from "../../../queryOptions/movies.queryOptions";
 
 export const Route = createFileRoute("/movies/$movieId")({
   params: {
