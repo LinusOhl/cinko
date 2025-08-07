@@ -35,6 +35,8 @@ function RootComponent() {
     field.validate();
 
     navigate({ to: "/search", from: "/", search: { query: field.getValue() } });
+
+    field.setValue("");
   };
 
   return (
