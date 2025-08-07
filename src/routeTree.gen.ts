@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SearchRouteRouteImport } from './routes/search/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PeoplePersonIdRouteImport } from './routes/people/$personId'
 import { Route as MoviesMovieIdRouteRouteImport } from './routes/movies/$movieId/route'
 import { Route as MoviesMovieIdDetailsRouteImport } from './routes/movies/$movieId/details'
 import { Route as MoviesMovieIdCreditsRouteImport } from './routes/movies/$movieId/credits'
 
+const SearchRouteRoute = SearchRouteRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -43,6 +49,7 @@ const MoviesMovieIdCreditsRoute = MoviesMovieIdCreditsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/search': typeof SearchRouteRoute
   '/movies/$movieId': typeof MoviesMovieIdRouteRouteWithChildren
   '/people/$personId': typeof PeoplePersonIdRoute
   '/movies/$movieId/credits': typeof MoviesMovieIdCreditsRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/search': typeof SearchRouteRoute
   '/movies/$movieId': typeof MoviesMovieIdRouteRouteWithChildren
   '/people/$personId': typeof PeoplePersonIdRoute
   '/movies/$movieId/credits': typeof MoviesMovieIdCreditsRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/search': typeof SearchRouteRoute
   '/movies/$movieId': typeof MoviesMovieIdRouteRouteWithChildren
   '/people/$personId': typeof PeoplePersonIdRoute
   '/movies/$movieId/credits': typeof MoviesMovieIdCreditsRoute
@@ -67,6 +76,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/search'
     | '/movies/$movieId'
     | '/people/$personId'
     | '/movies/$movieId/credits'
@@ -74,6 +84,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/search'
     | '/movies/$movieId'
     | '/people/$personId'
     | '/movies/$movieId/credits'
@@ -81,6 +92,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/search'
     | '/movies/$movieId'
     | '/people/$personId'
     | '/movies/$movieId/credits'
@@ -89,12 +101,20 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SearchRouteRoute: typeof SearchRouteRoute
   MoviesMovieIdRouteRoute: typeof MoviesMovieIdRouteRouteWithChildren
   PeoplePersonIdRoute: typeof PeoplePersonIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -148,6 +168,7 @@ const MoviesMovieIdRouteRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SearchRouteRoute: SearchRouteRoute,
   MoviesMovieIdRouteRoute: MoviesMovieIdRouteRouteWithChildren,
   PeoplePersonIdRoute: PeoplePersonIdRoute,
 }
