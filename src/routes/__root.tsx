@@ -34,8 +34,6 @@ function RootComponent() {
 
     field.validate();
 
-    console.log("submitted!", field.getValue());
-
     navigate({ to: "/search", from: "/", search: { query: field.getValue() } });
   };
 

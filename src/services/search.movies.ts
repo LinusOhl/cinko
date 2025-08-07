@@ -5,8 +5,6 @@ export const searchMovies = async (
 ): Promise<MovieListResponse> => {
   const url = `${import.meta.env.VITE_API_URL}/search/movies?query=${query}`;
 
-  console.log("query:", query);
-
   try {
     const response = await fetch(url);
 
