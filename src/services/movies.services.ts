@@ -1,5 +1,4 @@
 import type {
-  Movie,
   MovieDetails,
   MovieListResponse,
   NowPlayingMoviesResponse,
