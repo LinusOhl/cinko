@@ -13,6 +13,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
     <CustomLink
       to="/movies/$movieId/details"
       params={{ movieId: movie.id }}
+      from="/"
       preload={false}
     >
       <Box w={160} display={"inline-block"}>
