@@ -119,13 +119,14 @@ function RouteComponent() {
           ))}
         </Carousel>
 
-        <AspectRatio ratio={16 / 9} mt={"xl"}>
+        {/* TODO: disabled for now, look at a later stage! */}
+        {/* <AspectRatio ratio={16 / 9} mt={"xl"}>
           <iframe
             src={`https://www.youtube.com/embed/${movieTrailer?.key}`}
             title={movieTrailer?.name}
             style={{ border: 0 }}
           />
-        </AspectRatio>
+        </AspectRatio> */}
       </Box>
     </>
   );
