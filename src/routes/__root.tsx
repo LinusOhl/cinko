@@ -34,7 +34,11 @@ function RootComponent() {
 
     field.validate();
 
-    navigate({ to: "/search", from: "/", search: { query: field.getValue() } });
+    navigate({
+      to: "/search",
+      from: "/",
+      search: { query: field.getValue(), page: 1 },
+    });
 
     field.setValue("");
   };

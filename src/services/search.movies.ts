@@ -2,8 +2,9 @@ import { MovieListResponse } from "../types/movies.types";
 
 export const searchMovies = async (
   query: string,
+  page: number = 1,
 ): Promise<MovieListResponse> => {
-  const url = `${import.meta.env.VITE_API_URL}/search/movies?query=${query}`;
+  const url = `${import.meta.env.VITE_API_URL}/search/movies?query=${query}&page=${page}`;
 
   try {
     const response = await fetch(url);
