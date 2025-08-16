@@ -38,11 +38,12 @@ function RouteComponent() {
           from="/"
           preload={false}
           display={"inline-flex"}
+          style={{ textDecorationColor: "#1e2ede" }}
         >
           <Flex align={"center"} gap={"xs"} mb={"md"}>
-            <IconChevronLeft size={18} />
+            <IconChevronLeft size={18} color="#4e5ae6" />
 
-            <Text>Back to details</Text>
+            <Text c={"cinkoBlue.5"}>Back to details</Text>
           </Flex>
         </CustomLink>
 

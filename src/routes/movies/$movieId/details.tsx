@@ -51,6 +51,7 @@ function RouteComponent() {
           from="/"
           preload={false}
           display={"inline-flex"}
+          style={{ textDecorationColor: "#1e2ede" }}
         >
           <Flex align={"center"} gap={"xs"}>
             <Title order={2} c={"cinkoGrey.2"}>
