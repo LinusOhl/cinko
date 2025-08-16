@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SearchRouteRouteImport } from './routes/search/route'
+import { Route as DiscoverRouteRouteImport } from './routes/discover/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PeoplePersonIdRouteImport } from './routes/people/$personId'
 import { Route as MoviesMovieIdRouteRouteImport } from './routes/movies/$movieId/route'
@@ -19,6 +20,11 @@ import { Route as MoviesMovieIdCreditsRouteImport } from './routes/movies/$movie
 const SearchRouteRoute = SearchRouteRouteImport.update({
   id: '/search',
   path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiscoverRouteRoute = DiscoverRouteRouteImport.update({
+  id: '/discover',
+  path: '/discover',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -49,6 +55,7 @@ const MoviesMovieIdCreditsRoute = MoviesMovieIdCreditsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/discover': typeof DiscoverRouteRoute
   '/search': typeof SearchRouteRoute
   '/movies/$movieId': typeof MoviesMovieIdRouteRouteWithChildren
   '/people/$personId': typeof PeoplePersonIdRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/discover': typeof DiscoverRouteRoute
   '/search': typeof SearchRouteRoute
   '/movies/$movieId': typeof MoviesMovieIdRouteRouteWithChildren
   '/people/$personId': typeof PeoplePersonIdRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/discover': typeof DiscoverRouteRoute
   '/search': typeof SearchRouteRoute
   '/movies/$movieId': typeof MoviesMovieIdRouteRouteWithChildren
   '/people/$personId': typeof PeoplePersonIdRoute
@@ -76,6 +85,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/discover'
     | '/search'
     | '/movies/$movieId'
     | '/people/$personId'
@@ -84,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/discover'
     | '/search'
     | '/movies/$movieId'
     | '/people/$personId'
@@ -92,6 +103,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/discover'
     | '/search'
     | '/movies/$movieId'
     | '/people/$personId'
@@ -101,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DiscoverRouteRoute: typeof DiscoverRouteRoute
   SearchRouteRoute: typeof SearchRouteRoute
   MoviesMovieIdRouteRoute: typeof MoviesMovieIdRouteRouteWithChildren
   PeoplePersonIdRoute: typeof PeoplePersonIdRoute
@@ -113,6 +126,13 @@ declare module '@tanstack/react-router' {
       path: '/search'
       fullPath: '/search'
       preLoaderRoute: typeof SearchRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/discover': {
+      id: '/discover'
+      path: '/discover'
+      fullPath: '/discover'
+      preLoaderRoute: typeof DiscoverRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -168,6 +188,7 @@ const MoviesMovieIdRouteRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DiscoverRouteRoute: DiscoverRouteRoute,
   SearchRouteRoute: SearchRouteRoute,
   MoviesMovieIdRouteRoute: MoviesMovieIdRouteRouteWithChildren,
   PeoplePersonIdRoute: PeoplePersonIdRoute,

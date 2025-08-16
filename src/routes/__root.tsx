@@ -1,11 +1,11 @@
-import { Anchor, Container, Flex, TextInput, Title } from "@mantine/core";
+import { Anchor, Container, Flex, Text, TextInput, Title } from "@mantine/core";
 import { useField } from "@mantine/form";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
+  createRootRouteWithContext,
   Link,
   Outlet,
-  createRootRouteWithContext,
   useNavigate,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
@@ -51,6 +51,20 @@ function RootComponent() {
             CINKO
           </Title>
         </Anchor>
+
+        <Flex gap={"md"}>
+          <Anchor
+            component={Link}
+            to="/discover"
+            from="/"
+            preload={false}
+            style={{ textDecorationColor: "#1e2ede" }}
+          >
+            <Text c={"white"} fw={500}>
+              Discover
+            </Text>
+          </Anchor>
+        </Flex>
 
         <form onSubmit={handleSubmit}>
           <TextInput {...field.getInputProps()} placeholder="Search..." />
