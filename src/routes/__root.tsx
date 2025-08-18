@@ -5,11 +5,13 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
   createRootRouteWithContext,
   Link,
+  linkOptions,
   Outlet,
   useNavigate,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { FormEvent } from "react";
+import { CustomLink } from "../components/CustomLink";
 import "@mantine/core/styles.css";
 import "@mantine/carousel/styles.css";
 import "../global.css";
@@ -43,6 +45,16 @@ function RootComponent() {
     field.setValue("");
   };
 
+  const discoverLinkOptions = linkOptions({
+    to: "/discover",
+    from: "/",
+    search: {
+      page: 1,
+      sortBy: "popularity.desc",
+    },
+    preload: false,
+  });
+
   return (
     <Container>
       <Flex align={"center"} justify={"space-between"}>
@@ -53,17 +65,15 @@ function RootComponent() {
         </Anchor>
 
         <Flex gap={"md"}>
-          <Anchor
-            component={Link}
-            to="/discover"
-            from="/"
-            preload={false}
-            style={{ textDecorationColor: "#1e2ede" }}
+          <CustomLink
+            {...discoverLinkOptions}
+            underline="hover"
+            style={{ textDecoration: "#1e2ede" }}
           >
             <Text c={"white"} fw={500}>
               Discover
             </Text>
-          </Anchor>
+          </CustomLink>
         </Flex>
 
         <form onSubmit={handleSubmit}>
