@@ -20,7 +20,7 @@ export const CustomLink: LinkComponent<typeof MantineLinkComponent> = (
   return (
     <CreatedLinkComponent
       preload="intent"
-      style={{ textDecoration: "#1e2ede" }}
+      style={{ textDecorationColor: "#1e2ede" }}
       {...props}
     />
   );
