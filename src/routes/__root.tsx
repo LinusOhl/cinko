@@ -1,10 +1,9 @@
-import { Anchor, Container, Flex, Text, TextInput, Title } from "@mantine/core";
+import { Container, Flex, Text, TextInput, Title } from "@mantine/core";
 import { useField } from "@mantine/form";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
   createRootRouteWithContext,
-  Link,
   linkOptions,
   Outlet,
   useNavigate,
@@ -58,18 +57,14 @@ function RootComponent() {
   return (
     <Container>
       <Flex align={"center"} justify={"space-between"}>
-        <Anchor component={Link} to={"/"} underline="never" preload={false}>
+        <CustomLink to={"/"} preload={false}>
           <Title order={1} c={"cinkoYellow.7"}>
             CINKO
           </Title>
-        </Anchor>
+        </CustomLink>
 
         <Flex gap={"md"}>
-          <CustomLink
-            {...discoverLinkOptions}
-            underline="hover"
-            style={{ textDecoration: "#1e2ede" }}
-          >
+          <CustomLink {...discoverLinkOptions} underline="hover">
             <Text c={"white"} fw={500}>
               Discover
             </Text>
