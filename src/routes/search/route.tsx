@@ -2,7 +2,7 @@ import { Box, Center, Flex, Pagination, Text, TextInput } from "@mantine/core";
 import { useField } from "@mantine/form";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { FormEvent, useState } from "react";
+import type { FormEvent } from "react";
 import { z } from "zod";
 import { MovieCard } from "../../components/MovieCard";
 import { searchMoviesQueryOptions } from "../../queryOptions/search.queryOptions";
