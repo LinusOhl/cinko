@@ -13,6 +13,7 @@ import type { FormEvent } from "react";
 import { CustomLink } from "../components/CustomLink";
 import "@mantine/core/styles.css";
 import "@mantine/carousel/styles.css";
+import "@mantine/dates/styles.css";
 import "../global.css";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
