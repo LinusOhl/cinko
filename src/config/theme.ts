@@ -1,7 +1,7 @@
 import {
+  createTheme,
   type DefaultMantineColor,
   type MantineColorsTuple,
-  createTheme,
 } from "@mantine/core";
 
 // Typesafety for custom colors
