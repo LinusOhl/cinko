@@ -10,7 +10,7 @@ import {
   useNavigate,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import { FormEvent } from "react";
+import type { FormEvent } from "react";
 import { CustomLink } from "../components/CustomLink";
 import "@mantine/core/styles.css";
 import "@mantine/carousel/styles.css";

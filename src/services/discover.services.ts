@@ -1,4 +1,4 @@
-import { MovieListResponse } from "../types/movies.types";
+import type { MovieListResponse } from "../types/movies.types";
 
 export const discoverMovies = async (
   page: number = 1,
