@@ -38,9 +38,11 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
           {movie.title}
         </Text>
 
-        <Text c={"cinkoGrey.3"} size="sm">
-          {movie.release_date.slice(0, 4)}
-        </Text>
+        {movie.release_date && (
+          <Text c={"cinkoGrey.3"} size="sm">
+            {movie.release_date.slice(0, 4)}
+          </Text>
+        )}
       </Box>
     </CustomLink>
   );
