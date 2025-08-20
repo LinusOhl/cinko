@@ -1,5 +1,5 @@
 import { Anchor, type AnchorProps } from "@mantine/core";
-import { type LinkComponent, createLink } from "@tanstack/react-router";
+import { createLink, type LinkComponent } from "@tanstack/react-router";
 import { forwardRef } from "react";
 
 interface MantineAnchorProps extends Omit<AnchorProps, "href"> {
@@ -17,5 +17,11 @@ const CreatedLinkComponent = createLink(MantineLinkComponent);
 export const CustomLink: LinkComponent<typeof MantineLinkComponent> = (
   props,
 ) => {
-  return <CreatedLinkComponent preload="intent" {...props} />;
+  return (
+    <CreatedLinkComponent
+      preload="intent"
+      style={{ textDecoration: "#1e2ede" }}
+      {...props}
+    />
+  );
 };
