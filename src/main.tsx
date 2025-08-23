@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
 import { theme } from "./config/theme";
+import { AuthProvider } from "./contexts/AuthContext";
 import { routeTree } from "./routeTree.gen";
 
 const queryClient = new QueryClient({
@@ -36,10 +37,12 @@ const rootElement = document.getElementById("app")!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
-    <MantineProvider theme={theme} defaultColorScheme="dark">
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </MantineProvider>,
+    <AuthProvider>
+      <MantineProvider theme={theme} defaultColorScheme="dark">
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </MantineProvider>
+    </AuthProvider>,
   );
 }
