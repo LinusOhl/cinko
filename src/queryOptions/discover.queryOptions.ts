@@ -1,9 +1,13 @@
 import { queryOptions } from "@tanstack/react-query";
 import { discoverMovies } from "../services/discover.services";
 
-export const discoverMovieQueryOptions = (page: number, sortBy: string) =>
+export const discoverMovieQueryOptions = (
+  page: number,
+  sortBy: string,
+  pry?: string,
+) =>
   queryOptions({
-    queryKey: ["discoverMovies", page, sortBy],
-    queryFn: () => discoverMovies(page, sortBy),
+    queryKey: ["discoverMovies", page, sortBy, pry],
+    queryFn: () => discoverMovies(page, sortBy, pry),
     staleTime: 1000 * 60 * 60, // 60 minutes
   });

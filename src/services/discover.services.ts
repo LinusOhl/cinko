@@ -3,8 +3,13 @@ import type { MovieListResponse } from "../types/movies.types";
 export const discoverMovies = async (
   page: number = 1,
   sortBy: string,
+  pry?: string,
 ): Promise<MovieListResponse> => {
-  const url = `${import.meta.env.VITE_API_URL}/discover/movies?page=${page}&sortBy=${sortBy}`;
+  let url = `${import.meta.env.VITE_API_URL}/discover/movies?page=${page}&sortBy=${sortBy}`;
+
+  if (pry) {
+    url = url.concat(`&pry=${pry}`);
+  }
 
   try {
     const response = await fetch(url);
