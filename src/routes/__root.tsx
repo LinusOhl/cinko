@@ -1,4 +1,4 @@
-import { Container, Flex, Text, TextInput, Title } from "@mantine/core";
+import { Button, Container, Flex, Text, TextInput, Title } from "@mantine/core";
 import { useField } from "@mantine/form";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -15,6 +15,7 @@ import "@mantine/core/styles.css";
 import "@mantine/carousel/styles.css";
 import "@mantine/dates/styles.css";
 import "../global.css";
+import { useAuth } from "../hooks/useAuth";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   {
@@ -24,6 +25,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 );
 
 function RootComponent() {
+  const { user, signOut, signIn, signUp } = useAuth();
+
   const navigate = useNavigate();
   const field = useField({
     initialValue: "",
@@ -58,13 +61,13 @@ function RootComponent() {
   return (
     <Container>
       <Flex align={"center"} justify={"space-between"}>
-        <CustomLink to={"/"} preload={false}>
-          <Title order={1} c={"cinkoYellow.7"}>
-            CINKO
-          </Title>
-        </CustomLink>
+        <Flex gap={"xl"} align={"center"}>
+          <CustomLink to={"/"} preload={false}>
+            <Title order={1} c={"cinkoYellow.7"}>
+              CINKO
+            </Title>
+          </CustomLink>
 
-        <Flex gap={"md"}>
           <CustomLink {...discoverLinkOptions} underline="hover">
             <Text c={"white"} fw={500}>
               Discover
@@ -75,6 +78,40 @@ function RootComponent() {
         <form onSubmit={handleSubmit}>
           <TextInput {...field.getInputProps()} placeholder="Search..." />
         </form>
+
+        <Flex gap={"xs"}>
+          {user ? (
+            <>
+              <Button
+                color="cinkoRed"
+                variant="subtle"
+                onClick={() => signOut()}
+              >
+                Sign out
+              </Button>
+              <Button color="cinkoBlue" variant="light">
+                Profile
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                color="cinkoYellow"
+                variant="subtle"
+                onClick={() => signUp("glawrr@proton.me", "password", "glawrr")}
+              >
+                Sign up
+              </Button>
+              <Button
+                color="cinkoBlue"
+                variant="light"
+                onClick={() => signIn("glawrr@proton.me", "password")}
+              >
+                Sign in
+              </Button>
+            </>
+          )}
+        </Flex>
       </Flex>
 
       <Outlet />
