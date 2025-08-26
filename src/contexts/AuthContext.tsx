@@ -1,28 +1,14 @@
-import type { Session, User } from "@supabase/supabase-js";
-import {
-  createContext,
-  type ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import type { Session } from "@supabase/supabase-js";
+import { createContext, type ReactNode, useEffect, useState } from "react";
 import { supabase } from "../config/supabaseClient";
+import type {
+  AuthContext as AuthContextType,
+  Profile,
+} from "../types/auth.types";
 
-type Profile = {
-  id: string;
-  username: string | null;
-};
-
-type AuthContext = {
-  user: User | null;
-  session: Session | null;
-  profile: Profile | null;
-  signUp: (email: string, password: string, username: string) => Promise<void>;
-  signIn: (email: string, password: string) => Promise<void>;
-  signOut: () => Promise<void>;
-};
-
-const AuthContext = createContext<AuthContext | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(
+  undefined,
+);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
@@ -43,7 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setProfile(data);
   };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Leave as is!
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
@@ -107,7 +93,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setProfile(null);
   };
 
-  const value: AuthContext = {
+  const value: AuthContextType = {
     user: session?.user ?? null,
     session,
     profile,
@@ -117,14 +103,4 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-};
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-
-  return context;
 };
