@@ -7,6 +7,7 @@ import {
   Grid,
   Group,
   Image,
+  List,
   Overlay,
   Paper,
   Skeleton,
@@ -16,7 +17,7 @@ import {
 } from "@mantine/core";
 import { IconCircleFilled, IconPlus } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Outlet, createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { z } from "zod";
 import { CustomLink } from "../../../components/CustomLink";
 import { MovieRating } from "../../../components/MovieRating/MovieRating";
@@ -122,6 +123,18 @@ function RouteComponent() {
             >
               Add to watchlist
             </Button>
+          </Paper>
+
+          <Paper radius={"md"} p={"xs"} mt={"sm"}>
+            <Text fw={500}>Languages</Text>
+
+            <List>
+              {movie.spoken_languages.map((lang) => (
+                <List.Item key={lang.iso_639_1} c={"cinkoGrey.2"}>
+                  {lang.english_name}
+                </List.Item>
+              ))}
+            </List>
           </Paper>
         </Grid.Col>
 
