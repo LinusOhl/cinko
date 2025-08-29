@@ -76,33 +76,33 @@ export type BaseCredit = Movie & {
 };
 
 export type CastCredit = {
-  id: number
-  adult: boolean
-  cast_id: number
-  character: string
-  credit_id: string
-  gender: number
-  known_for_department: string
-  name: string
-  order: number
-  original_name: string
-  popularity: number
-  profile_path: string
-}
+  id: number;
+  adult: boolean;
+  cast_id: number;
+  character: string;
+  credit_id: string;
+  gender: number;
+  known_for_department: string;
+  name: string;
+  order: number;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+};
 
 export type CrewCredit = {
-  id: number
-  adult: boolean
-  credit_id: string
-  department: string
-  gender: number
-  job: string
-  known_for_department: string
-  name: string
-  original_name: string
-  popularity: number
-  profile_path: string
-}
+  id: number;
+  adult: boolean;
+  credit_id: string;
+  department: string;
+  gender: number;
+  job: string;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+};
 
 export type MovieCredits = {
   cast: CastCredit[];
@@ -126,7 +126,12 @@ export type Movie = {
 };
 
 export type MovieDetails = Movie & {
-  belongs_to_collection: string | null;
+  belongs_to_collection: {
+    id: number;
+    name: string;
+    poster_path: string;
+    backdrop_path: string;
+  } | null;
   budget: number;
   genres: Genre[];
   homepage: string;
