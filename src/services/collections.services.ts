@@ -1,7 +1,7 @@
 import type { Collection } from "../types/collections.types";
 
 export const fetchCollectionById = async (
-  collectionId: number | null | undefined,
+  collectionId: number,
 ): Promise<Collection> => {
   const url = `${import.meta.env.VITE_API_URL}/collections/${collectionId}`;
 

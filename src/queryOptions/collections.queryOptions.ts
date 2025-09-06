@@ -1,7 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
 import { fetchCollectionById } from "../services/collections.services";
 
-export const collectionOptions = (collectionId: number | null | undefined) =>
+export const collectionOptions = (collectionId: number) =>
   queryOptions({
     queryKey: ["collection", collectionId],
     queryFn: () => fetchCollectionById(collectionId),

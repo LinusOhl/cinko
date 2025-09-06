@@ -1,6 +1,6 @@
 import { Carousel } from "@mantine/carousel";
 import {
-  AspectRatio,
+  // AspectRatio,
   Avatar,
   Box,
   Flex,
@@ -13,6 +13,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { CustomLink } from "../../../components/CustomLink";
 import { MovieCard } from "../../../components/MovieCard";
+import { MovieCollectionCarousel } from "../../../components/MovieCollectionCarousel";
 import { IMAGES_BASE_URL } from "../../../helpers";
 import { movieQueryOptions } from "../../../queryOptions/movies.queryOptions";
 
@@ -28,9 +29,9 @@ function RouteComponent() {
   const params = Route.useParams();
   const { data: movie } = useSuspenseQuery(movieQueryOptions(params.movieId));
 
-  const movieTrailer = movie.videos?.results.find(
-    (v) => v.type === "Trailer" && v.iso_639_1 === "en",
-  );
+  // const movieTrailer = movie.videos?.results.find(
+  //   (v) => v.type === "Trailer" && v.iso_639_1 === "en",
+  // );
 
   return (
     <>
@@ -104,6 +105,14 @@ function RouteComponent() {
           Extra
         </Title>
 
+        {/* Movie collection */}
+        {movie.belongs_to_collection && (
+          <MovieCollectionCarousel
+            collectionId={movie.belongs_to_collection.id}
+          />
+        )}
+
+        {/* Similar movies */}
         <Title order={3} mb={"sm"} c={"cinkoGrey.3"}>
           Similar movies
         </Title>
