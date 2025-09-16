@@ -20,21 +20,21 @@ export const getGender = (genderNumber?: number) => {
 export const groupCrewByJob = (crew?: CrewCredit[]) => {
   if (!crew) return;
 
-  const map = new Map<string, CrewCredit[]>()
+  const map = new Map<string, CrewCredit[]>();
 
   for (const member of crew) {
     if (!map.has(member.department)) {
-      map.set(member.department, [member])
+      map.set(member.department, [member]);
     } else {
-      map.get(member.department)?.push(member)
+      map.get(member.department)?.push(member);
     }
   }
 
   return Array.from(map.entries()).map(([department, members]) => ({
     department,
-    members
-  }))
-}
+    members,
+  }));
+};
 
 export const getAge = (birthDateString?: string) => {
   if (!birthDateString) return;
@@ -51,4 +51,8 @@ export const getAge = (birthDateString?: string) => {
   }
 
   return age;
+};
+
+export const langToCountry: Record<string, string> = {
+  en: "US",
 };
