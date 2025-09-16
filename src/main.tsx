@@ -1,6 +1,10 @@
-import { MantineProvider } from "@mantine/core";
+import { Loader, MantineProvider } from "@mantine/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createRouter, RouterProvider } from "@tanstack/react-router";
+import {
+  createRouter,
+  ErrorComponent,
+  RouterProvider,
+} from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
 import { theme } from "./config/theme";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -20,6 +24,12 @@ const router = createRouter({
   context: {
     queryClient,
   },
+  defaultPendingComponent: () => (
+    <div>
+      <Loader color="cinkoBlue" />
+    </div>
+  ),
+  defaultErrorComponent: ({ error }) => <ErrorComponent error={error} />,
   defaultPreload: "intent",
   defaultPreloadStaleTime: 0,
   scrollRestoration: true,
@@ -32,7 +42,7 @@ declare module "@tanstack/react-router" {
   }
 }
 
-// biome-ignore lint/style/noNonNullAssertion: <explanation>
+// biome-ignore lint/style/noNonNullAssertion: Keep as is!
 const rootElement = document.getElementById("app")!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
