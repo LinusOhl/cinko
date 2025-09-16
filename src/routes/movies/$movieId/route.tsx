@@ -22,6 +22,7 @@ import { z } from "zod";
 import { CustomLink } from "../../../components/CustomLink";
 import { MovieRating } from "../../../components/MovieRating/MovieRating";
 import { IMAGES_BASE_URL } from "../../../helpers";
+import { useAuth } from "../../../hooks/useAuth";
 import { movieQueryOptions } from "../../../queryOptions/movies.queryOptions";
 
 export const Route = createFileRoute("/movies/$movieId")({
@@ -38,6 +39,8 @@ export const Route = createFileRoute("/movies/$movieId")({
 });
 
 function RouteComponent() {
+  const { user } = useAuth();
+
   const params = Route.useParams();
   const { data: movie } = useSuspenseQuery(movieQueryOptions(params.movieId));
 
@@ -108,9 +111,7 @@ function RouteComponent() {
           {/* TODO: Rating system */}
           <Paper radius={"md"} p={"xs"} mt={"sm"}>
             <Center>
-              <MovieRating
-                userRating={Math.floor(Math.random() * (5 - 0 + 1)) + 0}
-              />
+              {user && <MovieRating userId={user.id} movieId={movie.id} />}
             </Center>
 
             {/* TODO: Add to watchlist */}

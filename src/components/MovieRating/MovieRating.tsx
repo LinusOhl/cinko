@@ -6,14 +6,17 @@ import {
   IconMoodSad,
   IconMoodSmile,
 } from "@tabler/icons-react";
-import { useEffect, useState } from "react";
+import { useMovieRating } from "../../hooks/useMovieRating";
+import { useRateMovie } from "../../hooks/useRateMovie";
 
 interface MovieRatingProps {
-  userRating: number;
+  userId: string;
+  movieId: number;
 }
 
-export const MovieRating = ({ userRating }: MovieRatingProps) => {
-  const [value, setValue] = useState(userRating);
+export const MovieRating = ({ userId, movieId }: MovieRatingProps) => {
+  const rateMovieMutation = useRateMovie();
+  const { data } = useMovieRating(movieId, userId);
 
   const getIconStyle = (color?: string) => ({
     width: 32,
@@ -59,14 +62,23 @@ export const MovieRating = ({ userRating }: MovieRatingProps) => {
     }
   };
 
-  useEffect(() => {
-    setValue(userRating);
-  }, [userRating]);
+  const handleRating = async (value: number) => {
+    if (!userId) {
+      console.error("Must be logged in!");
+      return;
+    }
+
+    rateMovieMutation.mutate({
+      value: value,
+      movieId: movieId,
+      userId: userId,
+    });
+  };
 
   return (
     <Rating
-      value={value}
-      onChange={setValue}
+      value={data ? data.value : 0}
+      onChange={(value) => handleRating(value)}
       emptySymbol={getEmptyIcon}
       fullSymbol={getFullIcon}
       highlightSelectedOnly
