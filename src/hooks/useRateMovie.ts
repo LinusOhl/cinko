@@ -1,3 +1,4 @@
+import { notifications } from "@mantine/notifications";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { rateMovie } from "../services/user.services";
 
@@ -13,6 +14,13 @@ export const useRateMovie = () => {
     onSuccess: async (_data, variables) => {
       await queryClient.invalidateQueries({
         queryKey: ["movie-rating", variables.movieId, variables.userId],
+      });
+    },
+    onError: (error) => {
+      notifications.show({
+        title: "Error",
+        message: error.message,
+        color: "cinkoRed",
       });
     },
   });
