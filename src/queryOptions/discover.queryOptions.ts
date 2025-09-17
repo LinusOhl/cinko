@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { discoverMovies } from "../services/discover.services";
+import { discoverMovies } from "../services/discover.service";
 
 export const discoverMovieQueryOptions = (
   page: number,

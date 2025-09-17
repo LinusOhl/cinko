@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { fetchPersonById } from "../services/people.services";
+import { fetchPersonById } from "../services/people.service";
 
 export const personQueryOptions = (personId: number) =>
   queryOptions({
