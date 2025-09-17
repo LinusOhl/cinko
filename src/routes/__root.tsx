@@ -11,11 +11,14 @@ import {
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import type { FormEvent } from "react";
 import { CustomLink } from "../components/CustomLink";
+import { useAuth } from "../hooks/useAuth";
+
 import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 import "@mantine/carousel/styles.css";
 import "@mantine/dates/styles.css";
 import "../global.css";
-import { useAuth } from "../hooks/useAuth";
+import { Notifications } from "@mantine/notifications";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   {
@@ -113,6 +116,8 @@ function RootComponent() {
           )}
         </Flex>
       </Flex>
+
+      <Notifications position="bottom-right" />
 
       <Outlet />
       <ReactQueryDevtools buttonPosition="bottom-left" />
