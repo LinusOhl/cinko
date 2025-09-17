@@ -5,23 +5,18 @@ export const getMovieRating = async (
   movieId: number,
   userId: string,
 ): Promise<MovieRating> => {
-  try {
-    const { data, error } = await supabase
-      .from("ratings")
-      .select("*")
-      .eq("movie_id", movieId)
-      .eq("user_id", userId)
-      .maybeSingle();
+  const { data, error } = await supabase
+    .from("ratings")
+    .select("*")
+    .eq("movie_id", movieId)
+    .eq("user_id", userId)
+    .maybeSingle();
 
-    if (error) {
-      console.error(error);
-      throw error;
-    }
-
-    return data as MovieRating;
-  } catch (error: unknown) {
-    throw new Error(`Failed to fetch rating: ${error}`);
+  if (error) {
+    throw new Error(`Failed to fetch rating: ${error.message}`);
   }
+
+  return data as MovieRating;
 };
 
 export const rateMovie = async (
