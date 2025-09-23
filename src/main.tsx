@@ -1,4 +1,4 @@
-import { Loader, MantineProvider } from "@mantine/core";
+import { Center, Loader, MantineProvider } from "@mantine/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   createRouter,
@@ -25,9 +25,9 @@ const router = createRouter({
     queryClient,
   },
   defaultPendingComponent: () => (
-    <div>
+    <Center>
       <Loader color="cinkoBlue" />
-    </div>
+    </Center>
   ),
   defaultErrorComponent: ({ error }) => <ErrorComponent error={error} />,
   defaultPreload: "intent",
