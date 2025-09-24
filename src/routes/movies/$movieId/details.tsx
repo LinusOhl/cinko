@@ -3,18 +3,26 @@ import {
   // AspectRatio,
   Avatar,
   Box,
+  // Button,
+  // Divider,
   Flex,
   Grid,
+  // Stack,
   Text,
+  // Textarea,
   Title,
 } from "@mantine/core";
 import { IconChevronRight } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+// import { useState } from "react";
 import { CustomLink } from "../../../components/CustomLink";
 import { MovieCard } from "../../../components/MovieCard";
 import { MovieCollectionCarousel } from "../../../components/MovieCollectionCarousel";
+import { MovieReviews } from "../../../components/MovieReviews/MovieReviews";
 import { IMAGES_BASE_URL } from "../../../helpers";
+import { useAuth } from "../../../hooks/useAuth";
+// import { useReviewMovie } from "../../../hooks/useReviewMovie";
 import { movieQueryOptions } from "../../../queryOptions/movies.queryOptions";
 
 export const Route = createFileRoute("/movies/$movieId/details")({
@@ -26,8 +34,26 @@ export const Route = createFileRoute("/movies/$movieId/details")({
 });
 
 function RouteComponent() {
+  const { user } = useAuth();
+
   const params = Route.useParams();
   const { data: movie } = useSuspenseQuery(movieQueryOptions(params.movieId));
+
+  // const reviewMovieMutation = useReviewMovie();
+
+  // const [reviewValue, setReviewValue] = useState<string>("");
+
+  // const handleReviewSubmit = (text: string) => {
+  //   if (!user) return;
+
+  //   reviewMovieMutation.mutate({
+  //     text: text,
+  //     movieId: movie.id,
+  //     userId: user.id,
+  //   });
+
+  //   setReviewValue("");
+  // };
 
   // const movieTrailer = movie.videos?.results.find(
   //   (v) => v.type === "Trailer" && v.iso_639_1 === "en",
@@ -98,6 +124,42 @@ function RouteComponent() {
           </Grid>
         </Flex>
       </Box>
+
+      {/* Reviews */}
+      {/* <Box mt={"xl"}>
+        <Title order={2} mb={"sm"} c={"cinkoGrey.2"}>
+          Reviews
+        </Title>
+
+        <Stack gap={"sm"}>
+          <Textarea
+            value={reviewValue}
+            onChange={(event) => setReviewValue(event.currentTarget.value)}
+            label={"Write a review for the movie!"}
+            placeholder="Review goes here..."
+            resize="vertical"
+            size="md"
+            minRows={4}
+            autosize
+          />
+
+          <Button
+            color="cinkoBlue.7"
+            style={{ alignSelf: "flex-end" }}
+            onClick={() => {
+              console.log("reviewValue:", reviewValue);
+              handleReviewSubmit(reviewValue);
+            }}
+            disabled={reviewValue.trim().length <= 0}
+          >
+            Submit
+          </Button>
+        </Stack>
+
+        <Divider my={"md"} />
+      </Box> */}
+
+      <MovieReviews userId={user?.id} />
 
       {/* Extra */}
       <Box mt={"xl"}>

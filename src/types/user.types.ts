@@ -4,3 +4,11 @@ export type MovieRating = {
   movie_id: number;
   user_id: string;
 };
+
+export type MovieReview = {
+  id: string;
+  text: string;
+  movie_id: number;
+  user_id: string;
+  created_at: string;
+};
