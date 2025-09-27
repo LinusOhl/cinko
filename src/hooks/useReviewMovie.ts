@@ -9,11 +9,11 @@ export const useReviewMovie = () => {
     mutationFn: async (review: {
       text: string;
       movieId: number;
-      userId: string;
+      userId?: string;
     }) => reviewMovie(review.text, review.movieId, review.userId),
     onSuccess: async (_data, variables) => {
       await queryClient.invalidateQueries({
-        queryKey: ["movie-review", variables.movieId, variables.userId],
+        queryKey: ["movie-reviews", variables.movieId],
       });
     },
     onError: (error) => {
