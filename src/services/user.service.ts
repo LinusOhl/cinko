@@ -1,5 +1,5 @@
 import { supabase } from "../config/supabaseClient";
-import type { MovieRating, MovieReview } from "../types/user.types";
+import type { MovieRating, MovieReviewWithRating } from "../types/user.types";
 
 // Format database data from snake_case to camelCase
 // Create the different types
@@ -92,9 +92,9 @@ export const reviewMovie = async (
 
 export const getAllReviews = async (
   movieId: number,
-): Promise<MovieReview[]> => {
+): Promise<MovieReviewWithRating[]> => {
   const { data, error } = await supabase
-    .from("reviews")
+    .from("user_movie_feedback")
     .select("*")
     .eq("movie_id", movieId);
 
@@ -102,5 +102,5 @@ export const getAllReviews = async (
     throw new Error(`Failed to fetch all reviews: ${error.message}`);
   }
 
-  return data as MovieReview[];
+  return data as MovieReviewWithRating[];
 };

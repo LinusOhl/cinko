@@ -12,3 +12,7 @@ export type MovieReview = {
   user_id: string;
   created_at: string;
 };
+
+export type MovieReviewWithRating = MovieReview & {
+  rating: number;
+};

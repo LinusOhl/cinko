@@ -70,7 +70,9 @@ export const MovieReviews = ({ userId }: MovieReviewsProps) => {
 
       {reviews?.map((review) => (
         <Paper key={review.id} p={"sm"}>
-          <Text>{review.text}</Text>
+          <Text>
+            {review.text} | {review.rating}
+          </Text>
 
           <Text c={"cinkoGrey.3"} size="sm">
             Written by {review.user_id.slice(0, 4)}
