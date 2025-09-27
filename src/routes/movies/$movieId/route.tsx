@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Center,
-  Flex,
   Grid,
   Group,
   Image,
@@ -142,32 +141,36 @@ function RouteComponent() {
         {/* Right section */}
         <Grid.Col span={9}>
           {/* Title and director */}
-          <Flex align={"baseline"} justify={"space-between"}>
-            <Title order={1} style={{ textWrap: "balance" }}>
-              {movie.title}
-            </Title>
+          <Grid align={"baseline"} justify={"space-between"}>
+            <Grid.Col span={8}>
+              <Title order={1} style={{ textWrap: "balance" }}>
+                {movie.title}
+              </Title>
+            </Grid.Col>
 
-            <Group align="baseline" gap={"xs"}>
-              <Text c={"cinkoGrey.3"}>directed by</Text>
+            <Grid.Col span={4}>
+              <Group align="baseline" gap={"xs"}>
+                <Text c={"cinkoGrey.3"}>directed by</Text>
 
-              <Stack gap={"xs"}>
-                {directors?.map((director) => (
-                  <CustomLink
-                    key={director.id}
-                    underline="hover"
-                    c={"white"}
-                    fw={500}
-                    to="/people/$personId"
-                    params={{ personId: Number(director.id) }}
-                    from="/"
-                    preload={false}
-                  >
-                    {director.name}
-                  </CustomLink>
-                ))}
-              </Stack>
-            </Group>
-          </Flex>
+                <Stack gap={"xs"}>
+                  {directors?.map((director) => (
+                    <CustomLink
+                      key={director.id}
+                      underline="hover"
+                      c={"white"}
+                      fw={500}
+                      to="/people/$personId"
+                      params={{ personId: Number(director.id) }}
+                      from="/"
+                      preload={false}
+                    >
+                      {director.name}
+                    </CustomLink>
+                  ))}
+                </Stack>
+              </Group>
+            </Grid.Col>
+          </Grid>
 
           {/* Quick facts */}
           <Group gap={"xs"} mt={"xs"}>
