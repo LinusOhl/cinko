@@ -47,8 +47,38 @@ export const rateMovie = async (
 export const reviewMovie = async (
   text: string,
   movieId: number,
-  userId: string,
+  userId?: string,
 ): Promise<void> => {
+  if (!userId) {
+    throw new Error("You must be logged in to review a movie!");
+  }
+
+  const { data: review } = await supabase
+    .from("reviews")
+    .select("*")
+    .eq("movie_id", movieId)
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  if (review) {
+    throw new Error("You have already reviewed this movie.");
+  }
+
+  const { data: rating } = await supabase
+    .from("ratings")
+    .select("*")
+    .eq("movie_id", movieId)
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  if (!rating) {
+    throw new Error("You must have rated the movie to leave a review!");
+  }
+
+  if (text.trim().length <= 3) {
+    throw new Error("The review must contain at least four characters.");
+  }
+
   const { error } = await supabase.from("reviews").insert({
     movie_id: movieId,
     user_id: userId,

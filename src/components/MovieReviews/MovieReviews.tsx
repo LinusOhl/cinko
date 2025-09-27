@@ -25,23 +25,7 @@ export const MovieReviews = ({ userId }: MovieReviewsProps) => {
 
   const [reviewValue, setReviewValue] = useState("");
 
-  const hasReviewed = !!reviews?.find((review) => review.user_id === userId);
-
   const handleReviewSubmit = () => {
-    if (!userId) {
-      return console.error("Must be logged in to review the movie!");
-    }
-
-    if (hasReviewed) {
-      return console.error("User has already reviewed the movie:", hasReviewed);
-    }
-
-    if (!reviewValue.trim()) {
-      return console.error("Review must contain valid text.");
-    }
-
-    console.log("review:", reviewValue);
-
     movieReviewMutation.mutate({
       text: reviewValue,
       movieId,
@@ -62,7 +46,9 @@ export const MovieReviews = ({ userId }: MovieReviewsProps) => {
           value={reviewValue}
           onChange={(event) => setReviewValue(event.currentTarget.value)}
           label={"Write a review for the movie!"}
-          placeholder="Review goes here..."
+          placeholder={
+            userId ? "Review goes here..." : "Sign in to review the movie..."
+          }
           resize="vertical"
           size="md"
           minRows={4}
@@ -73,7 +59,7 @@ export const MovieReviews = ({ userId }: MovieReviewsProps) => {
         <Button
           color="cinkoBlue.7"
           style={{ alignSelf: "flex-end" }}
-          onClick={() => handleReviewSubmit()}
+          onClick={handleReviewSubmit}
           disabled={!userId || reviewValue.trim().length <= 0}
         >
           Submit
