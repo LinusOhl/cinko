@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Divider,
+  Flex,
   Paper,
   Stack,
   Text,
@@ -12,6 +13,7 @@ import { useParams } from "@tanstack/react-router";
 import { useState } from "react";
 import { useMovieReviews } from "../../hooks/useMovieReviews";
 import { useReviewMovie } from "../../hooks/useReviewMovie";
+import { getFullIcon } from "../MovieRating/helpers";
 
 interface MovieReviewsProps {
   userId?: string;
@@ -70,13 +72,38 @@ export const MovieReviews = ({ userId }: MovieReviewsProps) => {
 
       {reviews?.map((review) => (
         <Paper key={review.id} p={"sm"}>
-          <Text>
-            {review.text} | {review.rating}
-          </Text>
+          <Stack>
+            <Flex justify={"space-between"}>
+              {getFullIcon(review.rating)}
 
-          <Text c={"cinkoGrey.3"} size="sm">
-            Written by {review.user_id.slice(0, 4)}
-          </Text>
+              {review.user_id === userId && (
+                <Flex gap={"sm"}>
+                  <Button
+                    size="compact-sm"
+                    color="cinkoBlue"
+                    variant="subtle"
+                    onClick={() => console.log("updating review", review.id)}
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    size="compact-sm"
+                    color="cinkoRed"
+                    variant="subtle"
+                    onClick={() => console.log("deleting review", review.id)}
+                  >
+                    Delete
+                  </Button>
+                </Flex>
+              )}
+            </Flex>
+
+            <Text>{review.text}</Text>
+
+            <Text c={"cinkoGrey.3"} size="sm">
+              Written by {review.user_id.slice(0, 4)}
+            </Text>
+          </Stack>
         </Paper>
       ))}
     </Box>
