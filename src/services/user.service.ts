@@ -1,5 +1,9 @@
 import { supabase } from "../config/supabaseClient";
-import type { MovieRating, MovieReviewWithRating } from "../types/user.types";
+import type {
+  MovieRating,
+  // MovieReview,
+  MovieReviewWithRating,
+} from "../types/user.types";
 
 // Format database data from snake_case to camelCase
 // Create the different types
@@ -103,4 +107,24 @@ export const getAllReviews = async (
   }
 
   return data as MovieReviewWithRating[];
+};
+
+export const updateReview = async (
+  value: string,
+  reviewId: string,
+  userId: string,
+): Promise<void> => {
+  const { error } = await supabase
+    .from("reviews")
+    .update({
+      text: value,
+      // movie_id: movieId,
+      // user_id: userId,
+    })
+    .eq("id", reviewId)
+    .eq("user_id", userId);
+
+  if (error) {
+    throw new Error(`Failed to update review: ${error.message}`);
+  }
 };
