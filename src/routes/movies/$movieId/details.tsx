@@ -14,7 +14,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CustomLink } from "../../../components/CustomLink";
 import { MovieCard } from "../../../components/MovieCard";
 import { MovieCollectionCarousel } from "../../../components/MovieCollectionCarousel";
-import { MovieReviews } from "../../../components/MovieReviews/MovieReviews";
+import { MovieReviews } from "../../../components/MovieReviews";
 import { IMAGES_BASE_URL } from "../../../helpers";
 import { useAuth } from "../../../hooks/useAuth";
 import { movieQueryOptions } from "../../../queryOptions/movies.queryOptions";
