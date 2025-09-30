@@ -12,6 +12,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { useParams } from "@tanstack/react-router";
 import { useState } from "react";
+import { useDeleteMovieReview } from "../hooks/useDeleteMovieReview";
 import { useMovieReviews } from "../hooks/useMovieReviews";
 import { useReviewMovie } from "../hooks/useReviewMovie";
 import { getFullIcon } from "./MovieRating/helpers";
@@ -26,11 +27,22 @@ export const MovieReviews = ({ userId }: MovieReviewsProps) => {
 
   const { data: reviews } = useMovieReviews(movieId);
   const movieReviewMutation = useReviewMovie();
+  const deleteMovieReviewMutation = useDeleteMovieReview();
 
   const [opened, { open, close }] = useDisclosure();
   const [reviewValue, setReviewValue] = useState("");
 
   const userReview = reviews?.find((review) => review.user_id === userId);
+
+  const handleDeleteReview = () => {
+    if (!userReview || !userId) return;
+
+    deleteMovieReviewMutation.mutate({
+      reviewId: userReview.id,
+      movieId,
+      userId,
+    });
+  };
 
   const handleReviewSubmit = () => {
     movieReviewMutation.mutate({
@@ -106,7 +118,7 @@ export const MovieReviews = ({ userId }: MovieReviewsProps) => {
                       size="compact-sm"
                       color="cinkoRed"
                       variant="subtle"
-                      onClick={() => console.log("deleting review", review.id)}
+                      onClick={() => handleDeleteReview()}
                     >
                       Delete
                     </Button>

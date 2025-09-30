@@ -134,3 +134,28 @@ export const updateReview = async (
     throw new Error(`Failed to update review: ${error.message}`);
   }
 };
+
+export const deleteReview = async (
+  reviewId: string,
+  movieId: number,
+  userId: string,
+): Promise<void> => {
+  if (!userId) {
+    throw new Error("Must be signed in to perfrom this action");
+  }
+
+  if (!reviewId) {
+    throw new Error("That review does not exist");
+  }
+
+  const { error } = await supabase
+    .from("reviews")
+    .delete()
+    .eq("id", reviewId)
+    .eq("movie_id", movieId)
+    .eq("user_id", userId);
+
+  if (error) {
+    throw new Error(`Failed to delete review: ${error.message}`);
+  }
+};
