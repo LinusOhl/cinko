@@ -114,6 +114,14 @@ export const updateReview = async (
   reviewId: string,
   userId: string,
 ): Promise<void> => {
+  if (!userId) {
+    throw new Error("Must be signed in to perfrom this action");
+  }
+
+  if (!reviewId) {
+    throw new Error("That review does not exist");
+  }
+
   const { error } = await supabase
     .from("reviews")
     .update({
