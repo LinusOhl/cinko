@@ -118,8 +118,6 @@ export const updateReview = async (
     .from("reviews")
     .update({
       text: value,
-      // movie_id: movieId,
-      // user_id: userId,
     })
     .eq("id", reviewId)
     .eq("user_id", userId);

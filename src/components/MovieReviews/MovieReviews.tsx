@@ -3,7 +3,6 @@ import {
   Button,
   Divider,
   Flex,
-  Modal,
   Paper,
   Stack,
   Text,
@@ -15,8 +14,8 @@ import { useParams } from "@tanstack/react-router";
 import { useState } from "react";
 import { useMovieReviews } from "../../hooks/useMovieReviews";
 import { useReviewMovie } from "../../hooks/useReviewMovie";
-import { useUpdateMovieReview } from "../../hooks/useUpdateMovieReview";
 import { getFullIcon } from "../MovieRating/helpers";
+import { UpdateReviewModal } from "../UpdateReviewModal";
 
 interface MovieReviewsProps {
   userId?: string;
@@ -27,11 +26,11 @@ export const MovieReviews = ({ userId }: MovieReviewsProps) => {
 
   const { data: reviews } = useMovieReviews(movieId);
   const movieReviewMutation = useReviewMovie();
-  const updateMovieReviewMutation = useUpdateMovieReview();
 
   const [opened, { open, close }] = useDisclosure();
   const [reviewValue, setReviewValue] = useState("");
-  const [updatedReviewValue, setUpdatedReviewValue] = useState("");
+
+  const userReview = reviews?.find((review) => review.user_id === userId);
 
   const handleReviewSubmit = () => {
     movieReviewMutation.mutate({
@@ -43,61 +42,17 @@ export const MovieReviews = ({ userId }: MovieReviewsProps) => {
     setReviewValue("");
   };
 
-  const handleUpdateReview = () => {
-    const userReview = reviews?.find((review) => review.user_id === userId);
-    if (!userId || !userReview) return;
-
-    updateMovieReviewMutation.mutate({
-      text: updatedReviewValue,
-      reviewId: userReview.id,
-      movieId: movieId,
-      userId: userId,
-    });
-
-    close();
-  };
-
-  const modalOpen = () => {
-    const userReview = reviews?.find((review) => review.user_id === userId);
-    if (!userReview) return;
-
-    setUpdatedReviewValue(userReview.text);
-
-    open();
-  };
-
-  const modalClose = () => {
-    setUpdatedReviewValue("");
-    close();
-  };
-
   return (
     <>
-      <Modal opened={opened} onClose={modalClose} title={"Edit review"}>
-        <Stack gap={"sm"}>
-          <Textarea
-            value={updatedReviewValue}
-            onChange={(event) =>
-              setUpdatedReviewValue(event.currentTarget.value)
-            }
-            label={"Update your review"}
-            resize="vertical"
-            size="md"
-            minRows={4}
-            disabled={!userId}
-            autosize
-          />
-
-          <Button
-            color="cinkoBlue.7"
-            style={{ alignSelf: "flex-end" }}
-            onClick={handleUpdateReview}
-            disabled={!userId || updatedReviewValue.trim().length <= 0}
-          >
-            Save
-          </Button>
-        </Stack>
-      </Modal>
+      {userReview && userId && (
+        <UpdateReviewModal
+          opened={opened}
+          close={close}
+          initialValue={userReview.text}
+          reviewId={userReview.id}
+          userId={userId}
+        />
+      )}
 
       <Box mt={"xl"}>
         <Title order={2} mb={"sm"} c={"cinkoGrey.2"}>
@@ -143,10 +98,7 @@ export const MovieReviews = ({ userId }: MovieReviewsProps) => {
                       size="compact-sm"
                       color="cinkoBlue"
                       variant="subtle"
-                      onClick={() => {
-                        console.log("updating review", review.id);
-                        modalOpen();
-                      }}
+                      onClick={() => open()}
                     >
                       Update
                     </Button>
