@@ -9,14 +9,13 @@ import {
   Textarea,
   Title,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import { useParams } from "@tanstack/react-router";
 import { useState } from "react";
 import { getFullIcon } from "../../../components/MovieRating/helpers";
-import { useDeleteMovieReview } from "../hooks/useDeleteMovieReview";
 import { useMovieReviews } from "../hooks/useMovieReviews";
 import { useReviewMovie } from "../hooks/useReviewMovie";
-import { UpdateReviewModal } from "./UpdateReviewModal";
+import { DeleteReviewButton } from "./DeleteReviewButton";
+import { UpdateReviewButton } from "./UpdateReviewButton";
 
 interface MovieReviewsProps {
   userId?: string;
@@ -27,22 +26,10 @@ export const MovieReviews = ({ userId }: MovieReviewsProps) => {
 
   const { data: reviews } = useMovieReviews(movieId);
   const movieReviewMutation = useReviewMovie();
-  const deleteMovieReviewMutation = useDeleteMovieReview();
 
-  const [opened, { open, close }] = useDisclosure();
   const [reviewValue, setReviewValue] = useState("");
 
   const userReview = reviews?.find((review) => review.user_id === userId);
-
-  const handleDeleteReview = () => {
-    if (!userReview || !userId) return;
-
-    deleteMovieReviewMutation.mutate({
-      reviewId: userReview.id,
-      movieId,
-      userId,
-    });
-  };
 
   const handleReviewSubmit = () => {
     movieReviewMutation.mutate({
@@ -55,86 +42,68 @@ export const MovieReviews = ({ userId }: MovieReviewsProps) => {
   };
 
   return (
-    <>
-      {userReview && userId && (
-        <UpdateReviewModal
-          opened={opened}
-          close={close}
-          initialValue={userReview.text}
-          reviewId={userReview.id}
-          userId={userId}
+    <Box mt={"xl"}>
+      <Title order={2} mb={"sm"} c={"cinkoGrey.2"}>
+        Reviews
+      </Title>
+
+      <Stack gap={"sm"}>
+        <Textarea
+          value={reviewValue}
+          onChange={(event) => setReviewValue(event.currentTarget.value)}
+          label={"Write a review for the movie!"}
+          placeholder={
+            userId ? "Review goes here..." : "Sign in to review the movie..."
+          }
+          resize="vertical"
+          size="md"
+          minRows={4}
+          disabled={!userId}
+          autosize
         />
-      )}
 
-      <Box mt={"xl"}>
-        <Title order={2} mb={"sm"} c={"cinkoGrey.2"}>
-          Reviews
-        </Title>
+        <Button
+          color="cinkoBlue.7"
+          style={{ alignSelf: "flex-end" }}
+          onClick={handleReviewSubmit}
+          disabled={!userId || reviewValue.trim().length <= 0}
+        >
+          Submit
+        </Button>
+      </Stack>
 
-        <Stack gap={"sm"}>
-          <Textarea
-            value={reviewValue}
-            onChange={(event) => setReviewValue(event.currentTarget.value)}
-            label={"Write a review for the movie!"}
-            placeholder={
-              userId ? "Review goes here..." : "Sign in to review the movie..."
-            }
-            resize="vertical"
-            size="md"
-            minRows={4}
-            disabled={!userId}
-            autosize
-          />
+      <Divider my={"md"} />
 
-          <Button
-            color="cinkoBlue.7"
-            style={{ alignSelf: "flex-end" }}
-            onClick={handleReviewSubmit}
-            disabled={!userId || reviewValue.trim().length <= 0}
-          >
-            Submit
-          </Button>
-        </Stack>
+      {reviews?.map((review) => (
+        <Paper key={review.id} p={"sm"}>
+          <Stack>
+            <Flex justify={"space-between"}>
+              {getFullIcon(review.rating)}
 
-        <Divider my={"md"} />
+              {review.user_id === userId && userReview && (
+                <Flex gap={"sm"}>
+                  <UpdateReviewButton
+                    initialValue={userReview.text}
+                    reviewId={userReview.id}
+                    userId={userId}
+                  />
 
-        {reviews?.map((review) => (
-          <Paper key={review.id} p={"sm"}>
-            <Stack>
-              <Flex justify={"space-between"}>
-                {getFullIcon(review.rating)}
+                  <DeleteReviewButton
+                    reviewId={userReview.id}
+                    userId={userId}
+                  />
+                </Flex>
+              )}
+            </Flex>
 
-                {review.user_id === userId && (
-                  <Flex gap={"sm"}>
-                    <Button
-                      size="compact-sm"
-                      color="cinkoBlue"
-                      variant="subtle"
-                      onClick={() => open()}
-                    >
-                      Update
-                    </Button>
-                    <Button
-                      size="compact-sm"
-                      color="cinkoRed"
-                      variant="subtle"
-                      onClick={() => handleDeleteReview()}
-                    >
-                      Delete
-                    </Button>
-                  </Flex>
-                )}
-              </Flex>
+            <Text>{review.text}</Text>
 
-              <Text>{review.text}</Text>
-
-              <Text c={"cinkoGrey.3"} size="sm">
-                Written by {review.user_id.slice(0, 4)}
-              </Text>
-            </Stack>
-          </Paper>
-        ))}
-      </Box>
-    </>
+            <Text c={"cinkoGrey.3"} size="sm">
+              Written by {review.user_id.slice(0, 4)}
+            </Text>
+          </Stack>
+        </Paper>
+      ))}
+    </Box>
   );
 };
