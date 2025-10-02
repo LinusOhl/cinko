@@ -16,7 +16,6 @@ import { MovieCard } from "../../../components/MovieCard";
 import { MovieCollectionCarousel } from "../../../components/MovieCollectionCarousel";
 import { MovieReviews } from "../../../features/reviews/components/MovieReviews";
 import { IMAGES_BASE_URL } from "../../../helpers";
-import { useAuth } from "../../../hooks/useAuth";
 import { movieQueryOptions } from "../../../queryOptions/movies.queryOptions";
 
 export const Route = createFileRoute("/movies/$movieId/details")({
@@ -28,8 +27,6 @@ export const Route = createFileRoute("/movies/$movieId/details")({
 });
 
 function RouteComponent() {
-  const { user } = useAuth();
-
   const params = Route.useParams();
   const { data: movie } = useSuspenseQuery(movieQueryOptions(params.movieId));
 
@@ -105,7 +102,7 @@ function RouteComponent() {
 
       {/* Reviews */}
 
-      <MovieReviews userId={user?.id} />
+      <MovieReviews />
 
       {/* Extra */}
       <Box mt={"xl"}>

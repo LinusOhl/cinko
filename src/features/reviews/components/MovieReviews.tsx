@@ -1,14 +1,13 @@
 import { Box, Divider, Title } from "@mantine/core";
 import { useParams } from "@tanstack/react-router";
+import { useAuth } from "../../../hooks/useAuth";
 import { useMovieReviews } from "../hooks/useMovieReviews";
 import { CreateReviewForm } from "./CreateReviewForm";
 import { MovieReview } from "./MovieReview";
 
-interface MovieReviewsProps {
-  userId?: string;
-}
+export const MovieReviews = () => {
+  const { user } = useAuth();
 
-export const MovieReviews = ({ userId }: MovieReviewsProps) => {
   const { movieId } = useParams({ from: "/movies/$movieId/details" });
 
   const { data: reviews } = useMovieReviews(movieId);
@@ -19,16 +18,16 @@ export const MovieReviews = ({ userId }: MovieReviewsProps) => {
         Reviews
       </Title>
 
-      {userId && (
+      {user && (
         <>
-          <CreateReviewForm userId={userId} />
+          <CreateReviewForm userId={user.id} />
 
           <Divider my={"md"} />
         </>
       )}
 
       {reviews?.map((review) => (
-        <MovieReview key={review.id} review={review} />
+        <MovieReview key={review.id} review={review} userId={user?.id} />
       ))}
     </Box>
   );

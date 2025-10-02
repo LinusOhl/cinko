@@ -1,32 +1,30 @@
 import { Flex, Paper, Stack, Text } from "@mantine/core";
 import { getFullIcon } from "../../../components/MovieRating/helpers";
-import { useAuth } from "../../../hooks/useAuth";
 import type { MovieReviewWithRating } from "../types";
 import { DeleteReviewButton } from "./DeleteReviewButton";
 import { UpdateReviewButton } from "./UpdateReviewButton";
 
 interface MovieReviewProps {
   review: MovieReviewWithRating;
+  userId?: string;
 }
 
-export const MovieReview = ({ review }: MovieReviewProps) => {
-  const { user } = useAuth();
-
+export const MovieReview = ({ review, userId }: MovieReviewProps) => {
   return (
     <Paper key={review.id} p={"sm"}>
       <Stack>
         <Flex justify={"space-between"}>
           {getFullIcon(review.rating)}
 
-          {user && review.user_id === user.id && (
+          {userId && review.user_id === userId && (
             <Flex gap={"sm"}>
               <UpdateReviewButton
                 initialValue={review.text}
                 reviewId={review.id}
-                userId={user.id}
+                userId={userId}
               />
 
-              <DeleteReviewButton reviewId={review.id} userId={user.id} />
+              <DeleteReviewButton reviewId={review.id} userId={userId} />
             </Flex>
           )}
         </Flex>
