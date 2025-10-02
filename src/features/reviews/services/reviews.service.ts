@@ -4,7 +4,7 @@ import type { MovieReviewWithRating } from "../types";
 export const reviewMovie = async (
   text: string,
   movieId: number,
-  userId?: string,
+  userId: string,
 ): Promise<void> => {
   if (!userId) {
     throw new Error("You must be logged in to review a movie!");
