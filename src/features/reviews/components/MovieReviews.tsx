@@ -12,10 +12,10 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { useParams } from "@tanstack/react-router";
 import { useState } from "react";
+import { getFullIcon } from "../../../components/MovieRating/helpers";
 import { useDeleteMovieReview } from "../hooks/useDeleteMovieReview";
 import { useMovieReviews } from "../hooks/useMovieReviews";
 import { useReviewMovie } from "../hooks/useReviewMovie";
-import { getFullIcon } from "./MovieRating/helpers";
 import { UpdateReviewModal } from "./UpdateReviewModal";
 
 interface MovieReviewsProps {
