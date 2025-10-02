@@ -101,7 +101,6 @@ function RouteComponent() {
       </Box>
 
       {/* Reviews */}
-
       <MovieReviews />
 
       {/* Extra */}
