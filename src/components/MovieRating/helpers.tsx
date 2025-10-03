@@ -49,3 +49,20 @@ export const getFullIcon = (value: number) => {
       return null;
   }
 };
+
+export const getRatingName = (value: number) => {
+  switch (value) {
+    case 1:
+      return "Terrible";
+    case 2:
+      return "Bad";
+    case 3:
+      return "Okay";
+    case 4:
+      return "Good";
+    case 5:
+      return "Perfect";
+    default:
+      return null;
+  }
+};
