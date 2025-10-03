@@ -19,7 +19,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { z } from "zod";
 import { CustomLink } from "../../../components/CustomLink";
-import { MovieRating } from "../../../components/MovieRating/MovieRating";
+import { MovieRating } from "../../../features/ratings/components/MovieRating";
 import { IMAGES_BASE_URL } from "../../../helpers";
 import { useAuth } from "../../../hooks/useAuth";
 import { movieQueryOptions } from "../../../queryOptions/movies.queryOptions";
@@ -107,11 +107,8 @@ function RouteComponent() {
           </Skeleton>
 
           {/* User actions */}
-          {/* TODO: Rating system */}
           <Paper radius={"md"} p={"xs"} mt={"sm"}>
-            <Center>
-              {user && <MovieRating userId={user.id} movieId={movie.id} />}
-            </Center>
+            <Center>{user && <MovieRating userId={user.id} />}</Center>
 
             {/* TODO: Add to watchlist */}
             <Button
