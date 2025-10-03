@@ -1,5 +1,8 @@
 import { Flex, Paper, Stack, Text } from "@mantine/core";
-import { getFullIcon } from "../../../components/MovieRating/helpers";
+import {
+  getFullIcon,
+  getRatingName,
+} from "../../../components/MovieRating/helpers";
 import type { MovieReviewWithRating } from "../types";
 import { DeleteReviewButton } from "./DeleteReviewButton";
 import { UpdateReviewButton } from "./UpdateReviewButton";
@@ -14,7 +17,13 @@ export const MovieReview = ({ review, userId }: MovieReviewProps) => {
     <Paper key={review.id} p={"sm"}>
       <Stack>
         <Flex justify={"space-between"}>
-          {getFullIcon(review.rating)}
+          <Flex gap={"xs"} align={"center"}>
+            {getFullIcon(review.rating)}
+
+            <Text fs={"italic"} fw={500}>
+              {getRatingName(review.rating)}
+            </Text>
+          </Flex>
 
           {userId && review.user_id === userId && (
             <Flex gap={"sm"}>
@@ -31,9 +40,15 @@ export const MovieReview = ({ review, userId }: MovieReviewProps) => {
 
         <Text>{review.text}</Text>
 
-        <Text c={"cinkoGrey.3"} size="sm">
-          Written by {review.user_id.slice(0, 4)}
-        </Text>
+        <Flex justify={"space-between"}>
+          <Text c={"cinkoGrey.3"} size="sm">
+            Written by {review.user_id.slice(0, 4)}
+          </Text>
+
+          <Text c={"cinkoGrey.3"} size="sm">
+            {new Date(review.created_at).toLocaleDateString()}
+          </Text>
+        </Flex>
       </Stack>
     </Paper>
   );
