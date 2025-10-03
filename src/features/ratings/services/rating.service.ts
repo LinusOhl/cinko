@@ -1,5 +1,5 @@
-import { supabase } from "../config/supabaseClient";
-import type { MovieRating } from "../types/user.types";
+import { supabase } from "../../../config/supabaseClient";
+import type { MovieRating } from "../types";
 
 // Format database data from snake_case to camelCase
 // Create the different types

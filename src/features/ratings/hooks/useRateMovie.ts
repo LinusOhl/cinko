@@ -1,6 +1,6 @@
 import { notifications } from "@mantine/notifications";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { rateMovie } from "../services/user.service";
+import { rateMovie } from "../services/rating.service";
 
 export const useRateMovie = () => {
   const queryClient = useQueryClient();

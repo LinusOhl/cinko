@@ -61,7 +61,7 @@ export const getRatingName = (value: number) => {
     case 4:
       return "Good";
     case 5:
-      return "Perfect";
+      return "Great";
     default:
       return null;
   }

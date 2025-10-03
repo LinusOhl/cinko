@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getMovieRating } from "../services/user.service";
+import { getMovieRating } from "../services/rating.service";
 
 export const useMovieRating = (movieId: number, userId: string) => {
   return useQuery({
