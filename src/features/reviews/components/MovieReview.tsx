@@ -1,8 +1,5 @@
 import { Flex, Paper, Stack, Text } from "@mantine/core";
-import {
-  getFullIcon,
-  getRatingName,
-} from "../../../components/MovieRating/helpers";
+import { getFullIcon, getRatingName } from "../../ratings/utils/ratingHelpers";
 import type { MovieReviewWithRating } from "../types";
 import { DeleteReviewButton } from "./DeleteReviewButton";
 import { UpdateReviewButton } from "./UpdateReviewButton";
