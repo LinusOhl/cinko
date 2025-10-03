@@ -12,7 +12,7 @@ import { IconChevronLeft } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { CustomLink } from "../../../components/CustomLink";
-import { IMAGES_BASE_URL, groupCrewByJob } from "../../../helpers";
+import { groupCrewByJob, IMAGES_BASE_URL } from "../../../helpers";
 import { movieQueryOptions } from "../../../queryOptions/movies.queryOptions";
 
 export const Route = createFileRoute("/movies/$movieId/credits")({
