@@ -14,7 +14,7 @@ interface MovieReviewProps {
 
 export const MovieReview = ({ review, userId }: MovieReviewProps) => {
   return (
-    <Paper key={review.id} p={"sm"}>
+    <Paper p={"sm"}>
       <Stack>
         <Flex justify={"space-between"}>
           <Flex gap={"xs"} align={"center"}>
