@@ -1,5 +1,6 @@
 import { Button, Container, Flex, Text, TextInput, Title } from "@mantine/core";
 import { useField } from "@mantine/form";
+import { Notifications } from "@mantine/notifications";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
@@ -11,14 +12,15 @@ import {
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import type { FormEvent } from "react";
 import { CustomLink } from "../components/CustomLink";
-import { useAuth } from "../hooks/useAuth";
+import { SignOutButton } from "../features/auth/components/SignOutButton";
+import { SignUpButton } from "../features/auth/components/SignUpButton";
+import { useAuth } from "../features/auth/hooks/useAuth";
 
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import "@mantine/carousel/styles.css";
 import "@mantine/dates/styles.css";
 import "../global.css";
-import { Notifications } from "@mantine/notifications";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   {
@@ -28,7 +30,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 );
 
 function RootComponent() {
-  const { user, signOut, signIn, signUp } = useAuth();
+  const { user, handleSignIn } = useAuth();
 
   const navigate = useNavigate();
   const field = useField({
@@ -85,30 +87,20 @@ function RootComponent() {
         <Flex gap={"xs"}>
           {user ? (
             <>
-              <Button
-                color="cinkoRed"
-                variant="subtle"
-                onClick={() => signOut()}
-              >
-                Sign out
-              </Button>
+              <SignOutButton />
+
               <Button color="cinkoBlue" variant="light">
                 Profile
               </Button>
             </>
           ) : (
             <>
-              <Button
-                color="cinkoYellow"
-                variant="subtle"
-                onClick={() => signUp("glawrr@proton.me", "password", "glawrr")}
-              >
-                Sign up
-              </Button>
+              <SignUpButton />
+
               <Button
                 color="cinkoBlue"
                 variant="light"
-                onClick={() => signIn("glawrr@proton.me", "password")}
+                onClick={() => handleSignIn("glawrr@proton.me", "password")}
               >
                 Sign in
               </Button>

@@ -1,10 +1,15 @@
 import type { Session } from "@supabase/supabase-js";
 import { createContext, type ReactNode, useEffect, useState } from "react";
 import { supabase } from "../config/supabaseClient";
+import {
+  signInWithEmail,
+  signOut,
+  signUpWithEmail,
+} from "../features/auth/services/auth.service";
 import type {
   AuthContext as AuthContextType,
   Profile,
-} from "../types/auth.types";
+} from "../features/auth/types";
 
 export const AuthContext = createContext<AuthContextType | undefined>(
   undefined,
@@ -54,42 +59,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
   }, []);
 
-  const signUp = async (email: string, password: string, username: string) => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          username: username,
-        },
-      },
-    });
-
-    if (error) {
-      console.error("Error signing up:", error);
-      return;
-    }
+  const handleSignUp = async (
+    email: string,
+    password: string,
+    username: string,
+  ) => {
+    await signUpWithEmail(email, password, username);
   };
 
-  const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      console.error("Error signing in:", error);
-      return;
-    }
+  const handleSignIn = async (email: string, password: string) => {
+    await signInWithEmail(email, password);
   };
 
-  const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-
-    if (error) {
-      console.error("Error signing out:", error);
-    }
-
+  const handleSignOut = async () => {
+    await signOut();
     setProfile(null);
   };
 
@@ -97,9 +80,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     user: session?.user ?? null,
     session,
     profile,
-    signUp,
-    signIn,
-    signOut,
+    handleSignUp,
+    handleSignIn,
+    handleSignOut,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
