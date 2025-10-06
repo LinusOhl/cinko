@@ -19,9 +19,9 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { z } from "zod";
 import { CustomLink } from "../../../components/CustomLink";
+import { useAuth } from "../../../features/auth/hooks/useAuth";
 import { MovieRating } from "../../../features/ratings/components/MovieRating";
 import { IMAGES_BASE_URL } from "../../../helpers";
-import { useAuth } from "../../../hooks/useAuth";
 import { movieQueryOptions } from "../../../queryOptions/movies.queryOptions";
 
 export const Route = createFileRoute("/movies/$movieId")({
