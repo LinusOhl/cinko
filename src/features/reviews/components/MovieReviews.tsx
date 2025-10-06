@@ -1,6 +1,6 @@
 import { Box, Divider, Title } from "@mantine/core";
 import { useParams } from "@tanstack/react-router";
-import { useAuth } from "../../../hooks/useAuth";
+import { useAuth } from "../../auth/hooks/useAuth";
 import { useMovieReviews } from "../hooks/useMovieReviews";
 import { CreateReviewForm } from "./CreateReviewForm";
 import { MovieReview } from "./MovieReview";
