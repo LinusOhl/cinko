@@ -12,6 +12,7 @@ import {
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import type { FormEvent } from "react";
 import { CustomLink } from "../components/CustomLink";
+import { SignInButton } from "../features/auth/components/SignInButton";
 import { SignOutButton } from "../features/auth/components/SignOutButton";
 import { SignUpButton } from "../features/auth/components/SignUpButton";
 import { useAuth } from "../features/auth/hooks/useAuth";
@@ -30,7 +31,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 );
 
 function RootComponent() {
-  const { user, handleSignIn } = useAuth();
+  const { user } = useAuth();
 
   const navigate = useNavigate();
   const field = useField({
@@ -97,13 +98,7 @@ function RootComponent() {
             <>
               <SignUpButton />
 
-              <Button
-                color="cinkoBlue"
-                variant="light"
-                onClick={() => handleSignIn("glawrr@proton.me", "password")}
-              >
-                Sign in
-              </Button>
+              <SignInButton />
             </>
           )}
         </Flex>
