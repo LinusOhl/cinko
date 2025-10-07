@@ -16,7 +16,7 @@ export const signUpWithEmail = async (
   });
 
   if (error) {
-    throw new Error(`Failed to sign up: ${error.message}`);
+    throw error;
   }
 };
 
@@ -27,7 +27,7 @@ export const signInWithEmail = async (email: string, password: string) => {
   });
 
   if (error) {
-    throw new Error(`Failed to sign in: ${error.message}`);
+    throw error;
   }
 };
 
@@ -35,6 +35,6 @@ export const signOut = async () => {
   const { error } = await supabase.auth.signOut();
 
   if (error) {
-    throw new Error(`Failed to sign out: ${error.message}`);
+    throw error;
   }
 };

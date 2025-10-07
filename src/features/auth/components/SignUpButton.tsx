@@ -1,11 +1,15 @@
-import { Button, Group, Modal, TextInput } from "@mantine/core";
+import { Alert, Button, Group, Modal, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
+import { notifications } from "@mantine/notifications";
+import { AuthError } from "@supabase/supabase-js";
+import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 
 export const SignUpButton = () => {
   const { handleSignUp } = useAuth();
 
+  const [error, setError] = useState<AuthError | null>(null);
   const [opened, { open, close }] = useDisclosure();
 
   const form = useForm({
@@ -24,19 +28,38 @@ export const SignUpButton = () => {
     },
   });
 
-  // TODO: handle/catch errors properly
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const { email, username, password } = form.getValues();
 
-    handleSignUp(email, password, username);
+    try {
+      await handleSignUp(email, password, username);
 
-    form.reset();
-    close();
+      form.reset();
+      close();
+    } catch (error: unknown) {
+      if (error instanceof AuthError) {
+        notifications.show({
+          title: "Error",
+          message: error.message,
+          color: "cinkoRed",
+        });
+
+        setError(error);
+      }
+    }
   };
 
   return (
     <>
-      <Modal opened={opened} onClose={close} title="Sign up">
+      <Modal
+        opened={opened}
+        onClose={() => {
+          form.reset();
+          setError(null);
+          close();
+        }}
+        title="Sign up"
+      >
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <TextInput
             key={form.key("email")}
@@ -62,6 +85,12 @@ export const SignUpButton = () => {
             {...form.getInputProps("password")}
             mt={"sm"}
           />
+
+          {error && (
+            <Alert title={"Error!"} variant="light" color="cinkoRed" mt={"md"}>
+              {error.message}
+            </Alert>
+          )}
 
           <Group justify="flex-end" mt={"sm"}>
             <Button color="cinkoBlue" type="submit">
