@@ -3,6 +3,7 @@ import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { AuthError } from "@supabase/supabase-js";
+import { IconAlertHexagon } from "@tabler/icons-react";
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 
@@ -87,7 +88,13 @@ export const SignUpButton = () => {
           />
 
           {error && (
-            <Alert title={"Error!"} variant="light" color="cinkoRed" mt={"md"}>
+            <Alert
+              title={"Error!"}
+              variant="light"
+              color="cinkoRed"
+              icon={<IconAlertHexagon />}
+              mt={"md"}
+            >
               {error.message}
             </Alert>
           )}
