@@ -15,7 +15,6 @@ export const MovieReview = ({ review, userId }: MovieReviewProps) => {
       <Stack>
         <Flex justify={"space-between"}>
           <Flex gap={"xs"} align={"center"}>
-            {/* TODO: fix fetching of user rating, currently takes the logged in users rating of the movie instead of the reviewers... */}
             {getFullIcon(review.rating)}
 
             <Text fs={"italic"} fw={500}>
