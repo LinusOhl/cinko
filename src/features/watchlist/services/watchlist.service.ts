@@ -42,9 +42,10 @@ export const removeFromWatchlist = async (
   }
 };
 
-export const getUserWatchlist = async (
+export const getUserWatchlistItem = async (
+  movieId: number,
   userId: string,
-): Promise<WatchlistItem[]> => {
+): Promise<WatchlistItem> => {
   if (!userId) {
     throw new Error("You must be logged in to fetch your watchlist!");
   }
@@ -52,11 +53,13 @@ export const getUserWatchlist = async (
   const { data, error } = await supabase
     .from("watchlist")
     .select("*")
-    .eq("user_id", userId);
+    .eq("movie_id", movieId)
+    .eq("user_id", userId)
+    .maybeSingle();
 
   if (error) {
     throw new Error(`Failed to fetch watchlist: ${error.message}`);
   }
 
-  return data as WatchlistItem[];
+  return data as WatchlistItem;
 };
