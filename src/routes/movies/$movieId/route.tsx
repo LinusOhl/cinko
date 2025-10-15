@@ -1,7 +1,6 @@
 import {
   Badge,
   Box,
-  Button,
   Center,
   Grid,
   Group,
@@ -14,13 +13,14 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { IconCircleFilled, IconPlus } from "@tabler/icons-react";
+import { IconCircleFilled } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { z } from "zod";
 import { CustomLink } from "../../../components/CustomLink";
 import { useAuth } from "../../../features/auth/hooks/useAuth";
 import { MovieRating } from "../../../features/ratings/components/MovieRating";
+import { WatchlistButton } from "../../../features/watchlist/components/WatchlistButton";
 import { IMAGES_BASE_URL } from "../../../helpers";
 import { movieQueryOptions } from "../../../queryOptions/movies.queryOptions";
 
@@ -111,15 +111,7 @@ function RouteComponent() {
             <Center>{user && <MovieRating userId={user.id} />}</Center>
 
             {/* TODO: Add to watchlist */}
-            <Button
-              color="cinkoBlue"
-              leftSection={<IconPlus size={18} color="#e5dada" stroke={3} />}
-              radius={"md"}
-              mt={"xs"}
-              fullWidth
-            >
-              Add to watchlist
-            </Button>
+            {user && <WatchlistButton userId={user.id} />}
           </Paper>
 
           <Paper radius={"md"} p={"xs"} mt={"sm"}>
