@@ -90,9 +90,16 @@ function RootComponent() {
             <>
               <SignOutButton />
 
-              <Button color="cinkoBlue" variant="light">
-                Profile
-              </Button>
+              <CustomLink
+                to="/profile/$userId"
+                params={{ userId: user.id }}
+                from="/"
+                preload={false}
+              >
+                <Button color="cinkoBlue" variant="light">
+                  Profile
+                </Button>
+              </CustomLink>
             </>
           ) : (
             <>
