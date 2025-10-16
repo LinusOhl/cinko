@@ -47,7 +47,7 @@ export const getUserWatchlistItem = async (
   userId: string,
 ): Promise<WatchlistItem> => {
   if (!userId) {
-    throw new Error("You must be logged in to fetch your watchlist!");
+    throw new Error("You must be logged in to fetch from your watchlist!");
   }
 
   const { data, error } = await supabase
@@ -58,8 +58,27 @@ export const getUserWatchlistItem = async (
     .maybeSingle();
 
   if (error) {
-    throw new Error(`Failed to fetch watchlist: ${error.message}`);
+    throw new Error(`Failed to fetch from watchlist: ${error.message}`);
   }
 
   return data as WatchlistItem;
+};
+
+export const getUserWatchlist = async (
+  userId: string,
+): Promise<WatchlistItem[]> => {
+  if (!userId) {
+    throw new Error("You must be logged in to fetch your watchlist!");
+  }
+
+  const { data, error } = await supabase
+    .from("watchlist")
+    .select("*")
+    .eq("user_id", userId);
+
+  if (error) {
+    throw new Error(`Failed to fetch watchlist: ${error.message}`);
+  }
+
+  return data as WatchlistItem[];
 };
