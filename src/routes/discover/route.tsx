@@ -2,9 +2,15 @@ import {
   Box,
   Center,
   Combobox,
+  ComboboxChevron,
+  ComboboxDropdown,
+  ComboboxOption,
+  ComboboxOptions,
+  ComboboxTarget,
   Flex,
-  Input,
+  // Input,
   InputBase,
+  InputPlaceholder,
   Pagination,
   Title,
   useCombobox,
@@ -58,31 +64,29 @@ function RouteComponent() {
             combobox.closeDropdown();
           }}
         >
-          <Combobox.Target>
+          <ComboboxTarget>
             <InputBase
               label="Sort by"
               component="button"
               type="button"
-              rightSection={<Combobox.Chevron />}
+              rightSection={<ComboboxChevron />}
               rightSectionPointerEvents="none"
               onClick={() => combobox.toggleDropdown()}
               pointer
             >
-              {search.sortBy || (
-                <Input.Placeholder>Pick value</Input.Placeholder>
-              )}
+              {search.sortBy || <InputPlaceholder>Pick value</InputPlaceholder>}
             </InputBase>
-          </Combobox.Target>
+          </ComboboxTarget>
 
-          <Combobox.Dropdown>
-            <Combobox.Options>
+          <ComboboxDropdown>
+            <ComboboxOptions>
               {Object.values(SortBy).map((value) => (
-                <Combobox.Option key={value} value={value}>
+                <ComboboxOption key={value} value={value}>
                   {value}
-                </Combobox.Option>
+                </ComboboxOption>
               ))}
-            </Combobox.Options>
-          </Combobox.Dropdown>
+            </ComboboxOptions>
+          </ComboboxDropdown>
         </Combobox>
 
         <YearPickerInput

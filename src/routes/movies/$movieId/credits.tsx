@@ -1,9 +1,13 @@
 import {
   Accordion,
+  AccordionControl,
+  AccordionItem,
+  AccordionPanel,
   Avatar,
   Box,
   Flex,
   Grid,
+  GridCol,
   Spoiler,
   Text,
   Title,
@@ -55,7 +59,7 @@ function RouteComponent() {
           <Flex direction={"column"} gap={"md"} mt={"sm"}>
             <Grid>
               {movie.credits?.cast?.map((person) => (
-                <Grid.Col key={person.id} span={6}>
+                <GridCol key={person.id} span={6}>
                   <Flex align={"center"} gap={"xl"}>
                     <Avatar
                       src={
@@ -82,7 +86,7 @@ function RouteComponent() {
                       <Text c={"cinkoGrey.3"}>{person.character}</Text>
                     </Flex>
                   </Flex>
-                </Grid.Col>
+                </GridCol>
               ))}
             </Grid>
           </Flex>
@@ -98,18 +102,18 @@ function RouteComponent() {
           {groupedCrew
             ?.sort((a, b) => a.department.localeCompare(b.department))
             .map((group) => (
-              <Accordion.Item
+              <AccordionItem
                 key={group.department}
                 value={group.department}
                 bg={"transparent"}
               >
-                <Accordion.Control>
+                <AccordionControl>
                   <Text fw={700} c={"white"}>
                     {group.department}
                   </Text>
-                </Accordion.Control>
+                </AccordionControl>
 
-                <Accordion.Panel>
+                <AccordionPanel>
                   {group.members
                     .sort((a, b) => a.job.localeCompare(b.job))
                     .map((member) => (
@@ -127,8 +131,8 @@ function RouteComponent() {
                         <Text ml={"auto"}>{member.job}</Text>
                       </Flex>
                     ))}
-                </Accordion.Panel>
-              </Accordion.Item>
+                </AccordionPanel>
+              </AccordionItem>
             ))}
         </Accordion>
       </Box>

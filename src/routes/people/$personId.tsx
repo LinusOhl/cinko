@@ -2,25 +2,37 @@ import {
   AspectRatio,
   Box,
   Card,
+  CardSection,
   Center,
   Combobox,
+  ComboboxChevron,
+  ComboboxDropdown,
+  ComboboxOptions,
+  ComboboxTarget,
   Flex,
   Grid,
+  GridCol,
   Image,
-  Input,
+  // Input,
   InputBase,
+  InputPlaceholder,
   ScrollArea,
+  ScrollAreaAutosize,
   Table,
+  TableTbody,
+  TableTd,
+  TableTh,
+  TableTr,
   Text,
   Title,
   Tooltip,
   useCombobox,
 } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
-import { IMAGES_BASE_URL, getAge, getGender } from "../../helpers";
+import { getAge, getGender, IMAGES_BASE_URL } from "../../helpers";
 import { personQueryOptions } from "../../queryOptions/people.queryOptions";
 
 export const Route = createFileRoute("/people/$personId")({
@@ -80,7 +92,7 @@ function RouteComponent() {
   return (
     <div>
       <Grid mt={"xl"}>
-        <Grid.Col span={4}>
+        <GridCol span={4}>
           <Card
             w={280}
             shadow="md"
@@ -89,13 +101,13 @@ function RouteComponent() {
             p={"0"}
             bd={"1px solid dark"}
           >
-            <Card.Section>
+            <CardSection>
               {/* TODO: set up fallback src/element */}
               <Image
                 src={`${IMAGES_BASE_URL}/h632/${person.profile_path}`}
                 alt={person.name}
               />
-            </Card.Section>
+            </CardSection>
 
             {/* Quick facts */}
             <Table
@@ -104,56 +116,56 @@ function RouteComponent() {
               c={"cinkoGrey.3"}
               withRowBorders={false}
             >
-              <Table.Tbody>
+              <TableTbody>
                 {/* Name */}
-                <Table.Tr>
-                  <Table.Th fw={"bold"} bg={"none"}>
+                <TableTr>
+                  <TableTh fw={"bold"} bg={"none"}>
                     Name
-                  </Table.Th>
-                  <Table.Td>{person.name}</Table.Td>
-                </Table.Tr>
+                  </TableTh>
+                  <TableTd>{person.name}</TableTd>
+                </TableTr>
 
                 {/* Birthday & death */}
-                <Table.Tr>
-                  <Table.Th fw={"bold"} bg={"none"}>
+                <TableTr>
+                  <TableTh fw={"bold"} bg={"none"}>
                     Born
-                  </Table.Th>
-                  <Table.Td>
+                  </TableTh>
+                  <TableTd>
                     {person.birthday} ({personAge})
-                  </Table.Td>
-                </Table.Tr>
+                  </TableTd>
+                </TableTr>
 
                 {person.deathday && (
-                  <Table.Tr>
-                    <Table.Th fw={"bold"} bg={"none"}>
+                  <TableTr>
+                    <TableTh fw={"bold"} bg={"none"}>
                       Died
-                    </Table.Th>
-                    <Table.Td>{person.deathday}</Table.Td>
-                  </Table.Tr>
+                    </TableTh>
+                    <TableTd>{person.deathday}</TableTd>
+                  </TableTr>
                 )}
 
                 {/* Gender */}
-                <Table.Tr>
-                  <Table.Th fw={"bold"} bg={"none"}>
+                <TableTr>
+                  <TableTh fw={"bold"} bg={"none"}>
                     Gender
-                  </Table.Th>
-                  <Table.Td>{personGender}</Table.Td>
-                </Table.Tr>
+                  </TableTh>
+                  <TableTd>{personGender}</TableTd>
+                </TableTr>
 
                 {/* Known for */}
-                <Table.Tr>
-                  <Table.Th fw={"bold"} bg={"none"}>
+                <TableTr>
+                  <TableTh fw={"bold"} bg={"none"}>
                     Known for
-                  </Table.Th>
-                  <Table.Td>{person.known_for_department}</Table.Td>
-                </Table.Tr>
-              </Table.Tbody>
+                  </TableTh>
+                  <TableTd>{person.known_for_department}</TableTd>
+                </TableTr>
+              </TableTbody>
             </Table>
           </Card>
-        </Grid.Col>
+        </GridCol>
 
         {/* Biography */}
-        <Grid.Col span={8}>
+        <GridCol span={8}>
           <Box>
             <Title order={1}>{person.name}</Title>
 
@@ -161,7 +173,7 @@ function RouteComponent() {
               <Text c={"cinkoGrey.3"}>{person.biography}</Text>
             </ScrollArea>
           </Box>
-        </Grid.Col>
+        </GridCol>
       </Grid>
 
       {/* Credits */}
@@ -177,26 +189,26 @@ function RouteComponent() {
             combobox.closeDropdown();
           }}
         >
-          <Combobox.Target>
+          <ComboboxTarget>
             <InputBase
               component="button"
               type="button"
-              rightSection={<Combobox.Chevron />}
+              rightSection={<ComboboxChevron />}
               rightSectionPointerEvents="none"
               onClick={() => combobox.toggleDropdown()}
               pointer
             >
-              {value || <Input.Placeholder>Pick value</Input.Placeholder>}
+              {value || <InputPlaceholder>Pick value</InputPlaceholder>}
             </InputBase>
-          </Combobox.Target>
+          </ComboboxTarget>
 
-          <Combobox.Dropdown color="dark" bg={"dark"}>
-            <Combobox.Options color="dark">
-              <ScrollArea.Autosize type="scroll" mah={200}>
+          <ComboboxDropdown color="dark" bg={"dark"}>
+            <ComboboxOptions color="dark">
+              <ScrollAreaAutosize type="scroll" mah={200}>
                 {options}
-              </ScrollArea.Autosize>
-            </Combobox.Options>
-          </Combobox.Dropdown>
+              </ScrollAreaAutosize>
+            </ComboboxOptions>
+          </ComboboxDropdown>
         </Combobox>
       </Box>
 
@@ -217,7 +229,7 @@ function RouteComponent() {
                 preload={false}
               >
                 <Card w={160} radius={"md"}>
-                  <Card.Section>
+                  <CardSection>
                     {movie.poster_path ? (
                       <AspectRatio ratio={720 / 1080}>
                         <Image
@@ -236,7 +248,7 @@ function RouteComponent() {
                         </Center>
                       </Box>
                     )}
-                  </Card.Section>
+                  </CardSection>
                 </Card>
               </Link>
             </Tooltip>

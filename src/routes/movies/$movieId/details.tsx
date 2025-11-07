@@ -1,10 +1,11 @@
-import { Carousel } from "@mantine/carousel";
+import { Carousel, CarouselSlide } from "@mantine/carousel";
 import {
   // AspectRatio,
   Avatar,
   Box,
   Flex,
   Grid,
+  GridCol,
   Text,
   Title,
 } from "@mantine/core";
@@ -67,7 +68,7 @@ function RouteComponent() {
         <Flex direction={"column"} gap={"md"} mt={"sm"}>
           <Grid>
             {movie.credits?.cast?.slice(0, 6).map((person) => (
-              <Grid.Col key={person.id} span={6}>
+              <GridCol key={person.id} span={6}>
                 <Flex align={"center"} gap={"xl"}>
                   <Avatar
                     src={
@@ -94,7 +95,7 @@ function RouteComponent() {
                     <Text c={"cinkoGrey.3"}>{person.character}</Text>
                   </Flex>
                 </Flex>
-              </Grid.Col>
+              </GridCol>
             ))}
           </Grid>
         </Flex>
@@ -127,9 +128,9 @@ function RouteComponent() {
           emblaOptions={{ dragFree: true, slidesToScroll: 4 }}
         >
           {movie.similar?.results.slice(0, 12).map((m) => (
-            <Carousel.Slide key={m.id}>
+            <CarouselSlide key={m.id}>
               <MovieCard movie={m} />
-            </Carousel.Slide>
+            </CarouselSlide>
           ))}
         </Carousel>
 

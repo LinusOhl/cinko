@@ -1,4 +1,4 @@
-import { Carousel } from "@mantine/carousel";
+import { Carousel, CarouselSlide } from "@mantine/carousel";
 import { Box, Title } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { collectionOptions } from "../queryOptions/collections.queryOptions";
@@ -27,9 +27,9 @@ export const MovieCollectionCarousel = ({
         emblaOptions={{ dragFree: true, slidesToScroll: 4 }}
       >
         {collection.parts.map((m) => (
-          <Carousel.Slide key={m.id}>
+          <CarouselSlide key={m.id}>
             <MovieCard movie={m} />
-          </Carousel.Slide>
+          </CarouselSlide>
         ))}
       </Carousel>
     </Box>

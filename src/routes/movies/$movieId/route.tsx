@@ -3,9 +3,11 @@ import {
   Box,
   Center,
   Grid,
+  GridCol,
   Group,
   Image,
   List,
+  ListItem,
   Overlay,
   Paper,
   Skeleton,
@@ -89,7 +91,7 @@ function RouteComponent() {
       {/* Content */}
       <Grid mt={"xs"}>
         {/* Left section */}
-        <Grid.Col span={3}>
+        <GridCol span={3}>
           {/* Poster */}
           {/* TODO: set up fallback src/element */}
           <Skeleton h={375} visible={!movie}>
@@ -119,25 +121,25 @@ function RouteComponent() {
 
             <List>
               {movie.spoken_languages.map((lang) => (
-                <List.Item key={lang.iso_639_1} c={"cinkoGrey.2"}>
+                <ListItem key={lang.iso_639_1} c={"cinkoGrey.2"}>
                   {lang.english_name}
-                </List.Item>
+                </ListItem>
               ))}
             </List>
           </Paper>
-        </Grid.Col>
+        </GridCol>
 
         {/* Right section */}
-        <Grid.Col span={9}>
+        <GridCol span={9}>
           {/* Title and director */}
           <Grid align={"baseline"} justify={"space-between"}>
-            <Grid.Col span={8}>
+            <GridCol span={8}>
               <Title order={1} style={{ textWrap: "balance" }}>
                 {movie.title}
               </Title>
-            </Grid.Col>
+            </GridCol>
 
-            <Grid.Col span={4}>
+            <GridCol span={4}>
               <Group align="baseline" gap={"xs"}>
                 <Text c={"cinkoGrey.3"}>directed by</Text>
 
@@ -158,7 +160,7 @@ function RouteComponent() {
                   ))}
                 </Stack>
               </Group>
-            </Grid.Col>
+            </GridCol>
           </Grid>
 
           {/* Quick facts */}
@@ -191,7 +193,7 @@ function RouteComponent() {
           </Group>
 
           <Outlet />
-        </Grid.Col>
+        </GridCol>
       </Grid>
     </Box>
   );

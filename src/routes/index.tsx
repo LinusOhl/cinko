@@ -1,4 +1,4 @@
-import { Carousel } from "@mantine/carousel";
+import { Carousel, CarouselSlide } from "@mantine/carousel";
 import { Box, Title } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -45,9 +45,9 @@ function IndexView() {
           emblaOptions={{ dragFree: true }}
         >
           {popularMovies.results.map((movie) => (
-            <Carousel.Slide key={movie.id}>
+            <CarouselSlide key={movie.id}>
               <MovieCard movie={movie} />
-            </Carousel.Slide>
+            </CarouselSlide>
           ))}
         </Carousel>
       </Box>
@@ -65,9 +65,9 @@ function IndexView() {
           emblaOptions={{ dragFree: true }}
         >
           {topRatedMovies.results.map((movie) => (
-            <Carousel.Slide key={movie.id}>
+            <CarouselSlide key={movie.id}>
               <MovieCard movie={movie} />
-            </Carousel.Slide>
+            </CarouselSlide>
           ))}
         </Carousel>
       </Box>
@@ -85,9 +85,9 @@ function IndexView() {
           emblaOptions={{ dragFree: true }}
         >
           {nowPlayingMovies.results.map((movie) => (
-            <Carousel.Slide key={movie.id}>
+            <CarouselSlide key={movie.id}>
               <MovieCard movie={movie} />
-            </Carousel.Slide>
+            </CarouselSlide>
           ))}
         </Carousel>
       </Box>
