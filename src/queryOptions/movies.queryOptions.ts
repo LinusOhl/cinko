@@ -1,6 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
 import {
   fetchMovieById,
+  fetchMovieByIdSecurely,
   fetchNowPlayingMovies,
   fetchPopularMovies,
   fetchTopRatedMovies,
@@ -27,9 +28,16 @@ export const topRatedMoviesQueryOptions = () =>
     staleTime: 1000 * 60 * 60, // 60 minutes
   });
 
+// export const movieQueryOptions = (movieId: number) =>
+//   queryOptions({
+//     queryKey: ["movie", movieId],
+//     queryFn: () => fetchMovieById(movieId),
+//     staleTime: 1000 * 60 * 60, // 60 minutes
+//   });
+
 export const movieQueryOptions = (movieId: number) =>
   queryOptions({
     queryKey: ["movie", movieId],
-    queryFn: () => fetchMovieById(movieId),
+    queryFn: () => fetchMovieByIdSecurely({ data: movieId }),
     staleTime: 1000 * 60 * 60, // 60 minutes
   });

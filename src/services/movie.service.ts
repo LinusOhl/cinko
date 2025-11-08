@@ -1,3 +1,4 @@
+import { createServerFn } from "@tanstack/react-start";
 import { apiFetch } from "../lib/api";
 import type {
   MovieDetails,
@@ -34,3 +35,14 @@ export const fetchMovieById = async (
     },
   );
 };
+
+export const fetchMovieByIdSecurely = createServerFn({ method: "GET" })
+  .inputValidator((d: number) => d)
+  .handler(async ({ data }) => {
+    const movie = await apiFetch<MovieDetails>(
+      `/movies/${data}/details?append_to_response=credits,images,similar,videos`,
+      { method: "GET" },
+    );
+
+    return movie;
+  });

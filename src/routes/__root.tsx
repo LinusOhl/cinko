@@ -90,6 +90,28 @@ function Providers({ children }: { children: ReactNode }) {
 }
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
+  // const { user } = useAuth();
+  // const navigate = useNavigate();
+  // const field = useField({
+  //   initialValue: "",
+  //   validate: (value) =>
+  //     value.trim().length < 2 ? "Query is too short" : null,
+  // });
+
+  // const handleSubmit = (e: FormEvent) => {
+  //   e.preventDefault();
+
+  //   field.validate();
+
+  //   navigate({
+  //     to: "/search",
+  //     from: "/",
+  //     search: { query: field.getValue(), page: 1 },
+  //   });
+
+  //   field.setValue("");
+  // };
+
   const discoverLinkOptions = linkOptions({
     to: "/discover",
     from: "/",
@@ -121,6 +143,38 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
                     Discover
                   </Text>
                 </CustomLink>
+
+                {/* <form onSubmit={handleSubmit}>
+                  <TextInput
+                    {...field.getInputProps()}
+                    placeholder="Search..."
+                  />
+                </form>
+
+                <Flex gap={"xs"}>
+                  {user ? (
+                    <>
+                      <SignOutButton />
+
+                      <CustomLink
+                        to="/profile/$userId"
+                        params={{ userId: user.id }}
+                        from="/"
+                        preload={false}
+                      >
+                        <Button color="cinkoBlue" variant="light">
+                          Profile
+                        </Button>
+                      </CustomLink>
+                    </>
+                  ) : (
+                    <>
+                      <SignUpButton />
+
+                      <SignInButton />
+                    </>
+                  )}
+                </Flex> */}
               </Flex>
             </Flex>
 
@@ -136,96 +190,4 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       </body>
     </html>
   );
-}
-
-{
-  /* // function RootComponent() {
-//   const { user } = useAuth();
-
-//   const navigate = useNavigate();
-//   const field = useField({
-//     initialValue: "",
-//     validate: (value) =>
-//       value.trim().length < 2 ? "Query is too short" : null,
-//   });
-
-//   const handleSubmit = (e: FormEvent) => {
-//     e.preventDefault();
-
-//     field.validate();
-
-//     navigate({
-//       to: "/search",
-//       from: "/",
-//       search: { query: field.getValue(), page: 1 },
-//     });
-
-//     field.setValue("");
-//   };
-
-//   const discoverLinkOptions = linkOptions({
-//     to: "/discover",
-//     from: "/",
-//     search: {
-//       page: 1,
-//       sortBy: "popularity.desc",
-//     },
-//     preload: false,
-//   });
-
-//   return (
-//     <Container>
-//       <Flex align={"center"} justify={"space-between"}>
-//         <Flex gap={"xl"} align={"center"}>
-//           <CustomLink to={"/"} preload={false}>
-//             <Title order={1} c={"cinkoYellow.7"}>
-//               CINKO
-//             </Title>
-//           </CustomLink>
-
-//           <CustomLink {...discoverLinkOptions} underline="hover">
-//             <Text c={"white"} fw={500}>
-//               Discover
-//             </Text>
-//           </CustomLink>
-//         </Flex>
-
-//         <form onSubmit={handleSubmit}>
-//           <TextInput {...field.getInputProps()} placeholder="Search..." />
-//         </form>
-
-//         <Flex gap={"xs"}>
-//           {user ? (
-//             <>
-//               <SignOutButton />
-
-//               <CustomLink
-//                 to="/profile/$userId"
-//                 params={{ userId: user.id }}
-//                 from="/"
-//                 preload={false}
-//               >
-//                 <Button color="cinkoBlue" variant="light">
-//                   Profile
-//                 </Button>
-//               </CustomLink>
-//             </>
-//           ) : (
-//             <>
-//               <SignUpButton />
-
-//               <SignInButton />
-//             </>
-//           )}
-//         </Flex>
-//       </Flex>
-
-//       <Notifications position="bottom-right" />
-
-//       <Outlet />
-//       <ReactQueryDevtools buttonPosition="bottom-left" />
-//       <TanStackRouterDevtools position="bottom-right" />
-//     </Container>
-//   );
-// } */
 }

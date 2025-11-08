@@ -32,18 +32,19 @@ export const Route = createFileRoute("/movies/$movieId")({
       movieId: z.number().int().parse(Number(params.movieId)),
     }),
   },
-  loader: (opts) =>
-    opts.context.queryClient.ensureQueryData(
-      movieQueryOptions(opts.params.movieId),
-    ),
+  loader: ({ params: { movieId }, context }) =>
+    context.queryClient.ensureQueryData(movieQueryOptions(movieId)),
+  head: ({ loaderData }) => ({
+    meta: loaderData ? [{ title: `CINKO - ${loaderData.title}` }] : undefined,
+  }),
   component: RouteComponent,
 });
 
 function RouteComponent() {
   const { user } = useAuth();
 
-  const params = Route.useParams();
-  const { data: movie } = useSuspenseQuery(movieQueryOptions(params.movieId));
+  const { movieId } = Route.useParams();
+  const { data: movie } = useSuspenseQuery(movieQueryOptions(movieId));
 
   const movieReleaseYear = movie.release_date.slice(0, 4);
   const directors = movie.credits?.crew?.filter(
