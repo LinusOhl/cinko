@@ -17,8 +17,8 @@ export const Route = createFileRoute("/")({
       opts.context.queryClient.ensureQueryData(popularMoviesQueryOptions()),
       opts.context.queryClient.ensureQueryData(topRatedMoviesQueryOptions()),
     ]),
-  component: IndexView,
   errorComponent: () => <div>Something went wrooooong!!</div>,
+  component: IndexView,
 });
 
 function IndexView() {
