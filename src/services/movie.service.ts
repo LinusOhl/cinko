@@ -40,7 +40,7 @@ export const fetchMovieByIdSecurely = createServerFn({ method: "GET" })
   .inputValidator((d: number) => d)
   .handler(async ({ data }) => {
     const movie = await apiFetch<MovieDetails>(
-      `/movies/${data}/details?append_to_response=credits,images,similar,videos`,
+      `/movies/${data}/details?append_to_response=credits,images,similar,videos,release_dates`,
       { method: "GET" },
     );
 
