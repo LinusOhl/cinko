@@ -9,6 +9,7 @@ import {
   Image,
   List,
   ListItem,
+  NumberFormatter,
   Overlay,
   Paper,
   Skeleton,
@@ -168,6 +169,7 @@ function RouteComponent() {
             {user && <WatchlistButton userId={user.id} />}
           </Paper>
 
+          {/* Movie facts */}
           <Paper radius={"md"} p={"xs"} mt={"sm"}>
             <Stack>
               <Box>
@@ -227,6 +229,26 @@ function RouteComponent() {
                     <ListItem key={country.iso_3166_1}>{country.name}</ListItem>
                   ))}
                 </List>
+              </Box>
+
+              <Box>
+                <Text fw={500}>Budget</Text>
+
+                <NumberFormatter
+                  prefix="$"
+                  value={movie.budget}
+                  thousandSeparator
+                />
+              </Box>
+
+              <Box>
+                <Text fw={500}>Revenue</Text>
+
+                <NumberFormatter
+                  prefix="$"
+                  value={movie.revenue}
+                  thousandSeparator
+                />
               </Box>
             </Stack>
           </Paper>
