@@ -169,7 +169,7 @@ function RouteComponent() {
             {user && <WatchlistButton userId={user.id} />}
           </Paper>
 
-          {/* Movie facts */}
+          {/* Movie facts, TODO: turn into component */}
           <Paper radius={"md"} p={"xs"} mt={"sm"}>
             <Stack>
               <Box>
