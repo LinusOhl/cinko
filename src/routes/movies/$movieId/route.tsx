@@ -2,6 +2,7 @@ import {
   Badge,
   Box,
   Center,
+  Flex,
   Grid,
   GridCol,
   Group,
@@ -15,7 +16,14 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { IconCircleFilled } from "@tabler/icons-react";
+import {
+  IconCircleFilled,
+  IconConfettiFilled,
+  IconDeviceTvOldFilled,
+  IconDiscFilled,
+  IconPlayerPlayFilled,
+  IconTicket,
+} from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { z } from "zod";
@@ -35,7 +43,13 @@ export const Route = createFileRoute("/movies/$movieId")({
   loader: ({ params: { movieId }, context }) =>
     context.queryClient.ensureQueryData(movieQueryOptions(movieId)),
   head: ({ loaderData }) => ({
-    meta: loaderData ? [{ title: `CINKO - ${loaderData.title}` }] : undefined,
+    meta: loaderData
+      ? [
+          {
+            title: `${loaderData.title} (${loaderData.release_date.slice(0, 4)}) - CINKO`,
+          },
+        ]
+      : undefined,
   }),
   component: RouteComponent,
 });
@@ -47,11 +61,48 @@ function RouteComponent() {
   const { data: movie } = useSuspenseQuery(movieQueryOptions(movieId));
 
   const movieReleaseYear = movie.release_date.slice(0, 4);
+  const movieLogo = movie.images?.logos.find((logo) => logo.iso_639_1 === "en");
   const directors = movie.credits?.crew?.filter(
     (person) => person.job === "Director",
   );
 
-  const movieLogo = movie.images?.logos.find((logo) => logo.iso_639_1 === "en");
+  const getReleaseTitle = (type: number) => {
+    switch (type) {
+      case 1:
+        return "Premiere";
+      case 2:
+        return "Theatrical (limited)";
+      case 3:
+        return "Theatrical";
+      case 4:
+        return "Digital";
+      case 5:
+        return "Physical";
+      case 6:
+        return "TV";
+      default:
+        break;
+    }
+  };
+
+  const getReleaseIcon = (type: number) => {
+    switch (type) {
+      case 1:
+        return <IconConfettiFilled size={16} />;
+      case 2:
+        return <IconTicket size={16} />;
+      case 3:
+        return <IconTicket size={16} />;
+      case 4:
+        return <IconPlayerPlayFilled size={16} />;
+      case 5:
+        return <IconDiscFilled size={16} />;
+      case 6:
+        return <IconDeviceTvOldFilled size={16} />;
+      default:
+        break;
+    }
+  };
 
   return (
     <Box mt={"xl"}>
@@ -118,15 +169,66 @@ function RouteComponent() {
           </Paper>
 
           <Paper radius={"md"} p={"xs"} mt={"sm"}>
-            <Text fw={500}>Languages</Text>
+            <Stack>
+              <Box>
+                <Text fw={500}>Releases (GB)</Text>
 
-            <List>
-              {movie.spoken_languages.map((lang) => (
-                <ListItem key={lang.iso_639_1} c={"cinkoGrey.2"}>
-                  {lang.english_name}
-                </ListItem>
-              ))}
-            </List>
+                <List listStyleType="none">
+                  {movie.release_dates?.results
+                    .find((release) => release.iso_3166_1 === "GB")
+                    ?.release_dates.map((r) => (
+                      <ListItem key={r.release_date + r.type}>
+                        <Text>
+                          {getReleaseTitle(r.type)} (
+                          {r.release_date.slice(0, 4)})
+                        </Text>
+                      </ListItem>
+                    ))}
+                </List>
+              </Box>
+
+              <Box>
+                <Text fw={500}>Languages</Text>
+
+                <List listStyleType="none">
+                  {movie.spoken_languages.map((lang) => (
+                    <ListItem key={lang.iso_639_1} c={"cinkoGrey.2"}>
+                      {lang.english_name}
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
+
+              <Box>
+                <Text fw={500}>Genres</Text>
+
+                <List listStyleType="none">
+                  {movie.genres.map((genre) => (
+                    <ListItem key={genre.id}>{genre.name}</ListItem>
+                  ))}
+                </List>
+              </Box>
+
+              <Box>
+                <Text fw={500}>Production companies</Text>
+
+                <List listStyleType="none">
+                  {movie.production_companies.map((company) => (
+                    <ListItem key={company.id}>{company.name}</ListItem>
+                  ))}
+                </List>
+              </Box>
+
+              <Box>
+                <Text fw={500}>Production countries</Text>
+
+                <List listStyleType="none">
+                  {movie.production_countries.map((country) => (
+                    <ListItem key={country.iso_3166_1}>{country.name}</ListItem>
+                  ))}
+                </List>
+              </Box>
+            </Stack>
           </Paper>
         </GridCol>
 
