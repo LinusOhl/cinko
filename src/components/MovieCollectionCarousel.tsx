@@ -1,7 +1,7 @@
 import { Carousel, CarouselSlide } from "@mantine/carousel";
 import { Box, Title } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { collectionOptions } from "../queryOptions/collections.queryOptions";
+import { collectionOptions } from "../queries/collections.queryOptions";
 import { MovieCard } from "./MovieCard";
 
 interface MovieCollectionCarouselProps {

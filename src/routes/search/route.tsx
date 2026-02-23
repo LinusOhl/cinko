@@ -5,7 +5,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type { FormEvent } from "react";
 import { z } from "zod";
 import { MovieCard } from "../../components/MovieCard";
-import { searchMoviesQueryOptions } from "../../queryOptions/search.queryOptions";
+import { searchMoviesQueryOptions } from "../../queries/search.queryOptions";
 
 export const Route = createFileRoute("/search")({
   validateSearch: z.object({

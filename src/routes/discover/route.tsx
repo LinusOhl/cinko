@@ -21,7 +21,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import z from "zod";
 import { MovieCard } from "../../components/MovieCard";
 import { SortBy } from "../../constants/filters";
-import { discoverMovieQueryOptions } from "../../queryOptions/discover.queryOptions";
+import { discoverMovieQueryOptions } from "../../queries/discover.queryOptions";
 
 export const Route = createFileRoute("/discover")({
   validateSearch: z.object({

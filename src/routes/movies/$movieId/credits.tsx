@@ -17,7 +17,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { CustomLink } from "../../../components/CustomLink";
 import { groupCrewByJob, IMAGES_BASE_URL } from "../../../helpers";
-import { movieQueryOptions } from "../../../queryOptions/movies.queryOptions";
+import { movieQueryOptions } from "../../../queries/movies.queryOptions";
 
 export const Route = createFileRoute("/movies/$movieId/credits")({
   loader: (opts) =>

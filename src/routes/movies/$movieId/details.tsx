@@ -17,7 +17,7 @@ import { MovieCard } from "../../../components/MovieCard";
 import { MovieCollectionCarousel } from "../../../components/MovieCollectionCarousel";
 import { MovieReviews } from "../../../features/reviews/components/MovieReviews";
 import { IMAGES_BASE_URL } from "../../../helpers";
-import { movieQueryOptions } from "../../../queryOptions/movies.queryOptions";
+import { movieQueryOptions } from "../../../queries/movies.queryOptions";
 
 export const Route = createFileRoute("/movies/$movieId/details")({
   loader: (opts) =>

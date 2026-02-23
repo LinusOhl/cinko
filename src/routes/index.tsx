@@ -8,7 +8,7 @@ import {
   nowPlayingMoviesQueryOptions,
   popularMoviesQueryOptions,
   topRatedMoviesQueryOptions,
-} from "../queryOptions/movies.queryOptions";
+} from "../queries/movies.queryOptions";
 
 export const Route = createFileRoute("/")({
   loader: (opts) =>

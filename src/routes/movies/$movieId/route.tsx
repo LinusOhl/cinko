@@ -33,7 +33,7 @@ import { useAuth } from "../../../features/auth/hooks/useAuth";
 import { MovieRating } from "../../../features/ratings/components/MovieRating";
 import { WatchlistButton } from "../../../features/watchlist/components/WatchlistButton";
 import { IMAGES_BASE_URL } from "../../../helpers";
-import { movieQueryOptions } from "../../../queryOptions/movies.queryOptions";
+import { movieQueryOptions } from "../../../queries/movies.queryOptions";
 
 export const Route = createFileRoute("/movies/$movieId")({
   params: {

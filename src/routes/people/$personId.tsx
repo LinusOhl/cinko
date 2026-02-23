@@ -33,7 +33,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import { getAge, getGender, IMAGES_BASE_URL } from "../../helpers";
-import { personQueryOptions } from "../../queryOptions/people.queryOptions";
+import { personQueryOptions } from "../../queries/people.queryOptions";
 
 export const Route = createFileRoute("/people/$personId")({
   params: {
