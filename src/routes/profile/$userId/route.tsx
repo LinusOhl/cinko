@@ -1,8 +1,5 @@
 import { Box, Card, Center, Flex, Title } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
-import { CustomLink } from "../../../components/CustomLink";
-import { useAuth } from "../../../features/auth/hooks/useAuth";
-import { useWatchlist } from "../../../features/watchlist/hooks/useWatchlist";
 
 export const Route = createFileRoute("/profile/$userId")({
   component: RouteComponent,
@@ -10,7 +7,6 @@ export const Route = createFileRoute("/profile/$userId")({
 
 function RouteComponent() {
   const { userId } = Route.useParams();
-  const { user } = useAuth();
 
   const { data: watchlist } = useWatchlist(userId);
 

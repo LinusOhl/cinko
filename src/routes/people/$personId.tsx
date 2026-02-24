@@ -13,7 +13,6 @@ import {
   Grid,
   GridCol,
   Image,
-  // Input,
   InputBase,
   InputPlaceholder,
   ScrollArea,
@@ -33,7 +32,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import { getAge, getGender, IMAGES_BASE_URL } from "../../helpers";
-import { personQueryOptions } from "../../queries/people.queryOptions";
+import { personQueryOptions } from "../../queries/people";
 
 export const Route = createFileRoute("/people/$personId")({
   params: {

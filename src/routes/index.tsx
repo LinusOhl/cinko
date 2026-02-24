@@ -2,32 +2,29 @@ import { Carousel, CarouselSlide } from "@mantine/carousel";
 import { Box, Title } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { CustomLink } from "../components/CustomLink";
-import { MovieCard } from "../components/MovieCard";
+import { CustomLink } from "~/components/CustomLink";
+import { MovieCard } from "~/components/MovieCard";
 import {
-  nowPlayingMoviesQueryOptions,
+  playingMoviesQueryOptions,
   popularMoviesQueryOptions,
-  topRatedMoviesQueryOptions,
-} from "../queries/movies.queryOptions";
+  topMoviesQueryOptions,
+} from "~/queries/movies";
 
 export const Route = createFileRoute("/")({
-  loader: (opts) =>
+  loader: ({ context }) =>
     Promise.all([
-      opts.context.queryClient.ensureQueryData(nowPlayingMoviesQueryOptions()),
-      opts.context.queryClient.ensureQueryData(popularMoviesQueryOptions()),
-      opts.context.queryClient.ensureQueryData(topRatedMoviesQueryOptions()),
+      context.queryClient.ensureQueryData(playingMoviesQueryOptions()),
+      context.queryClient.ensureQueryData(popularMoviesQueryOptions()),
+      context.queryClient.ensureQueryData(topMoviesQueryOptions()),
     ]),
-  errorComponent: () => <div>Something went wrooooong!!</div>,
   component: IndexView,
 });
 
 function IndexView() {
   const { data: popularMovies } = useSuspenseQuery(popularMoviesQueryOptions());
-  const { data: topRatedMovies } = useSuspenseQuery(
-    topRatedMoviesQueryOptions(),
-  );
+  const { data: topRatedMovies } = useSuspenseQuery(topMoviesQueryOptions());
   const { data: nowPlayingMovies } = useSuspenseQuery(
-    nowPlayingMoviesQueryOptions(),
+    playingMoviesQueryOptions(),
   );
 
   return (
