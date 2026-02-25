@@ -2,9 +2,7 @@ import { Anchor, type AnchorProps } from "@mantine/core";
 import { createLink, type LinkComponent } from "@tanstack/react-router";
 import { forwardRef } from "react";
 
-interface MantineAnchorProps extends Omit<AnchorProps, "href"> {
-  // additional props
-}
+interface MantineAnchorProps extends Omit<AnchorProps, "href"> {}
 
 const MantineLinkComponent = forwardRef<HTMLAnchorElement, MantineAnchorProps>(
   (props, ref) => {
@@ -18,10 +16,6 @@ export const CustomLink: LinkComponent<typeof MantineLinkComponent> = (
   props,
 ) => {
   return (
-    <CreatedLinkComponent
-      preload="intent"
-      style={{ textDecorationColor: "#1e2ede" }}
-      {...props}
-    />
+    <CreatedLinkComponent preload="render" preloadDelay={2500} {...props} />
   );
 };

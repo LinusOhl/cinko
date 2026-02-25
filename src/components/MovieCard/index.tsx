@@ -21,14 +21,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
         })
       }
     >
-      {/* <div
-        style={{
-          backgroundImage: movie.poster_path
-            ? `url(${IMAGES_BASE_URL}/w500/${movie.poster_path})`
-            : "",
-        }}
-        className={styles.movieCardImageBox}
-      > */}
+      {/* TODO: emulate/copy style of Letterboxd movie poster cards */}
       {!movie.poster_path ? (
         <Center w={160} h={240} pos={"absolute"}>
           <Text ta={"center"}>{movie.title}</Text>
@@ -36,8 +29,6 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
       ) : (
         <Image src={`${IMAGES_BASE_URL}/w500/${movie.poster_path}`} />
       )}
-      {/* <div className={styles.movieCardBorderBox} />
-      </div> */}
 
       <Text c={"white"} mt={"xs"} fw={500} truncate>
         {movie.title}

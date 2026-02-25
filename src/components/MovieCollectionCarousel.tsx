@@ -1,39 +1,39 @@
-import { Carousel, CarouselSlide } from "@mantine/carousel";
-import { Box, Title } from "@mantine/core";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { collectionQueryOptions } from "~/queries/collections";
-import { MovieCard } from "./MovieCard";
+// import { Carousel, CarouselSlide } from "@mantine/carousel";
+// import { Box, Title } from "@mantine/core";
+// import { useSuspenseQuery } from "@tanstack/react-query";
+// import { collectionQueryOptions } from "~/queries/collections";
+// import { MovieCard } from "./MovieCard";
 
-interface MovieCollectionCarouselProps {
-  collectionId: string;
-}
+// interface MovieCollectionCarouselProps {
+//   collectionId: string;
+// }
 
-export const MovieCollectionCarousel = ({
-  collectionId,
-}: MovieCollectionCarouselProps) => {
-  const { data: collection } = useSuspenseQuery(
-    collectionQueryOptions(collectionId),
-  );
+// export const MovieCollectionCarousel = ({
+//   collectionId,
+// }: MovieCollectionCarouselProps) => {
+//   const { data: collection } = useSuspenseQuery(
+//     collectionQueryOptions(collectionId),
+//   );
 
-  return <></>;
+//   return <></>;
 
-  // return (
-  //   <Box>
-  //     <Title order={3} mb={"sm"} c={"cinkoGrey.3"}>
-  //       Collection
-  //     </Title>
+//   return (
+//     <Box>
+//       <Title order={3} mb={"sm"} c={"cinkoGrey.3"}>
+//         Collection
+//       </Title>
 
-  //     <Carousel
-  //       slideGap={"md"}
-  //       slideSize={"20%"}
-  //       emblaOptions={{ dragFree: true, slidesToScroll: 4 }}
-  //     >
-  //       {collection.parts.map((m) => (
-  //         <CarouselSlide key={m.id}>
-  //           <MovieCard movie={m} />
-  //         </CarouselSlide>
-  //       ))}
-  //     </Carousel>
-  //   </Box>
-  // );
-};
+//       <Carousel
+//         slideGap={"md"}
+//         slideSize={"20%"}
+//         emblaOptions={{ dragFree: true, slidesToScroll: 4 }}
+//       >
+//         {collection.parts.map((m) => (
+//           <CarouselSlide key={m.id}>
+//             <MovieCard movie={m} />
+//           </CarouselSlide>
+//         ))}
+//       </Carousel>
+//     </Box>
+//   );
+// };

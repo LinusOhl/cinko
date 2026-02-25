@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import z from "zod";
 import type {
+  TMDBMovie,
   TMDBPlayingMovies,
   TMDBPopularMovies,
   TMDBTopMovies,
@@ -11,7 +12,7 @@ import { tmdbFetch } from "./client";
 export const fetchMovieFn = createServerFn({ method: "GET" })
   .inputValidator(z.object({ id: z.string() }))
   .handler(async ({ data }) => {
-    tmdbFetch(`/movie/${data.id}`);
+    return tmdbFetch<TMDBMovie>(`/movie/${data.id}`);
   });
 
 export const fetchPopularMoviesFn = createServerFn({ method: "GET" }).handler(

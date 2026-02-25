@@ -28,43 +28,47 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { z } from "zod";
 import { CustomLink } from "../../../components/CustomLink";
-import { useAuth } from "../../../features/auth/hooks/useAuth";
-import { MovieRating } from "../../../features/ratings/components/MovieRating";
-import { WatchlistButton } from "../../../features/watchlist/components/WatchlistButton";
+// import { MovieRating } from "../../../features/ratings/components/MovieRating";
+// import { WatchlistButton } from "../../../features/watchlist/components/WatchlistButton";
 import { IMAGES_BASE_URL } from "../../../helpers";
 import { movieQueryOptions } from "../../../queries/movies";
+
+/**
+ * TODO:
+ * This page will only hold the 'Overview' section of the movie (like IMDb)
+ * /credits will hold a list of the movies credits ('Overview' is still above)
+ * /details will hold extra info about the movie ('Overview' is still above)
+ */
 
 export const Route = createFileRoute("/movies/$movieId")({
   params: {
     parse: (params) => ({
-      movieId: z.number().int().parse(Number(params.movieId)),
+      movieId: z.string().parse(params.movieId),
     }),
   },
   loader: ({ params: { movieId }, context }) =>
     context.queryClient.ensureQueryData(movieQueryOptions(movieId)),
-  head: ({ loaderData }) => ({
-    meta: loaderData
-      ? [
-          {
-            title: `${loaderData.title} (${loaderData.release_date.slice(0, 4)}) - CINKO`,
-          },
-        ]
-      : undefined,
-  }),
+  // head: ({ loaderData }) => ({
+  //   meta: loaderData
+  //     ? [
+  //         {
+  //           title: `${loaderData.title} (${loaderData.release_date.slice(0, 4)}) - CINKO`,
+  //         },
+  //       ]
+  //     : undefined,
+  // }),
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { user } = useAuth();
-
   const { movieId } = Route.useParams();
   const { data: movie } = useSuspenseQuery(movieQueryOptions(movieId));
 
   const movieReleaseYear = movie.release_date.slice(0, 4);
-  const movieLogo = movie.images?.logos.find((logo) => logo.iso_639_1 === "en");
-  const directors = movie.credits?.crew?.filter(
-    (person) => person.job === "Director",
-  );
+  // const movieLogo = movie.images?.logos.find((logo) => logo.iso_639_1 === "en");
+  // const directors = movie.credits?.crew?.filter(
+  //   (person) => person.job === "Director",
+  // );
 
   const getReleaseTitle = (type: number) => {
     switch (type) {
@@ -127,7 +131,7 @@ function RouteComponent() {
           />
 
           {/* Movie logo */}
-          <div className="movie-logo-wrapper">
+          {/* <div className="movie-logo-wrapper">
             {movieLogo?.file_path && (
               <Image
                 src={`${IMAGES_BASE_URL}/w300/${movieLogo?.file_path}`}
@@ -136,7 +140,7 @@ function RouteComponent() {
                 fit="contain"
               />
             )}
-          </div>
+          </div> */}
         </Box>
       </Skeleton>
 
@@ -161,12 +165,12 @@ function RouteComponent() {
           </Skeleton>
 
           {/* User actions */}
-          <Paper radius={"md"} p={"xs"} mt={"sm"}>
-            <Center>{user && <MovieRating userId={user.id} />}</Center>
+          {/* <Paper radius={"md"} p={"xs"} mt={"sm"}> */}
+          {/* <Center>{user && <MovieRating userId={user.id} />}</Center> */}
 
-            {/* TODO: Add to watchlist */}
-            {user && <WatchlistButton userId={user.id} />}
-          </Paper>
+          {/* TODO: Add to watchlist */}
+          {/* {user && <WatchlistButton userId={user.id} />} */}
+          {/* </Paper> */}
 
           {/* Movie facts, TODO: turn into component */}
           <Paper radius={"md"} p={"xs"} mt={"sm"}>
@@ -174,7 +178,7 @@ function RouteComponent() {
               <Box>
                 <Text fw={500}>Releases (GB)</Text>
 
-                <List listStyleType="none">
+                {/* <List listStyleType="none">
                   {movie.release_dates?.results
                     .find((release) => release.iso_3166_1 === "GB")
                     ?.release_dates.map((r) => (
@@ -185,69 +189,69 @@ function RouteComponent() {
                         </Text>
                       </ListItem>
                     ))}
-                </List>
+                </List> */}
               </Box>
 
               <Box>
                 <Text fw={500}>Languages</Text>
 
-                <List listStyleType="none">
+                {/* <List listStyleType="none">
                   {movie.spoken_languages.map((lang) => (
                     <ListItem key={lang.iso_639_1} c={"cinkoGrey.2"}>
                       {lang.english_name}
                     </ListItem>
                   ))}
-                </List>
+                </List> */}
               </Box>
 
               <Box>
                 <Text fw={500}>Genres</Text>
 
-                <List listStyleType="none">
+                {/* <List listStyleType="none">
                   {movie.genres.map((genre) => (
                     <ListItem key={genre.id}>{genre.name}</ListItem>
                   ))}
-                </List>
+                </List> */}
               </Box>
 
               <Box>
                 <Text fw={500}>Production companies</Text>
 
-                <List listStyleType="none">
+                {/* <List listStyleType="none">
                   {movie.production_companies.map((company) => (
                     <ListItem key={company.id}>{company.name}</ListItem>
                   ))}
-                </List>
+                </List> */}
               </Box>
 
               <Box>
                 <Text fw={500}>Production countries</Text>
 
-                <List listStyleType="none">
+                {/* <List listStyleType="none">
                   {movie.production_countries.map((country) => (
                     <ListItem key={country.iso_3166_1}>{country.name}</ListItem>
                   ))}
-                </List>
+                </List> */}
               </Box>
 
               <Box>
                 <Text fw={500}>Budget</Text>
 
-                <NumberFormatter
+                {/* <NumberFormatter
                   prefix="$"
                   value={movie.budget}
                   thousandSeparator
-                />
+                /> */}
               </Box>
 
               <Box>
                 <Text fw={500}>Revenue</Text>
 
-                <NumberFormatter
+                {/* <NumberFormatter
                   prefix="$"
                   value={movie.revenue}
                   thousandSeparator
-                />
+                /> */}
               </Box>
             </Stack>
           </Paper>
@@ -267,7 +271,7 @@ function RouteComponent() {
               <Group align="baseline" gap={"xs"}>
                 <Text c={"cinkoGrey.3"}>directed by</Text>
 
-                <Stack gap={"xs"}>
+                {/* <Stack gap={"xs"}>
                   {directors?.map((director) => (
                     <CustomLink
                       key={director.id}
@@ -282,7 +286,7 @@ function RouteComponent() {
                       {director.name}
                     </CustomLink>
                   ))}
-                </Stack>
+                </Stack> */}
               </Group>
             </GridCol>
           </Grid>
@@ -297,14 +301,14 @@ function RouteComponent() {
             <IconCircleFilled size={6} color="#bba6a6" />
 
             {/* Runtime */}
-            <Text size="sm" c={"cinkoGrey.3"}>
+            {/* <Text size="sm" c={"cinkoGrey.3"}>
               {movie.runtime}min
-            </Text>
+            </Text> */}
 
             <IconCircleFilled size={6} color="#bba6a6" />
 
             {/* Genres */}
-            {movie.genres.map((genre) => (
+            {/* {movie.genres.map((genre) => (
               <Badge
                 key={genre.id}
                 variant="light"
@@ -313,7 +317,7 @@ function RouteComponent() {
               >
                 {genre.name}
               </Badge>
-            ))}
+            ))} */}
           </Group>
 
           <Outlet />

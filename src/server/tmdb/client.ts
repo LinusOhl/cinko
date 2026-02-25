@@ -6,7 +6,7 @@ export const tmdbFetch = async <T>(path: string): Promise<T> => {
   const response = await fetch(url.toString(), {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${process.env.TMBD_ACCESS_TOKEN}`,
+      Authorization: `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}`,
       "Content-Type": "application/json",
     },
   });

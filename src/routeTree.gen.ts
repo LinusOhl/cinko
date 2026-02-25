@@ -9,55 +9,19 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SearchRouteRouteImport } from './routes/search/route'
-import { Route as DiscoverRouteRouteImport } from './routes/discover/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as PeoplePersonIdRouteImport } from './routes/people/$personId'
-import { Route as ProfileUserIdRouteRouteImport } from './routes/profile/$userId/route'
 import { Route as MoviesMovieIdRouteRouteImport } from './routes/movies/$movieId/route'
-import { Route as MoviesMovieIdDetailsRouteImport } from './routes/movies/$movieId/details'
-import { Route as MoviesMovieIdCreditsRouteImport } from './routes/movies/$movieId/credits'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
-const SearchRouteRoute = SearchRouteRouteImport.update({
-  id: '/search',
-  path: '/search',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DiscoverRouteRoute = DiscoverRouteRouteImport.update({
-  id: '/discover',
-  path: '/discover',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PeoplePersonIdRoute = PeoplePersonIdRouteImport.update({
-  id: '/people/$personId',
-  path: '/people/$personId',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProfileUserIdRouteRoute = ProfileUserIdRouteRouteImport.update({
-  id: '/profile/$userId',
-  path: '/profile/$userId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MoviesMovieIdRouteRoute = MoviesMovieIdRouteRouteImport.update({
   id: '/movies/$movieId',
   path: '/movies/$movieId',
   getParentRoute: () => rootRouteImport,
-} as any)
-const MoviesMovieIdDetailsRoute = MoviesMovieIdDetailsRouteImport.update({
-  id: '/details',
-  path: '/details',
-  getParentRoute: () => MoviesMovieIdRouteRoute,
-} as any)
-const MoviesMovieIdCreditsRoute = MoviesMovieIdCreditsRouteImport.update({
-  id: '/credits',
-  path: '/credits',
-  getParentRoute: () => MoviesMovieIdRouteRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
@@ -67,119 +31,41 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/discover': typeof DiscoverRouteRoute
-  '/search': typeof SearchRouteRoute
-  '/movies/$movieId': typeof MoviesMovieIdRouteRouteWithChildren
-  '/profile/$userId': typeof ProfileUserIdRouteRoute
-  '/people/$personId': typeof PeoplePersonIdRoute
+  '/movies/$movieId': typeof MoviesMovieIdRouteRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/movies/$movieId/credits': typeof MoviesMovieIdCreditsRoute
-  '/movies/$movieId/details': typeof MoviesMovieIdDetailsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/discover': typeof DiscoverRouteRoute
-  '/search': typeof SearchRouteRoute
-  '/movies/$movieId': typeof MoviesMovieIdRouteRouteWithChildren
-  '/profile/$userId': typeof ProfileUserIdRouteRoute
-  '/people/$personId': typeof PeoplePersonIdRoute
+  '/movies/$movieId': typeof MoviesMovieIdRouteRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/movies/$movieId/credits': typeof MoviesMovieIdCreditsRoute
-  '/movies/$movieId/details': typeof MoviesMovieIdDetailsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/discover': typeof DiscoverRouteRoute
-  '/search': typeof SearchRouteRoute
-  '/movies/$movieId': typeof MoviesMovieIdRouteRouteWithChildren
-  '/profile/$userId': typeof ProfileUserIdRouteRoute
-  '/people/$personId': typeof PeoplePersonIdRoute
+  '/movies/$movieId': typeof MoviesMovieIdRouteRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/movies/$movieId/credits': typeof MoviesMovieIdCreditsRoute
-  '/movies/$movieId/details': typeof MoviesMovieIdDetailsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/discover'
-    | '/search'
-    | '/movies/$movieId'
-    | '/profile/$userId'
-    | '/people/$personId'
-    | '/api/auth/$'
-    | '/movies/$movieId/credits'
-    | '/movies/$movieId/details'
+  fullPaths: '/' | '/movies/$movieId' | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/discover'
-    | '/search'
-    | '/movies/$movieId'
-    | '/profile/$userId'
-    | '/people/$personId'
-    | '/api/auth/$'
-    | '/movies/$movieId/credits'
-    | '/movies/$movieId/details'
-  id:
-    | '__root__'
-    | '/'
-    | '/discover'
-    | '/search'
-    | '/movies/$movieId'
-    | '/profile/$userId'
-    | '/people/$personId'
-    | '/api/auth/$'
-    | '/movies/$movieId/credits'
-    | '/movies/$movieId/details'
+  to: '/' | '/movies/$movieId' | '/api/auth/$'
+  id: '__root__' | '/' | '/movies/$movieId' | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  DiscoverRouteRoute: typeof DiscoverRouteRoute
-  SearchRouteRoute: typeof SearchRouteRoute
-  MoviesMovieIdRouteRoute: typeof MoviesMovieIdRouteRouteWithChildren
-  ProfileUserIdRouteRoute: typeof ProfileUserIdRouteRoute
-  PeoplePersonIdRoute: typeof PeoplePersonIdRoute
+  MoviesMovieIdRouteRoute: typeof MoviesMovieIdRouteRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/search': {
-      id: '/search'
-      path: '/search'
-      fullPath: '/search'
-      preLoaderRoute: typeof SearchRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/discover': {
-      id: '/discover'
-      path: '/discover'
-      fullPath: '/discover'
-      preLoaderRoute: typeof DiscoverRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/people/$personId': {
-      id: '/people/$personId'
-      path: '/people/$personId'
-      fullPath: '/people/$personId'
-      preLoaderRoute: typeof PeoplePersonIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/profile/$userId': {
-      id: '/profile/$userId'
-      path: '/profile/$userId'
-      fullPath: '/profile/$userId'
-      preLoaderRoute: typeof ProfileUserIdRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/movies/$movieId': {
@@ -188,20 +74,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/movies/$movieId'
       preLoaderRoute: typeof MoviesMovieIdRouteRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/movies/$movieId/details': {
-      id: '/movies/$movieId/details'
-      path: '/details'
-      fullPath: '/movies/$movieId/details'
-      preLoaderRoute: typeof MoviesMovieIdDetailsRouteImport
-      parentRoute: typeof MoviesMovieIdRouteRoute
-    }
-    '/movies/$movieId/credits': {
-      id: '/movies/$movieId/credits'
-      path: '/credits'
-      fullPath: '/movies/$movieId/credits'
-      preLoaderRoute: typeof MoviesMovieIdCreditsRouteImport
-      parentRoute: typeof MoviesMovieIdRouteRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -213,26 +85,9 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface MoviesMovieIdRouteRouteChildren {
-  MoviesMovieIdCreditsRoute: typeof MoviesMovieIdCreditsRoute
-  MoviesMovieIdDetailsRoute: typeof MoviesMovieIdDetailsRoute
-}
-
-const MoviesMovieIdRouteRouteChildren: MoviesMovieIdRouteRouteChildren = {
-  MoviesMovieIdCreditsRoute: MoviesMovieIdCreditsRoute,
-  MoviesMovieIdDetailsRoute: MoviesMovieIdDetailsRoute,
-}
-
-const MoviesMovieIdRouteRouteWithChildren =
-  MoviesMovieIdRouteRoute._addFileChildren(MoviesMovieIdRouteRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  DiscoverRouteRoute: DiscoverRouteRoute,
-  SearchRouteRoute: SearchRouteRoute,
-  MoviesMovieIdRouteRoute: MoviesMovieIdRouteRouteWithChildren,
-  ProfileUserIdRouteRoute: ProfileUserIdRouteRoute,
-  PeoplePersonIdRoute: PeoplePersonIdRoute,
+  MoviesMovieIdRouteRoute: MoviesMovieIdRouteRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
