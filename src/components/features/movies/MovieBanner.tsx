@@ -1,9 +1,9 @@
 import { Box, Image, Overlay, Skeleton } from "@mantine/core";
 import { IMAGES_BASE_URL } from "~/helpers";
-import type { TMDBMovie } from "~/types/tmdb";
+import type { TMDBMovieDetails } from "~/types/tmdb";
 
 interface MovieBannerProps {
-  movie: TMDBMovie;
+  movie: TMDBMovieDetails;
 }
 
 export const MovieBanner = ({ movie }: MovieBannerProps) => {
