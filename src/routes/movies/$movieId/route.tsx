@@ -35,43 +35,41 @@ function RouteComponent() {
     <Stack my={"xl"}>
       <MovieBanner movie={movie} />
 
-      <Grid align="flex-start" gutter={100}>
-        <Grid.Col span={3}>
-          {/* TODO: set up fallback src/element */}
-          <Box w={250}>
-            <div
-              style={{
-                backgroundImage: `url(${IMAGES_BASE_URL}/w500/${movie.poster_path})`,
-              }}
-              className={"movieCardImageBox"}
-            >
-              <div className={"movieCardBorderBox"} />
-            </div>
-          </Box>
-        </Grid.Col>
+      <Group align="flex-start" wrap="nowrap">
+        {/* TODO: set up fallback src/element */}
+        <Box w={250}>
+          <div
+            style={{
+              backgroundImage: `url(${IMAGES_BASE_URL}/w500/${movie.poster_path})`,
+              width: 250,
+            }}
+            className={"movieCardImageBox"}
+          >
+            <div className={"movieCardBorderBox"} />
+          </div>
+        </Box>
 
-        <Grid.Col span={9}>
-          <Stack>
-            <Title order={1} style={{ textWrap: "balance" }}>
-              {movie.title}
-            </Title>
+        <Stack>
+          <Title order={1} style={{ textWrap: "balance" }}>
+            {movie.title}
+          </Title>
 
-            <Group gap={"xs"}>
-              <Text size="sm" c={"cinkoGrey.3"}>
-                {movieReleaseYear}
-              </Text>
+          <Group gap={"xs"}>
+            <Text size="sm" c={"cinkoGrey.3"}>
+              {movieReleaseYear}
+            </Text>
 
-              <IconCircleFilled size={6} color="#bba6a6" />
+            <IconCircleFilled size={6} color="#bba6a6" />
 
-              {/* Runtime */}
-              {/* <Text size="sm" c={"cinkoGrey.3"}>
+            {/* Runtime */}
+            {/* <Text size="sm" c={"cinkoGrey.3"}>
               {movie.runtime}min
             </Text> */}
 
-              <IconCircleFilled size={6} color="#bba6a6" />
+            <IconCircleFilled size={6} color="#bba6a6" />
 
-              {/* Genres */}
-              {/* {movie.genres.map((genre) => (
+            {/* Genres */}
+            {/* {movie.genres.map((genre) => (
               <Badge
                 key={genre.id}
                 variant="light"
@@ -81,12 +79,11 @@ function RouteComponent() {
                 {genre.name}
               </Badge>
             ))} */}
-            </Group>
+          </Group>
 
-            <Text c={"cinkoGrey.3"}>{movie.overview}</Text>
-          </Stack>
-        </Grid.Col>
-      </Grid>
+          <Text c={"cinkoGrey.3"}>{movie.overview}</Text>
+        </Stack>
+      </Group>
     </Stack>
   );
 }
