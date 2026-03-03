@@ -29,7 +29,7 @@ export const fetchTopMoviesFn = createServerFn({ method: "GET" }).handler(
 
 export const fetchPlayingMoviesFn = createServerFn({ method: "GET" }).handler(
   async () => {
-    return tmdbFetch<TMDBPlayingMovies>("/movie/now_playing");
+    return tmdbFetch<TMDBPlayingMovies>("/movie/now_playing?region=US");
   },
 );
 
