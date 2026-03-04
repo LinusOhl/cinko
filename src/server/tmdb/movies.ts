@@ -12,7 +12,9 @@ import { tmdbFetch } from "./client";
 export const fetchMovieFn = createServerFn({ method: "GET" })
   .inputValidator(z.object({ id: z.string() }))
   .handler(async ({ data }) => {
-    return tmdbFetch<TMDBMovieDetails>(`/movie/${data.id}`);
+    const searchParams = "?append_to_response=credits";
+
+    return tmdbFetch<TMDBMovieDetails>(`/movie/${data.id}${searchParams}`);
   });
 
 export const fetchPopularMoviesFn = createServerFn({ method: "GET" }).handler(
