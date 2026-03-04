@@ -3,6 +3,29 @@ type TMDBBaseList<T> = {
   results: T[];
 };
 
+type Genre = {
+  id: number;
+  name: string;
+};
+
+type ProductionCompany = {
+  id: number;
+  name: string;
+  logo_path: string;
+  origin_country: string;
+};
+
+type ProductionCountry = {
+  name: string;
+  iso_3166_1: string;
+};
+
+type SpokenLanguage = {
+  name: string;
+  english_name: string;
+  iso_639_1: string;
+};
+
 export type TMDBMovie = {
   id: number;
   adult: boolean;
@@ -23,29 +46,14 @@ export type TMDBMovie = {
 export type TMDBMovieDetails = Omit<TMDBMovie, "genre_ids"> & {
   belongs_to_collection: string;
   budget: number;
-  genres: {
-    id: number;
-    name: string;
-  }[];
+  genres: Genre[];
   homepage: string;
   imdb_id: string;
-  production_companies: {
-    id: number;
-    logo_path: string;
-    name: string;
-    origin_country: string;
-  }[];
-  production_countries: {
-    iso_3166_1: string;
-    name: string;
-  }[];
+  production_companies: ProductionCompany[];
+  production_countries: ProductionCountry[];
   revenue: number;
   runtime: number;
-  spoken_languages: {
-    english_name: string;
-    iso_639_1: string;
-    name: string;
-  }[];
+  spoken_languages: SpokenLanguage[];
   status: string;
   tagline: string;
 };
