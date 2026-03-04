@@ -1,10 +1,10 @@
-import { Box, Grid, Group, Stack, Text, Title } from "@mantine/core";
+import { Badge, Button, Group, Paper, Stack, Text, Title } from "@mantine/core";
 import { IconCircleFilled } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { z } from "zod";
 import { MovieBanner } from "~/components/features/movies/MovieBanner";
-import { IMAGES_BASE_URL } from "~/helpers";
+import { MoviePoster } from "~/components/features/movies/MoviePoster";
 import { movieQueryOptions } from "~/queries/movies";
 
 /**
@@ -32,58 +32,76 @@ function RouteComponent() {
   const movieReleaseYear = movie.release_date.slice(0, 4);
 
   return (
-    <Stack my={"xl"}>
-      <MovieBanner movie={movie} />
+    <>
+      <Stack my={"xl"}>
+        <MovieBanner movie={movie} />
 
-      <Group align="flex-start" wrap="nowrap">
-        {/* TODO: set up fallback src/element */}
-        <Box w={250}>
-          <div
-            style={{
-              backgroundImage: `url(${IMAGES_BASE_URL}/w500/${movie.poster_path})`,
-              width: 250,
-            }}
-            className={"movieCardImageBox"}
-          >
-            <div className={"movieCardBorderBox"} />
-          </div>
-        </Box>
+        <Group align="flex-start" wrap="nowrap">
+          <Stack>
+            <MoviePoster posterPath={movie.poster_path} width={250} />
 
-        <Stack>
-          <Title order={1} style={{ textWrap: "balance" }}>
-            {movie.title}
-          </Title>
+            <Paper bg={"black"}>
+              <Stack>
+                <Button color="cinkoYellow.7">Rate movie</Button>
 
-          <Group gap={"xs"}>
-            <Text size="sm" c={"cinkoGrey.3"}>
-              {movieReleaseYear}
-            </Text>
+                <Button color="cinkoBlue.6">Add to watchlist</Button>
+              </Stack>
+            </Paper>
+          </Stack>
 
-            <IconCircleFilled size={6} color="#bba6a6" />
+          <Stack>
+            <Title order={1} style={{ textWrap: "balance" }}>
+              {movie.title}
+            </Title>
 
-            {/* Runtime */}
-            {/* <Text size="sm" c={"cinkoGrey.3"}>
-              {movie.runtime}min
-            </Text> */}
+            <Group gap={"xs"}>
+              <Text size="sm" c={"cinkoGrey.3"}>
+                {movieReleaseYear}
+              </Text>
 
-            <IconCircleFilled size={6} color="#bba6a6" />
+              <IconCircleFilled size={6} color="#bba6a6" />
 
-            {/* Genres */}
-            {/* {movie.genres.map((genre) => (
-              <Badge
-                key={genre.id}
-                variant="light"
-                size="sm"
-                color="cinkoYellow"
-              >
-                {genre.name}
-              </Badge>
-            ))} */}
-          </Group>
+              <Text size="sm" c={"cinkoGrey.3"}>
+                {movie.runtime}min
+              </Text>
 
-          <Text c={"cinkoGrey.3"}>{movie.overview}</Text>
-        </Stack>
-      </Group>
-    </Stack>
+              <IconCircleFilled size={6} color="#bba6a6" />
+
+              {movie.genres.map((genre) => (
+                <Badge
+                  key={genre.id}
+                  variant="light"
+                  size="sm"
+                  color="cinkoYellow"
+                >
+                  {genre.name}
+                </Badge>
+              ))}
+            </Group>
+
+            <Text fs={"italic"}>{movie.tagline}</Text>
+
+            <Text c={"cinkoGrey.3"}>{movie.overview}</Text>
+
+            <Stack gap={"xs"}>
+              <Group>
+                <Text fw={700}>Director</Text>
+                <Text>Bong Joon-ho</Text>
+              </Group>
+              <Group>
+                <Text fw={700}>Writers</Text>
+                <Text>Bong Joon-ho</Text>
+              </Group>
+              <Group>
+                <Text fw={700}>Stars</Text>
+                <Text>Bong Joon-ho, Bong Joon-ho, Bong Joon-ho</Text>
+              </Group>
+            </Stack>
+          </Stack>
+        </Group>
+      </Stack>
+
+      <Outlet />
+    </>
   );
 }
