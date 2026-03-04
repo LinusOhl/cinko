@@ -1,141 +1,20 @@
-// import {
-//   Accordion,
-//   AccordionControl,
-//   AccordionItem,
-//   AccordionPanel,
-//   Avatar,
-//   Box,
-//   Flex,
-//   Grid,
-//   GridCol,
-//   Spoiler,
-//   Text,
-//   Title,
-// } from "@mantine/core";
-// import { IconChevronLeft } from "@tabler/icons-react";
-// import { useSuspenseQuery } from "@tanstack/react-query";
-// import { createFileRoute } from "@tanstack/react-router";
-// import { CustomLink } from "../../../components/CustomLink";
-// import { groupCrewByJob, IMAGES_BASE_URL } from "../../../helpers";
-// import { movieQueryOptions } from "../../../queries/movies";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import { movieQueryOptions } from "../../../queries/movies";
 
-// export const Route = createFileRoute("/movies/$movieId/credits")({
-//   loader: (opts) =>
-//     opts.context.queryClient.ensureQueryData(
-//       movieQueryOptions(opts.params.movieId),
-//     ),
-//   component: RouteComponent,
-// });
+export const Route = createFileRoute("/movies/$movieId/credits")({
+  loader: ({ context, params }) =>
+    context.queryClient.ensureQueryData(movieQueryOptions(params.movieId)),
+  component: RouteComponent,
+});
 
-// function RouteComponent() {
-//   const params = Route.useParams();
-//   const { data: movie } = useSuspenseQuery(movieQueryOptions(params.movieId));
+function RouteComponent() {
+  const { movieId } = Route.useParams();
+  const { data: movie } = useSuspenseQuery(movieQueryOptions(movieId));
 
-//   const groupedCrew = groupCrewByJob(movie.credits?.crew);
-
-//   return (
-//     <>
-//       <Box mt={"xl"}>
-//         <CustomLink
-//           to="/movies/$movieId/details"
-//           params={{ movieId: params.movieId }}
-//           from="/"
-//           preload={false}
-//           display={"inline-flex"}
-//           style={{ textDecorationColor: "#1e2ede" }}
-//         >
-//           <Flex align={"center"} gap={"xs"} mb={"md"}>
-//             <IconChevronLeft size={18} color="#4e5ae6" />
-
-//             <Text c={"cinkoBlue.5"}>Back to details</Text>
-//           </Flex>
-//         </CustomLink>
-
-//         <Title order={2} mb={"sm"} c={"cinkoGrey.2"}>
-//           Cast
-//         </Title>
-
-//         <Spoiler showLabel="Show more" hideLabel={"Hide"} maxHeight={360}>
-//           <Flex direction={"column"} gap={"md"} mt={"sm"}>
-//             <Grid>
-//               {movie.credits?.cast?.map((person) => (
-//                 <GridCol key={person.id} span={6}>
-//                   <Flex align={"center"} gap={"xl"}>
-//                     <Avatar
-//                       src={
-//                         person.profile_path
-//                           ? `${IMAGES_BASE_URL}/w185/${person.profile_path}`
-//                           : null
-//                       }
-//                       alt={person.name}
-//                       size={"lg"}
-//                       radius={"xl"}
-//                     />
-
-//                     <Flex direction={"column"}>
-//                       <CustomLink
-//                         c={"white"}
-//                         to="/people/$personId"
-//                         params={{ personId: person.id }}
-//                         from="/"
-//                         preload={false}
-//                       >
-//                         <Text fw={500}>{person.name}</Text>
-//                       </CustomLink>
-
-//                       <Text c={"cinkoGrey.3"}>{person.character}</Text>
-//                     </Flex>
-//                   </Flex>
-//                 </GridCol>
-//               ))}
-//             </Grid>
-//           </Flex>
-//         </Spoiler>
-//       </Box>
-
-//       <Box mt={"xl"}>
-//         <Title order={2} mb={"sm"} c={"cinkoGrey.2"}>
-//           Crew
-//         </Title>
-
-//         <Accordion variant="default">
-//           {groupedCrew
-//             ?.sort((a, b) => a.department.localeCompare(b.department))
-//             .map((group) => (
-//               <AccordionItem
-//                 key={group.department}
-//                 value={group.department}
-//                 bg={"transparent"}
-//               >
-//                 <AccordionControl>
-//                   <Text fw={700} c={"white"}>
-//                     {group.department}
-//                   </Text>
-//                 </AccordionControl>
-
-//                 <AccordionPanel>
-//                   {group.members
-//                     .sort((a, b) => a.job.localeCompare(b.job))
-//                     .map((member) => (
-//                       <Flex key={member.credit_id}>
-//                         <CustomLink
-//                           c={"white"}
-//                           to="/people/$personId"
-//                           params={{ personId: member.id }}
-//                           from="/"
-//                           preload={false}
-//                         >
-//                           <Text>{member.name}</Text>
-//                         </CustomLink>
-
-//                         <Text ml={"auto"}>{member.job}</Text>
-//                       </Flex>
-//                     ))}
-//                 </AccordionPanel>
-//               </AccordionItem>
-//             ))}
-//         </Accordion>
-//       </Box>
-//     </>
-//   );
-// }
+  return (
+    <div>
+      <p>credits page for {movie.title}</p>
+    </div>
+  );
+}

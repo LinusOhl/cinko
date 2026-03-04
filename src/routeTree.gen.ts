@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MoviesMovieIdRouteRouteImport } from './routes/movies/$movieId/route'
+import { Route as MoviesMovieIdDetailsRouteImport } from './routes/movies/$movieId/details'
+import { Route as MoviesMovieIdCreditsRouteImport } from './routes/movies/$movieId/credits'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +25,16 @@ const MoviesMovieIdRouteRoute = MoviesMovieIdRouteRouteImport.update({
   path: '/movies/$movieId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MoviesMovieIdDetailsRoute = MoviesMovieIdDetailsRouteImport.update({
+  id: '/details',
+  path: '/details',
+  getParentRoute: () => MoviesMovieIdRouteRoute,
+} as any)
+const MoviesMovieIdCreditsRoute = MoviesMovieIdCreditsRouteImport.update({
+  id: '/credits',
+  path: '/credits',
+  getParentRoute: () => MoviesMovieIdRouteRoute,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -31,31 +43,53 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/movies/$movieId': typeof MoviesMovieIdRouteRoute
+  '/movies/$movieId': typeof MoviesMovieIdRouteRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/movies/$movieId/credits': typeof MoviesMovieIdCreditsRoute
+  '/movies/$movieId/details': typeof MoviesMovieIdDetailsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/movies/$movieId': typeof MoviesMovieIdRouteRoute
+  '/movies/$movieId': typeof MoviesMovieIdRouteRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/movies/$movieId/credits': typeof MoviesMovieIdCreditsRoute
+  '/movies/$movieId/details': typeof MoviesMovieIdDetailsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/movies/$movieId': typeof MoviesMovieIdRouteRoute
+  '/movies/$movieId': typeof MoviesMovieIdRouteRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/movies/$movieId/credits': typeof MoviesMovieIdCreditsRoute
+  '/movies/$movieId/details': typeof MoviesMovieIdDetailsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/movies/$movieId' | '/api/auth/$'
+  fullPaths:
+    | '/'
+    | '/movies/$movieId'
+    | '/api/auth/$'
+    | '/movies/$movieId/credits'
+    | '/movies/$movieId/details'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/movies/$movieId' | '/api/auth/$'
-  id: '__root__' | '/' | '/movies/$movieId' | '/api/auth/$'
+  to:
+    | '/'
+    | '/movies/$movieId'
+    | '/api/auth/$'
+    | '/movies/$movieId/credits'
+    | '/movies/$movieId/details'
+  id:
+    | '__root__'
+    | '/'
+    | '/movies/$movieId'
+    | '/api/auth/$'
+    | '/movies/$movieId/credits'
+    | '/movies/$movieId/details'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  MoviesMovieIdRouteRoute: typeof MoviesMovieIdRouteRoute
+  MoviesMovieIdRouteRoute: typeof MoviesMovieIdRouteRouteWithChildren
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -75,6 +109,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MoviesMovieIdRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/movies/$movieId/details': {
+      id: '/movies/$movieId/details'
+      path: '/details'
+      fullPath: '/movies/$movieId/details'
+      preLoaderRoute: typeof MoviesMovieIdDetailsRouteImport
+      parentRoute: typeof MoviesMovieIdRouteRoute
+    }
+    '/movies/$movieId/credits': {
+      id: '/movies/$movieId/credits'
+      path: '/credits'
+      fullPath: '/movies/$movieId/credits'
+      preLoaderRoute: typeof MoviesMovieIdCreditsRouteImport
+      parentRoute: typeof MoviesMovieIdRouteRoute
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -85,9 +133,22 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface MoviesMovieIdRouteRouteChildren {
+  MoviesMovieIdCreditsRoute: typeof MoviesMovieIdCreditsRoute
+  MoviesMovieIdDetailsRoute: typeof MoviesMovieIdDetailsRoute
+}
+
+const MoviesMovieIdRouteRouteChildren: MoviesMovieIdRouteRouteChildren = {
+  MoviesMovieIdCreditsRoute: MoviesMovieIdCreditsRoute,
+  MoviesMovieIdDetailsRoute: MoviesMovieIdDetailsRoute,
+}
+
+const MoviesMovieIdRouteRouteWithChildren =
+  MoviesMovieIdRouteRoute._addFileChildren(MoviesMovieIdRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  MoviesMovieIdRouteRoute: MoviesMovieIdRouteRoute,
+  MoviesMovieIdRouteRoute: MoviesMovieIdRouteRouteWithChildren,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
