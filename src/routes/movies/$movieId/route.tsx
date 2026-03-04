@@ -30,6 +30,11 @@ function RouteComponent() {
   const { data: movie } = useSuspenseQuery(movieQueryOptions(movieId));
 
   const movieReleaseYear = movie.release_date.slice(0, 4);
+  const stars = movie.credits.cast.slice(0, 3);
+  const directors = movie.credits.crew.filter((k) => k.job === "Director");
+  const writers = movie.credits.crew.filter(
+    (k) => k.job === "Writer" || k.job === "Screenplay",
+  );
 
   return (
     <>
@@ -85,16 +90,39 @@ function RouteComponent() {
 
             <Stack gap={"xs"}>
               <Group>
-                <Text fw={700}>Director</Text>
-                <Text>Bong Joon-ho</Text>
+                {directors.length > 1 ? (
+                  <Text fw={700}>Directors</Text>
+                ) : (
+                  <Text fw={700}>Director</Text>
+                )}
+
+                {directors.map((director) => (
+                  <Text key={director.id}>{director.name}</Text>
+                ))}
               </Group>
+
               <Group>
-                <Text fw={700}>Writers</Text>
-                <Text>Bong Joon-ho</Text>
+                {writers.length > 1 ? (
+                  <Text fw={700}>Writers</Text>
+                ) : (
+                  <Text fw={700}>Writer</Text>
+                )}
+
+                {writers.map((writer) => (
+                  <Text key={writer.id}>{writer.name}</Text>
+                ))}
               </Group>
+
               <Group>
-                <Text fw={700}>Stars</Text>
-                <Text>Bong Joon-ho, Bong Joon-ho, Bong Joon-ho</Text>
+                {stars.length > 1 ? (
+                  <Text fw={700}>Stars</Text>
+                ) : (
+                  <Text fw={700}>Star</Text>
+                )}
+
+                {stars.map((star) => (
+                  <Text key={star.id}>{star.name}</Text>
+                ))}
               </Group>
             </Stack>
           </Stack>
