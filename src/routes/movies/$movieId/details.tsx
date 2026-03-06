@@ -46,6 +46,7 @@ function RouteComponent() {
           params={{ movieId }}
           c={"white"}
           fw={700}
+          fz={"lg"}
         >
           All cast & crew
         </CustomLink>
