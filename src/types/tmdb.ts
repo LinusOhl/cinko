@@ -41,7 +41,7 @@ type Cast = {
   order: number;
 };
 
-type Crew = {
+export type Crew = {
   adult: boolean;
   gender: number;
   id: number;
