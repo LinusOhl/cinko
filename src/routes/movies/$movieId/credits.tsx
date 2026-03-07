@@ -19,18 +19,35 @@ function RouteComponent() {
   const organizedCrew = movie.credits.crew.reduce<Record<string, Crew[]>>(
     (acc, item) => {
       const department = item.department;
+
       if (!acc[department]) {
         acc[department] = [];
       }
 
-      acc[department].push(item);
+      const existingPerson = acc[department].find(
+        (crewMember) => crewMember.id === item.id,
+      );
+
+      if (existingPerson) {
+        if (!existingPerson.jobs) {
+          existingPerson.jobs = [existingPerson.job];
+        }
+
+        existingPerson.jobs.push(item.job);
+      } else {
+        acc[department].push({
+          ...item,
+          jobs: [item.job],
+        });
+      }
+
       return acc;
     },
     {},
   );
 
   return (
-    <Stack>
+    <Stack gap={"xl"}>
       <CustomLink
         to="/movies/$movieId/details"
         params={{ movieId }}
@@ -58,7 +75,15 @@ function RouteComponent() {
                 />
 
                 <Stack gap={"xs"}>
-                  <Text fw={500}>{cast.name}</Text>
+                  <CustomLink
+                    to="/people/$personId"
+                    params={{ personId: `${cast.id}` }}
+                    preload={false}
+                    fw={600}
+                    c={"white"}
+                  >
+                    {cast.name}
+                  </CustomLink>
                   <Text c={"cinkoGrey.2"}>{cast.character}</Text>
                 </Stack>
               </Group>
@@ -92,8 +117,16 @@ function RouteComponent() {
                       />
 
                       <Stack gap={"xs"}>
-                        <Text fw={500}>{member.name}</Text>
-                        <Text c={"cinkoGrey.2"}>{member.job}</Text>
+                        <CustomLink
+                          to="/people/$personId"
+                          params={{ personId: `${member.id}` }}
+                          preload={false}
+                          fw={600}
+                          c={"white"}
+                        >
+                          {member.name}
+                        </CustomLink>
+                        <Text c={"cinkoGrey.2"}>{member.jobs.join(", ")}</Text>
                       </Stack>
                     </Group>
                   </Grid.Col>

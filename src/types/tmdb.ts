@@ -53,6 +53,7 @@ export type Crew = {
   credit_id: string;
   department: string;
   job: string;
+  jobs: string[];
 };
 
 type Credits = {
