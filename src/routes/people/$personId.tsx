@@ -1,4 +1,4 @@
-import { Group, Image, Stack, Text, Title } from "@mantine/core";
+import { Group, Image, Spoiler, Stack, Text, Title } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { IMAGES_BASE_URL } from "~/helpers";
@@ -25,7 +25,10 @@ function RouteComponent() {
 
         <Stack>
           <Title order={1}>{person.name}</Title>
-          <Text>{person.biography}</Text>
+
+          <Spoiler maxHeight={220} showLabel="Show more" hideLabel="Hide">
+            <Text>{person.biography}</Text>
+          </Spoiler>
         </Stack>
       </Group>
     </Stack>
