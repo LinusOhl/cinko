@@ -1,4 +1,13 @@
-import { Group, Image, Spoiler, Stack, Text, Title } from "@mantine/core";
+import {
+  Flex,
+  Group,
+  Image,
+  Spoiler,
+  Stack,
+  Tabs,
+  Text,
+  Title,
+} from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { IMAGES_BASE_URL } from "~/helpers";
@@ -13,6 +22,10 @@ export const Route = createFileRoute("/people/$personId")({
 function RouteComponent() {
   const { personId } = Route.useParams();
   const { data: person } = useSuspenseQuery(personQueryOptions(personId));
+
+  const cleanCrewCredits = new Map(
+    person.movie_credits.crew.map((m) => [m.id, m]),
+  );
 
   return (
     <Stack my={"xl"}>
@@ -31,6 +44,51 @@ function RouteComponent() {
           </Spoiler>
         </Stack>
       </Group>
+
+      <Stack>
+        <Title order={2}>Credits</Title>
+
+        <Tabs defaultValue={"cast"} variant="outline" color="cinkoBlue">
+          <Tabs.List grow>
+            <Tabs.Tab value="cast">Cast</Tabs.Tab>
+            <Tabs.Tab value="crew">Crew</Tabs.Tab>
+          </Tabs.List>
+
+          <Tabs.Panel value="cast">
+            <Flex gap={"sm"} wrap={"wrap"}>
+              {person.movie_credits.cast.map((movie) => (
+                <Image
+                  key={movie.id}
+                  src={
+                    movie.poster_path
+                      ? `${IMAGES_BASE_URL}/w154/${movie.poster_path}`
+                      : null
+                  }
+                  alt={movie.title}
+                  w={96}
+                />
+              ))}
+            </Flex>
+          </Tabs.Panel>
+
+          <Tabs.Panel value="crew">
+            <Flex gap={"sm"} wrap={"wrap"}>
+              {Array.from(cleanCrewCredits.values()).map((movie) => (
+                <Image
+                  key={movie.id}
+                  src={
+                    movie.poster_path
+                      ? `${IMAGES_BASE_URL}/w154/${movie.poster_path}`
+                      : null
+                  }
+                  alt={movie.title}
+                  w={96}
+                />
+              ))}
+            </Flex>
+          </Tabs.Panel>
+        </Tabs>
+      </Stack>
     </Stack>
   );
 }
