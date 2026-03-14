@@ -10,6 +10,7 @@ import {
 } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { MovieCredit } from "~/components/features/movies/MovieCredit";
 import { IMAGES_BASE_URL } from "~/helpers";
 import { personQueryOptions } from "~/queries/people";
 
@@ -57,16 +58,7 @@ function RouteComponent() {
           <Tabs.Panel value="cast">
             <Flex gap={"sm"} wrap={"wrap"}>
               {person.movie_credits.cast.map((movie) => (
-                <Image
-                  key={movie.id}
-                  src={
-                    movie.poster_path
-                      ? `${IMAGES_BASE_URL}/w154/${movie.poster_path}`
-                      : null
-                  }
-                  alt={movie.title}
-                  w={96}
-                />
+                <MovieCredit key={movie.id} movie={movie} />
               ))}
             </Flex>
           </Tabs.Panel>
@@ -74,16 +66,7 @@ function RouteComponent() {
           <Tabs.Panel value="crew">
             <Flex gap={"sm"} wrap={"wrap"}>
               {Array.from(cleanCrewCredits.values()).map((movie) => (
-                <Image
-                  key={movie.id}
-                  src={
-                    movie.poster_path
-                      ? `${IMAGES_BASE_URL}/w154/${movie.poster_path}`
-                      : null
-                  }
-                  alt={movie.title}
-                  w={96}
-                />
+                <MovieCredit key={movie.id} movie={movie} />
               ))}
             </Flex>
           </Tabs.Panel>
