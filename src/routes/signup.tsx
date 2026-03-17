@@ -28,7 +28,7 @@ function RouteComponent() {
             Sign up
           </Text>
 
-          <CustomLink to="/" c={"cinkoYellow"}>
+          <CustomLink to="/signin" c={"cinkoYellow"}>
             Already have an account?
           </CustomLink>
         </Group>
