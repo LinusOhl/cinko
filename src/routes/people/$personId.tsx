@@ -39,7 +39,7 @@ function RouteComponent() {
           radius={"md"}
         />
 
-        <Stack>
+        <Stack gap={"lg"}>
           <Title order={1}>{person.name}</Title>
 
           <Spoiler maxHeight={220} showLabel="Show more" hideLabel="Hide">
