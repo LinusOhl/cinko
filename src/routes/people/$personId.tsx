@@ -2,6 +2,8 @@ import {
   Flex,
   Group,
   Image,
+  Paper,
+  SimpleGrid,
   Spoiler,
   Stack,
   Tabs,
@@ -43,6 +45,48 @@ function RouteComponent() {
           <Spoiler maxHeight={220} showLabel="Show more" hideLabel="Hide">
             <Text>{person.biography}</Text>
           </Spoiler>
+
+          <SimpleGrid cols={3}>
+            <Paper bg={"dark"} p={"xs"}>
+              <Stack ta={"center"} gap={"xs"}>
+                <Text tt={"uppercase"}>Known for</Text>
+                <Text fw={600} fz={"lg"}>
+                  {person.known_for_department}
+                </Text>
+              </Stack>
+            </Paper>
+
+            <Paper bg={"dark"} p={"xs"}>
+              <Stack ta={"center"} gap={"xs"}>
+                <Text tt={"uppercase"}>Birthday</Text>
+                <Text fw={600} fz={"lg"}>
+                  {person.birthday}
+                </Text>
+              </Stack>
+            </Paper>
+
+            {person.deathday && (
+              <Paper bg={"dark"} p={"xs"}>
+                <Stack ta={"center"} gap={"xs"}>
+                  <Text tt={"uppercase"}>Died</Text>
+                  <Text fw={600} fz={"lg"}>
+                    {person.deathday}
+                  </Text>
+                </Stack>
+              </Paper>
+            )}
+
+            {person.also_known_as.length > 0 && (
+              <Paper bg={"dark"} p={"xs"}>
+                <Stack ta={"center"} gap={"xs"}>
+                  <Text tt={"uppercase"}>AKA.</Text>
+                  <Text fw={600} fz={"lg"}>
+                    {person.also_known_as[0]}
+                  </Text>
+                </Stack>
+              </Paper>
+            )}
+          </SimpleGrid>
         </Stack>
       </Group>
 
