@@ -102,7 +102,13 @@ function RouteComponent() {
           <Tabs.Panel value="cast">
             <Flex gap={"sm"} wrap={"wrap"}>
               {person.movie_credits.cast.map((movie) => (
-                <MovieCredit key={movie.id} movie={movie} />
+                <MovieCredit
+                  key={movie.id}
+                  id={movie.id}
+                  title={movie.title}
+                  posterPath={movie.poster_path}
+                  work={movie.character}
+                />
               ))}
             </Flex>
           </Tabs.Panel>
@@ -110,7 +116,13 @@ function RouteComponent() {
           <Tabs.Panel value="crew">
             <Flex gap={"sm"} wrap={"wrap"}>
               {Array.from(cleanCrewCredits.values()).map((movie) => (
-                <MovieCredit key={movie.id} movie={movie} />
+                <MovieCredit
+                  key={movie.id}
+                  id={movie.id}
+                  title={movie.title}
+                  posterPath={movie.poster_path}
+                  work={movie.job}
+                />
               ))}
             </Flex>
           </Tabs.Panel>

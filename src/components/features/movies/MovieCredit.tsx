@@ -1,31 +1,34 @@
 import { Box, Image, Text, Tooltip } from "@mantine/core";
 import { useNavigate } from "@tanstack/react-router";
 import { IMAGES_BASE_URL } from "~/helpers";
-import type { TMDBMovie } from "~/types/tmdb";
 
 interface MovieCreditProps {
-  movie: TMDBMovie;
+  id: number;
+  posterPath: string | null;
+  title: string;
+  work: string;
 }
 
-export const MovieCredit = ({ movie }: MovieCreditProps) => {
+export const MovieCredit = ({
+  id,
+  posterPath,
+  title,
+  work,
+}: MovieCreditProps) => {
   const navigate = useNavigate();
 
   return (
-    <Tooltip label={movie.title} position="bottom" withArrow>
-      {movie.poster_path ? (
+    <Tooltip label={`${title} as ${work}`} position="bottom" withArrow>
+      {posterPath ? (
         <Image
-          src={
-            movie.poster_path
-              ? `${IMAGES_BASE_URL}/w154/${movie.poster_path}`
-              : null
-          }
-          alt={movie.title}
+          src={posterPath ? `${IMAGES_BASE_URL}/w154/${posterPath}` : null}
+          alt={title}
           w={96}
           style={{ cursor: "pointer" }}
           onClick={() =>
             navigate({
               to: "/movies/$movieId/details",
-              params: { movieId: movie.id.toString() },
+              params: { movieId: id.toString() },
             })
           }
         />
@@ -37,11 +40,11 @@ export const MovieCredit = ({ movie }: MovieCreditProps) => {
           onClick={() =>
             navigate({
               to: "/movies/$movieId/details",
-              params: { movieId: movie.id.toString() },
+              params: { movieId: id.toString() },
             })
           }
         >
-          <Text ta={"center"}>{movie.title}</Text>
+          <Text ta={"center"}>{title}</Text>
         </Box>
       )}
     </Tooltip>
