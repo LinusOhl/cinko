@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import type { ReactNode } from "react";
+import { Navbar } from "~/components/Navbar";
 import { theme } from "~/config/theme";
 
 import "@mantine/core/styles.css";
@@ -68,7 +69,11 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       </head>
       <body>
         <MantineProvider theme={theme} defaultColorScheme="dark">
-          <Container strategy="grid">{children}</Container>
+          <Container strategy="grid">
+            <Navbar />
+
+            {children}
+          </Container>
         </MantineProvider>
 
         <TanStackRouterDevtools position="bottom-right" />
