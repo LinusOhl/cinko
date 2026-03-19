@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Card,
   Divider,
@@ -9,8 +10,10 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
-import { IconBrandGoogle } from "@tabler/icons-react";
-import { createFileRoute } from "@tanstack/react-router";
+import { useForm } from "@mantine/form";
+import { IconBrandGoogle, IconExclamationCircle } from "@tabler/icons-react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 import { CustomLink } from "~/components/CustomLink";
 import { authClient } from "~/lib/auth-client";
 
@@ -19,7 +22,32 @@ export const Route = createFileRoute("/signin")({
 });
 
 function RouteComponent() {
-  const handleGoogleSignin = async () => {
+  const navigate = useNavigate();
+
+  const [error, setError] = useState<string | null>(null);
+
+  const form = useForm({
+    mode: "uncontrolled",
+    initialValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const handleEmailSignIn = async (email: string, password: string) => {
+    await authClient.signIn.email(
+      {
+        email,
+        password,
+      },
+      {
+        onSuccess: () => navigate({ to: "/" }),
+        onError: ({ error }) => setError(error.message),
+      },
+    );
+  };
+
+  const handleGoogleSignIn = async () => {
     await authClient.signIn.social(
       {
         provider: "google",
@@ -54,14 +82,14 @@ function RouteComponent() {
               variant="light"
               color="cinkoBlue"
               leftSection={<IconBrandGoogle size={18} />}
-              onClick={handleGoogleSignin}
+              onClick={handleGoogleSignIn}
             >
               Sign in with Google
             </Button>
 
             <Divider label="or" />
 
-            {/* {error && (
+            {error && (
               <Alert
                 title="Error"
                 variant="light"
@@ -71,31 +99,31 @@ function RouteComponent() {
               >
                 {error}
               </Alert>
-            )} */}
+            )}
 
-            {/* <form
+            <form
               onSubmit={form.onSubmit((values) =>
                 handleEmailSignIn(values.email, values.password),
               )}
-            > */}
-            <Stack gap={"sm"}>
-              <TextInput
-                // key={form.key("email")}
-                label="Email"
-                // {...form.getInputProps("email")}
-              />
+            >
+              <Stack gap={"sm"}>
+                <TextInput
+                  key={form.key("email")}
+                  label="Email"
+                  {...form.getInputProps("email")}
+                />
 
-              <PasswordInput
-                // key={form.key("password")}
-                label="Password"
-                // {...form.getInputProps("password")}
-              />
+                <PasswordInput
+                  key={form.key("password")}
+                  label="Password"
+                  {...form.getInputProps("password")}
+                />
 
-              <Button type="submit" color="cinkoBlue" fullWidth>
-                Sign in
-              </Button>
-            </Stack>
-            {/* </form> */}
+                <Button type="submit" color="cinkoBlue" fullWidth>
+                  Sign in
+                </Button>
+              </Stack>
+            </form>
           </Stack>
         </Card>
       </Stack>
