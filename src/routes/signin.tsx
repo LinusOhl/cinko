@@ -55,7 +55,7 @@ function RouteComponent() {
       },
       {
         onSuccess: () => navigate({ to: "/" }),
-        onError: ({ error }) => console.error(error),
+        onError: ({ error }) => setError(error.message),
       },
     );
   };
