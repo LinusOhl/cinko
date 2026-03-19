@@ -1,5 +1,6 @@
 interface ImportMetaEnv {
   readonly VITE_TMDB_ACCESS_TOKEN: string;
+  readonly VITE_BETTER_AUTH_URL: string;
 }
 
 interface ImportMeta {
