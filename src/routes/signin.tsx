@@ -9,14 +9,28 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
+import { IconBrandGoogle } from "@tabler/icons-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { CustomLink } from "~/components/CustomLink";
+import { authClient } from "~/lib/auth-client";
 
 export const Route = createFileRoute("/signin")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const handleGoogleSignin = async () => {
+    await authClient.signIn.social(
+      {
+        provider: "google",
+        callbackURL: "/",
+      },
+      {
+        onError: ({ error }) => console.error(error),
+      },
+    );
+  };
+
   return (
     <Stack h={"100vh"} p={"xs"} gap={"xl"} justify="center">
       <Title order={1} fz={96} styles={{ root: { textAlign: "center" } }}>
@@ -39,8 +53,8 @@ function RouteComponent() {
             <Button
               variant="light"
               color="cinkoBlue"
-              // leftSection={<IconBrandGithub size={18} />}
-              // onClick={handleGithubLogin}
+              leftSection={<IconBrandGoogle size={18} />}
+              onClick={handleGoogleSignin}
             >
               Sign in with Google
             </Button>
