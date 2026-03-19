@@ -54,6 +54,7 @@ function RouteComponent() {
         callbackURL: "/",
       },
       {
+        onSuccess: () => navigate({ to: "/" }),
         onError: ({ error }) => console.error(error),
       },
     );
