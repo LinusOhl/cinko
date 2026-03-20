@@ -17,7 +17,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
       onClick={() =>
         navigate({
           to: "/movies/$movieId/details",
-          params: { movieId: movie.id },
+          params: { movieId: movie.id.toString() },
         })
       }
     >
