@@ -1,14 +1,13 @@
-import { Box, Image, Overlay, Skeleton, useMantineTheme } from "@mantine/core";
+import { Box, Image, Overlay, Skeleton } from "@mantine/core";
 import { IMAGES_BASE_URL } from "~/helpers";
 import type { TMDBMovieDetails } from "~/types/tmdb";
+import classes from "./MovieBanner.module.css";
 
 interface MovieBannerProps {
   movie: TMDBMovieDetails;
 }
 
 export const MovieBanner = ({ movie }: MovieBannerProps) => {
-  const theme = useMantineTheme();
-
   return (
     <Skeleton h={522} visible={!movie}>
       <Box pos={"relative"}>
@@ -20,14 +19,7 @@ export const MovieBanner = ({ movie }: MovieBannerProps) => {
         />
 
         {/* Fade-effect of backdrop image */}
-        <Overlay
-          bg={`
-            radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 60%, ${theme.black} 100%), 
-            linear-gradient(to bottom, rgba(0, 0, 0, 0) 70%, ${theme.black} 100%),
-            linear-gradient(to left, rgba(0, 0, 0, 0) 90%, ${theme.black} 100%),
-            linear-gradient(to right, rgba(0, 0, 0, 0) 90%, ${theme.black} 100%)
-          `}
-        />
+        <Overlay classNames={{ root: classes.root }} />
       </Box>
     </Skeleton>
   );
