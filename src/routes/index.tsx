@@ -57,7 +57,7 @@ function IndexView() {
                       style={{
                         position: "absolute",
                         inset: 0,
-                        backgroundImage: `linear-gradient(to top, ${theme.black} 5%, transparent 40%)`,
+                        backgroundImage: `linear-gradient(to top, ${theme.colors.dark[7]} 5%, transparent 40%)`,
                       }}
                     />
 

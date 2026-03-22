@@ -24,8 +24,8 @@ export const theme = createTheme({
   headings: {
     fontFamily: "'Space Grotesk', sans-serif",
   },
-  black: "#02040F",
-  white: "#E5DADA",
+  // black: "#02040F",
+  // white: "#E5DADA",
   colors: {
     cinkoYellow: [
       "#fff8e2",
