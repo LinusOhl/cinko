@@ -6,6 +6,7 @@ import { z } from "zod";
 import { MovieBanner } from "~/components/features/movies/MovieBanner/MovieBanner";
 import { MoviePoster } from "~/components/features/movies/MoviePoster";
 import { movieQueryOptions } from "~/queries/movies";
+import { useAddToWatchlistMutation } from "~/server/db/watchlist/watchlist.queries";
 
 /**
  * TODO:
@@ -29,6 +30,8 @@ function RouteComponent() {
   const { movieId } = Route.useParams();
   const { data: movie } = useSuspenseQuery(movieQueryOptions(movieId));
 
+  const addToWatchlistMutation = useAddToWatchlistMutation();
+
   const movieReleaseYear = movie.release_date.slice(0, 4);
   const stars = movie.credits.cast.slice(0, 3);
   const directors = movie.credits.crew.filter((k) => k.job === "Director");
@@ -49,7 +52,21 @@ function RouteComponent() {
               <Stack>
                 <Button color="cinkoYellow.7">Rate movie</Button>
 
-                <Button color="cinkoBlue.6">Add to watchlist</Button>
+                <Button
+                  color="cinkoBlue.6"
+                  onClick={() =>
+                    addToWatchlistMutation.mutate(
+                      {
+                        data: {
+                          movie: movie,
+                        },
+                      },
+                      { onError: ({ message }) => console.error(message) },
+                    )
+                  }
+                >
+                  Add to watchlist
+                </Button>
               </Stack>
             </Paper>
           </Stack>
