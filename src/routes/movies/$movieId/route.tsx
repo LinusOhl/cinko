@@ -8,13 +8,6 @@ import { MoviePoster } from "~/components/features/movies/MoviePoster";
 import { movieQueryOptions } from "~/queries/movies";
 import { useAddToWatchlistMutation } from "~/server/db/watchlist/watchlist.queries";
 
-/**
- * TODO:
- * This page will only hold the 'Overview' section of the movie (like IMDb)
- * /credits will hold a list of the movies credits ('Overview' is still above)
- * /details will hold extra info about the movie ('Overview' is still above)
- */
-
 export const Route = createFileRoute("/movies/$movieId")({
   params: {
     parse: (params) => ({
