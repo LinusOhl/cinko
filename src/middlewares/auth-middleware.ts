@@ -8,6 +8,7 @@ export const authMiddleware = createMiddleware({ type: "function" }).server(
     const headers = getRequestHeaders();
     const session = await auth.api.getSession({ headers });
 
+    // TODO: change from re-direct to showing a error toast instead!
     if (!session) {
       throw redirect({ to: "/" });
     }
