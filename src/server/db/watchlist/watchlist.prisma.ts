@@ -24,3 +24,14 @@ export const addToWatchlist = async (
     },
   });
 };
+
+export const getWatchlistItem = (movieId: number, userId: string) => {
+  return prisma.watchlistItem.findUnique({
+    where: {
+      userId_movieId: {
+        movieId,
+        userId
+      }
+    }
+  })
+}

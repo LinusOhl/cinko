@@ -1,4 +1,4 @@
-import { Badge, Button, Group, Paper, Stack, Text, Title } from "@mantine/core";
+import { Badge, Button, Group, Stack, Text, Title } from "@mantine/core";
 import { IconCircleFilled } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
@@ -6,7 +6,10 @@ import { z } from "zod";
 import { MovieBanner } from "~/components/features/movies/MovieBanner/MovieBanner";
 import { MoviePoster } from "~/components/features/movies/MoviePoster";
 import { movieQueryOptions } from "~/queries/movies";
-import { useAddToWatchlistMutation } from "~/server/db/watchlist/watchlist.queries";
+import {
+  useAddToWatchlistMutation,
+  watchlistItemQueryOptions,
+} from "~/server/db/watchlist/watchlist.queries";
 
 export const Route = createFileRoute("/movies/$movieId")({
   params: {
@@ -14,14 +17,21 @@ export const Route = createFileRoute("/movies/$movieId")({
       movieId: z.string().parse(params.movieId),
     }),
   },
-  loader: ({ params: { movieId }, context }) =>
-    context.queryClient.ensureQueryData(movieQueryOptions(movieId)),
+  loader: ({ params: { movieId }, context: { queryClient } }) =>
+    Promise.all([
+      queryClient.ensureQueryData(movieQueryOptions(movieId)),
+      queryClient.ensureQueryData(watchlistItemQueryOptions(Number(movieId))),
+    ]),
   component: RouteComponent,
 });
 
 function RouteComponent() {
   const { movieId } = Route.useParams();
+
   const { data: movie } = useSuspenseQuery(movieQueryOptions(movieId));
+  const { data: watchlistItem } = useSuspenseQuery(
+    watchlistItemQueryOptions(Number(movieId)),
+  );
 
   const addToWatchlistMutation = useAddToWatchlistMutation();
 
@@ -41,10 +51,12 @@ function RouteComponent() {
           <Stack>
             <MoviePoster posterPath={movie.poster_path} width={250} />
 
-            <Paper bg={"black"}>
-              <Stack>
-                <Button color="cinkoYellow.7">Rate movie</Button>
+            <Stack>
+              <Button color="cinkoYellow.7">Rate movie</Button>
 
+              {watchlistItem ? (
+                <Button color="cinkoBlue.6">Remove from Watchlist</Button>
+              ) : (
                 <Button
                   color="cinkoBlue.6"
                   onClick={() =>
@@ -60,8 +72,8 @@ function RouteComponent() {
                 >
                   Add to watchlist
                 </Button>
-              </Stack>
-            </Paper>
+              )}
+            </Stack>
           </Stack>
 
           <Stack>
