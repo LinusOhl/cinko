@@ -1,4 +1,5 @@
 import { queryOptions, useMutation } from "@tanstack/react-query";
+import { queryClient } from "~/router";
 import {
   addToWatchlistFn,
   getWatchlistItemFn,
@@ -9,6 +10,10 @@ import {
 export const useAddToWatchlistMutation = () => {
   return useMutation({
     mutationFn: addToWatchlistFn,
+    onSuccess: (data) =>
+      queryClient.invalidateQueries({
+        queryKey: ["watchlist-item", data?.movieId],
+      }),
   });
 };
 
@@ -27,5 +32,9 @@ export const watchlistItemsQueryOptions = () =>
 export const useRemoveFromWatchlistMutation = () => {
   return useMutation({
     mutationFn: removeFromWatchlistFn,
+    onSuccess: (data) =>
+      queryClient.invalidateQueries({
+        queryKey: ["watchlist-item", data?.movieId],
+      }),
   });
 };

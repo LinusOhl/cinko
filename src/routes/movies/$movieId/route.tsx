@@ -5,11 +5,10 @@ import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { z } from "zod";
 import { MovieBanner } from "~/components/features/movies/MovieBanner/MovieBanner";
 import { MoviePoster } from "~/components/features/movies/MoviePoster";
+import { AddToWatchlistButton } from "~/components/features/watchlist/AddToWatchlistButton";
+import { RemoveFromWatchlistButton } from "~/components/features/watchlist/RemoveFromWatchlistButton";
 import { movieQueryOptions } from "~/queries/movies";
-import {
-  useAddToWatchlistMutation,
-  watchlistItemQueryOptions,
-} from "~/server/db/watchlist/watchlist.queries";
+import { watchlistItemQueryOptions } from "~/server/db/watchlist/watchlist.queries";
 
 export const Route = createFileRoute("/movies/$movieId")({
   params: {
@@ -33,8 +32,6 @@ function RouteComponent() {
     watchlistItemQueryOptions(Number(movieId)),
   );
 
-  const addToWatchlistMutation = useAddToWatchlistMutation();
-
   const movieReleaseYear = movie.release_date.slice(0, 4);
   const stars = movie.credits.cast.slice(0, 3);
   const directors = movie.credits.crew.filter((k) => k.job === "Director");
@@ -55,23 +52,9 @@ function RouteComponent() {
               <Button color="cinkoYellow.7">Rate movie</Button>
 
               {watchlistItem ? (
-                <Button color="cinkoBlue.6">Remove from Watchlist</Button>
+                <RemoveFromWatchlistButton movieId={Number(movieId)} />
               ) : (
-                <Button
-                  color="cinkoBlue.6"
-                  onClick={() =>
-                    addToWatchlistMutation.mutate(
-                      {
-                        data: {
-                          movie: movie,
-                        },
-                      },
-                      { onError: ({ message }) => console.error(message) },
-                    )
-                  }
-                >
-                  Add to watchlist
-                </Button>
+                <AddToWatchlistButton movie={movie} />
               )}
             </Stack>
           </Stack>
