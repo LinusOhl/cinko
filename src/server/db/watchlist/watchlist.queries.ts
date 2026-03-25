@@ -3,6 +3,7 @@ import {
   addToWatchlistFn,
   getWatchlistItemFn,
   getWatchlistItemsFn,
+  removeFromWatchlistFn,
 } from "./watchlist.fns";
 
 export const useAddToWatchlistMutation = () => {
@@ -22,3 +23,9 @@ export const watchlistItemsQueryOptions = () =>
     queryKey: ["watchlist-items"],
     queryFn: getWatchlistItemsFn,
   });
+
+export const useRemoveFromWatchlistMutation = () => {
+  return useMutation({
+    mutationFn: removeFromWatchlistFn,
+  });
+};

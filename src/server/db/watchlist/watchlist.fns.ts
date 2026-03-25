@@ -5,6 +5,7 @@ import {
   addToWatchlist,
   getWatchlistItem,
   getWatchlistItems,
+  removeFromWatchlist,
 } from "./watchlist.prisma";
 
 export const addToWatchlistFn = createServerFn({ method: "POST" })
@@ -43,4 +44,17 @@ export const getWatchlistItemsFn = createServerFn({ method: "GET" })
     const userId = context.user.id;
 
     return getWatchlistItems(userId);
+  });
+
+export const removeFromWatchlistFn = createServerFn({ method: "POST" })
+  .middleware([authMiddleware])
+  .inputValidator((data: { movieId: number }) => data)
+  .handler(({ data, context }) => {
+    if (!context.user) {
+      return null;
+    }
+
+    const userId = context.user.id;
+
+    return removeFromWatchlist(data.movieId, userId);
   });

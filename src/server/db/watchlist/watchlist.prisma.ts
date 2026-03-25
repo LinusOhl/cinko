@@ -46,3 +46,14 @@ export const getWatchlistItems = (userId: string) => {
     },
   });
 };
+
+export const removeFromWatchlist = (movieId: number, userId: string) => {
+  return prisma.watchlistItem.delete({
+    where: {
+      userId_movieId: {
+        movieId,
+        userId,
+      },
+    },
+  });
+};
