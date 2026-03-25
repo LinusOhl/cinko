@@ -1,7 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
 import { authMiddleware } from "~/middlewares/auth-middleware";
 import type { TMDBMovie, TMDBMovieDetails } from "~/types/tmdb";
-import { addToWatchlist, getWatchlistItem } from "./watchlist.prisma";
+import {
+  addToWatchlist,
+  getWatchlistItem,
+  getWatchlistItems,
+} from "./watchlist.prisma";
 
 export const addToWatchlistFn = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
@@ -23,6 +27,20 @@ export const getWatchlistItemFn = createServerFn({ method: "GET" })
     if (!context.user) {
       return null;
     }
+
     const userId = context.user.id;
+
     return getWatchlistItem(data.movieId, userId);
+  });
+
+export const getWatchlistItemsFn = createServerFn({ method: "GET" })
+  .middleware([authMiddleware])
+  .handler(({ context }) => {
+    if (!context.user) {
+      return null;
+    }
+
+    const userId = context.user.id;
+
+    return getWatchlistItems(userId);
   });

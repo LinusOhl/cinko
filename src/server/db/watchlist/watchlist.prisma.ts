@@ -30,8 +30,19 @@ export const getWatchlistItem = (movieId: number, userId: string) => {
     where: {
       userId_movieId: {
         movieId,
-        userId
-      }
-    }
-  })
-}
+        userId,
+      },
+    },
+  });
+};
+
+export const getWatchlistItems = (userId: string) => {
+  return prisma.watchlistItem.findMany({
+    where: {
+      userId,
+    },
+    include: {
+      movie: true,
+    },
+  });
+};
