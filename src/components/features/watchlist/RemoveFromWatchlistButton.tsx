@@ -19,6 +19,7 @@ export const RemoveFromWatchlistButton = ({
           data: movieId,
         })
       }
+      fullWidth
     >
       Remove from Watchlist
     </Button>

@@ -14,6 +14,7 @@ export const AddToWatchlistButton = ({ movie }: AddToWatchlistButtonProps) => {
       color="cinkoBlue.6"
       loading={isPending}
       onClick={() => mutate({ data: movie })}
+      fullWidth
     >
       Add to Watchlist
     </Button>
