@@ -7,12 +7,13 @@ interface AddToWatchlistButtonProps {
 }
 
 export const AddToWatchlistButton = ({ movie }: AddToWatchlistButtonProps) => {
-  const addToWatchlistMutation = useAddToWatchlistMutation();
+  const { mutate, isPending } = useAddToWatchlistMutation();
 
   return (
     <Button
       color="cinkoBlue.6"
-      onClick={() => addToWatchlistMutation.mutate({ data: movie })}
+      loading={isPending}
+      onClick={() => mutate({ data: movie })}
     >
       Add to Watchlist
     </Button>

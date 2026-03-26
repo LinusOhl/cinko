@@ -8,13 +8,14 @@ interface RemoveFromWatchlistButtonProps {
 export const RemoveFromWatchlistButton = ({
   movieId,
 }: RemoveFromWatchlistButtonProps) => {
-  const removeFromWatchlistMutation = useRemoveFromWatchlistMutation();
+  const { mutate, isPending } = useRemoveFromWatchlistMutation();
 
   return (
     <Button
       color="cinkoBlue.6"
+      loading={isPending}
       onClick={() =>
-        removeFromWatchlistMutation.mutate({
+        mutate({
           data: { movieId },
         })
       }
