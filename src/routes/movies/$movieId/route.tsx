@@ -1,10 +1,11 @@
-import { Badge, Button, Group, Stack, Text, Title } from "@mantine/core";
+import { Badge, Group, Stack, Text, Title } from "@mantine/core";
 import { IconCircleFilled } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { z } from "zod";
 import { MovieBanner } from "~/components/features/movies/MovieBanner/MovieBanner";
 import { MoviePoster } from "~/components/features/movies/MoviePoster";
+import { RateMovie } from "~/components/features/ratings/RateMovie/RateMovie";
 import { AddToWatchlistButton } from "~/components/features/watchlist/AddToWatchlistButton";
 import { RemoveFromWatchlistButton } from "~/components/features/watchlist/RemoveFromWatchlistButton";
 import { movieQueryOptions } from "~/queries/movies";
@@ -41,15 +42,15 @@ function RouteComponent() {
 
   return (
     <>
-      <Stack my={"xl"}>
+      <Stack mb={"xl"}>
         <MovieBanner movie={movie} />
 
         <Group align="flex-start" wrap="nowrap">
           <Stack>
             <MoviePoster posterPath={movie.poster_path} width={250} />
 
-            <Stack>
-              <Button color="cinkoYellow.7">Rate movie</Button>
+            <Stack gap={"sm"}>
+              <RateMovie />
 
               {watchlistItem ? (
                 <RemoveFromWatchlistButton movieId={Number(movieId)} />
