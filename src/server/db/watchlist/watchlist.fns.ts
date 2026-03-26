@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import z from "zod";
 import { authMiddleware } from "~/middlewares/auth-middleware";
 import type { TMDBMovie, TMDBMovieDetails } from "~/types/tmdb";
 import {
@@ -10,7 +11,7 @@ import {
 
 export const addToWatchlistFn = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
-  .inputValidator((data: { movie: TMDBMovie | TMDBMovieDetails }) => data)
+  .inputValidator(z.custom<TMDBMovie | TMDBMovieDetails>())
   .handler(({ data, context }) => {
     if (!context.user) {
       return null;
@@ -18,12 +19,12 @@ export const addToWatchlistFn = createServerFn({ method: "POST" })
 
     const userId = context.user.id;
 
-    return addToWatchlist(data.movie, userId);
+    return addToWatchlist(data, userId);
   });
 
 export const getWatchlistItemFn = createServerFn({ method: "GET" })
   .middleware([authMiddleware])
-  .inputValidator((data: { movieId: number }) => data)
+  .inputValidator(z.number())
   .handler(({ data, context }) => {
     if (!context.user) {
       return null;
@@ -31,7 +32,7 @@ export const getWatchlistItemFn = createServerFn({ method: "GET" })
 
     const userId = context.user.id;
 
-    return getWatchlistItem(data.movieId, userId);
+    return getWatchlistItem(data, userId);
   });
 
 export const getWatchlistItemsFn = createServerFn({ method: "GET" })
@@ -48,7 +49,7 @@ export const getWatchlistItemsFn = createServerFn({ method: "GET" })
 
 export const removeFromWatchlistFn = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
-  .inputValidator((data: { movieId: number }) => data)
+  .inputValidator(z.number())
   .handler(({ data, context }) => {
     if (!context.user) {
       return null;
@@ -56,5 +57,5 @@ export const removeFromWatchlistFn = createServerFn({ method: "POST" })
 
     const userId = context.user.id;
 
-    return removeFromWatchlist(data.movieId, userId);
+    return removeFromWatchlist(data, userId);
   });

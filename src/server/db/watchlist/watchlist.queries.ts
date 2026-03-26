@@ -20,7 +20,7 @@ export const useAddToWatchlistMutation = () => {
 export const watchlistItemQueryOptions = (movieId: number) =>
   queryOptions({
     queryKey: ["watchlist-item", movieId],
-    queryFn: () => getWatchlistItemFn({ data: { movieId } }),
+    queryFn: () => getWatchlistItemFn({ data: movieId }),
   });
 
 export const watchlistItemsQueryOptions = () =>

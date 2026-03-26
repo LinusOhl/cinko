@@ -16,7 +16,7 @@ export const RemoveFromWatchlistButton = ({
       loading={isPending}
       onClick={() =>
         mutate({
-          data: { movieId },
+          data: movieId,
         })
       }
     >
