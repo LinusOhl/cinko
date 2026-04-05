@@ -24,6 +24,7 @@ export const MovieCredit = ({
           src={posterPath ? `${IMAGES_BASE_URL}/w154/${posterPath}` : null}
           alt={title}
           w={96}
+          loading="lazy"
           style={{ cursor: "pointer" }}
           onClick={() =>
             navigate({

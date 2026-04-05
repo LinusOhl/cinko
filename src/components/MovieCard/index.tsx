@@ -27,7 +27,10 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
           <Text ta={"center"}>{movie.title}</Text>
         </Center>
       ) : (
-        <Image src={`${IMAGES_BASE_URL}/w500/${movie.poster_path}`} />
+        <Image
+          src={`${IMAGES_BASE_URL}/w500/${movie.poster_path}`}
+          loading="lazy"
+        />
       )}
 
       <Text c={"white"} mt={"xs"} fw={500} truncate>

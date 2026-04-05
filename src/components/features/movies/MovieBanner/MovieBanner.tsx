@@ -16,6 +16,7 @@ export const MovieBanner = ({ movie }: MovieBannerProps) => {
           fallbackSrc="https://placehold.co/1280x720"
           alt={movie.title || "Movie backdrop"}
           radius={"md"}
+          loading="lazy"
         />
 
         {/* Fade-effect of backdrop image */}
