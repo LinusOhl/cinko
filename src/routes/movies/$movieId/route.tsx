@@ -45,7 +45,7 @@ function RouteComponent() {
       <Stack mb={"xl"}>
         <MovieBanner movie={movie} />
 
-        <Group align="flex-start" wrap="nowrap">
+        <Group align="flex-start" wrap="nowrap" mt={"xl"}>
           <Stack>
             <MoviePoster posterPath={movie.poster_path} width={250} />
 
@@ -61,30 +61,32 @@ function RouteComponent() {
           </Stack>
 
           <Stack>
-            <Title order={1} c={"white"} style={{ textWrap: "balance" }}>
-              {movie.title}
-            </Title>
+            <Stack gap={0}>
+              <Title order={1} c={"white"} style={{ textWrap: "balance" }}>
+                {movie.title}
+              </Title>
 
-            <Group gap={"xs"}>
-              <Text size="sm">{movieReleaseYear}</Text>
+              <Group gap={"xs"}>
+                <Text size="sm">{movieReleaseYear}</Text>
 
-              <IconCircleFilled size={6} />
+                <IconCircleFilled size={6} />
 
-              <Text size="sm">{movie.runtime}min</Text>
+                <Text size="sm">{movie.runtime}min</Text>
 
-              <IconCircleFilled size={6} />
+                <IconCircleFilled size={6} />
 
-              {movie.genres.map((genre) => (
-                <Badge
-                  key={genre.id}
-                  variant="light"
-                  size="sm"
-                  color="cinkoYellow"
-                >
-                  {genre.name}
-                </Badge>
-              ))}
-            </Group>
+                {movie.genres.map((genre) => (
+                  <Badge
+                    key={genre.id}
+                    variant="light"
+                    size="sm"
+                    color="cinkoYellow"
+                  >
+                    {genre.name}
+                  </Badge>
+                ))}
+              </Group>
+            </Stack>
 
             <Text fs={"italic"}>{movie.tagline}</Text>
 
