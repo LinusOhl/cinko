@@ -61,22 +61,18 @@ function RouteComponent() {
           </Stack>
 
           <Stack>
-            <Title order={1} style={{ textWrap: "balance" }}>
+            <Title order={1} c={"white"} style={{ textWrap: "balance" }}>
               {movie.title}
             </Title>
 
             <Group gap={"xs"}>
-              <Text size="sm" c={"cinkoGrey.3"}>
-                {movieReleaseYear}
-              </Text>
+              <Text size="sm">{movieReleaseYear}</Text>
 
-              <IconCircleFilled size={6} color="#bba6a6" />
+              <IconCircleFilled size={6} />
 
-              <Text size="sm" c={"cinkoGrey.3"}>
-                {movie.runtime}min
-              </Text>
+              <Text size="sm">{movie.runtime}min</Text>
 
-              <IconCircleFilled size={6} color="#bba6a6" />
+              <IconCircleFilled size={6} />
 
               {movie.genres.map((genre) => (
                 <Badge
@@ -92,7 +88,7 @@ function RouteComponent() {
 
             <Text fs={"italic"}>{movie.tagline}</Text>
 
-            <Text c={"cinkoGrey.3"}>{movie.overview}</Text>
+            <Text>{movie.overview}</Text>
 
             <Stack gap={"xs"}>
               <Group>
