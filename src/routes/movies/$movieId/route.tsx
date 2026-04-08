@@ -3,7 +3,7 @@ import { IconCircleFilled } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { z } from "zod";
-import { MovieBanner } from "~/components/features/movies/MovieBanner/MovieBanner";
+import { MovieBanner } from "~/components/features/movies/MovieBanner";
 import { MoviePoster } from "~/components/features/movies/MoviePoster";
 import { RateMovie } from "~/components/features/ratings/RateMovie/RateMovie";
 import { AddToWatchlistButton } from "~/components/features/watchlist/AddToWatchlistButton";

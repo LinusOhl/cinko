@@ -3,8 +3,8 @@ import { Box, Stack, Title } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { CustomLink } from "~/components/CustomLink";
-import { LargeMovieSlide } from "~/components/features/movies/LargeMovieSlide/LargeMovieSlide";
-import { MovieCard } from "~/components/MovieCard";
+import { LargeMovieSlide } from "~/components/features/movies/LargeMovieSlide";
+import { MovieCard } from "~/components/features/movies/MovieCard";
 import {
   playingMoviesQueryOptions,
   popularMoviesQueryOptions,
@@ -45,7 +45,7 @@ function IndexView() {
 
       <Box>
         <CustomLink to="/" c={"white"} preload={false}>
-          <Title order={2} mb={"xs"}>
+          <Title order={2} mb={"xs"} display={"inline"}>
             Top rated movies
           </Title>
         </CustomLink>
