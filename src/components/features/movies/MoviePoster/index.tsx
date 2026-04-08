@@ -1,5 +1,6 @@
 import { Box } from "@mantine/core";
 import { IMAGES_BASE_URL } from "~/helpers";
+import classes from "./MoviePoster.module.css";
 
 interface MoviePosterProps {
   posterPath: string;
@@ -16,9 +17,9 @@ export const MoviePoster = ({ posterPath, width }: MoviePosterProps) => {
           backgroundImage: `url(${IMAGES_BASE_URL}/w500/${posterPath})`,
           width: width,
         }}
-        className={"movieCardImageBox"}
+        className={classes.movieCardImageBox}
       >
-        <div className={"movieCardBorderBox"} />
+        <div className={classes.movieCardBorderBox} />
       </div>
     </Box>
   );
