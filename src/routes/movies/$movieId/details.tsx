@@ -33,7 +33,7 @@ function RouteComponent() {
 
               <Stack gap={"xs"}>
                 <Text fw={500}>{cast.name}</Text>
-                <Text c={"cinkoGrey.2"}>{cast.character}</Text>
+                <Text>{cast.character}</Text>
               </Stack>
             </Group>
           </Grid.Col>
