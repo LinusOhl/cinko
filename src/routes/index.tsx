@@ -1,17 +1,10 @@
 import { Carousel, CarouselSlide } from "@mantine/carousel";
-import {
-  BackgroundImage,
-  Box,
-  Stack,
-  Text,
-  Title,
-  useMantineTheme,
-} from "@mantine/core";
+import { Box, Stack, Title } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { CustomLink } from "~/components/CustomLink";
+import { LargeMovieSlide } from "~/components/features/movies/LargeMovieSlide/LargeMovieSlide";
 import { MovieCard } from "~/components/MovieCard";
-import { IMAGES_BASE_URL } from "~/helpers";
 import {
   playingMoviesQueryOptions,
   popularMoviesQueryOptions,
@@ -29,14 +22,12 @@ export const Route = createFileRoute("/")({
 });
 
 function IndexView() {
-  const theme = useMantineTheme();
-
   const { data: popularMovies } = useSuspenseQuery(popularMoviesQueryOptions());
   const { data: topMovies } = useSuspenseQuery(topMoviesQueryOptions());
   const { data: playingMovies } = useSuspenseQuery(playingMoviesQueryOptions());
 
   return (
-    <Stack gap={"xl"}>
+    <Stack gap={"xl"} my={"xl"}>
       <Box>
         <Carousel
           height={560}
@@ -47,32 +38,7 @@ function IndexView() {
           {playingMovies.results
             .filter((movie) => !!movie.backdrop_path)
             .map((movie) => (
-              <CarouselSlide key={movie.id}>
-                <Box maw={960} h={560}>
-                  <BackgroundImage
-                    src={`${IMAGES_BASE_URL}/original/${movie.backdrop_path}`}
-                    h={560}
-                  >
-                    <Box
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        backgroundImage: `linear-gradient(to top, ${theme.colors.dark[7]} 5%, transparent 40%)`,
-                      }}
-                    />
-
-                    <Box p={"xs"} style={{ position: "absolute", bottom: 0 }}>
-                      <Text fz={"h2"} ff={"heading"} fw={700}>
-                        {movie.title}
-                      </Text>
-
-                      <Text w={480} lineClamp={3}>
-                        {movie.overview}
-                      </Text>
-                    </Box>
-                  </BackgroundImage>
-                </Box>
-              </CarouselSlide>
+              <LargeMovieSlide key={movie.id} movie={movie} />
             ))}
         </Carousel>
       </Box>
