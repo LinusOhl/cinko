@@ -1,7 +1,7 @@
-import { Box, Center, Image, Text } from "@mantine/core";
+import { Box, Center, Text } from "@mantine/core";
 import { useNavigate } from "@tanstack/react-router";
-import { IMAGES_BASE_URL } from "~/helpers";
 import type { TMDBMovie } from "~/types/tmdb";
+import { MoviePoster } from "../MoviePoster";
 
 interface MovieCardProps {
   movie: TMDBMovie;
@@ -21,16 +21,12 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
         })
       }
     >
-      {/* TODO: emulate/copy style of Letterboxd movie poster cards */}
       {!movie.poster_path ? (
         <Center w={160} h={240} pos={"absolute"}>
           <Text ta={"center"}>{movie.title}</Text>
         </Center>
       ) : (
-        <Image
-          src={`${IMAGES_BASE_URL}/w500/${movie.poster_path}`}
-          loading="lazy"
-        />
+        <MoviePoster posterPath={movie.poster_path} width={160} />
       )}
 
       <Text c={"white"} mt={"xs"} fw={500} truncate>
