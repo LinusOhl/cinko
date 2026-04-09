@@ -1,17 +1,19 @@
-.movieCardBorderBox {
-  position: absolute;
-  height: 375px;
-  width: 100%;
-  border: 1px outset rgba(255, 255, 255, 0.2);
-  border-radius: var(--mantine-radius-md);
-}
-
 .movieCardImageBox {
   position: relative;
-  height: 375px;
   width: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: var(--mantine-radius-md);
+  border-radius: var(--mantine-radius-sm);
+  aspect-ratio: 2 / 3;
+}
+
+.movieCardBorderBox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px outset rgba(255, 255, 255, 0.2);
+  border-radius: var(--mantine-radius-sm);
 }
