@@ -7,7 +7,7 @@ import type {
   TMDBTopMovies,
   TMDBUpcomingMovies,
 } from "~/types/tmdb";
-import { tmdbFetch } from "./client";
+import { tmdbFetch } from "../client";
 
 export const fetchMovieFn = createServerFn({ method: "GET" })
   .inputValidator(z.object({ id: z.string() }))

@@ -3,7 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { CustomLink } from "~/components/CustomLink";
 import { IMAGES_BASE_URL } from "~/helpers";
-import { movieQueryOptions } from "~/queries/movies";
+import { movieQueryOptions } from "~/server/tmdb/movies/movies.queries";
 import type { Crew } from "~/types/tmdb";
 
 export const Route = createFileRoute("/movies/$movieId/credits")({

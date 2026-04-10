@@ -1,5 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-import { tmdbFetch } from "./client";
+import { tmdbFetch } from "../client";
 
 export const fetchMovieGenresFn = createServerFn({ method: "GET" }).handler(
   async () => {

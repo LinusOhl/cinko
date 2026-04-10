@@ -5,7 +5,7 @@ import {
   fetchPopularMoviesFn,
   fetchTopMoviesFn,
   fetchUpcomingMoviesFn,
-} from "~/server/tmdb/movies";
+} from "./movies.fns";
 
 export const movieQueryOptions = (id: string) =>
   queryOptions({

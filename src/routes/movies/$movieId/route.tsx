@@ -8,8 +8,8 @@ import { MoviePoster } from "~/components/features/movies/MoviePoster";
 import { RateMovie } from "~/components/features/ratings/RateMovie/RateMovie";
 import { AddToWatchlistButton } from "~/components/features/watchlist/AddToWatchlistButton";
 import { RemoveFromWatchlistButton } from "~/components/features/watchlist/RemoveFromWatchlistButton";
-import { movieQueryOptions } from "~/queries/movies";
 import { watchlistItemQueryOptions } from "~/server/db/watchlist/watchlist.queries";
+import { movieQueryOptions } from "~/server/tmdb/movies/movies.queries";
 
 export const Route = createFileRoute("/movies/$movieId")({
   params: {

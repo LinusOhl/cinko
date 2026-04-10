@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { fetchCollectionFn } from "~/server/tmdb/collections";
+import { fetchCollectionFn } from "./collections.fns";
 
 export const collectionQueryOptions = (id: string) =>
   queryOptions({

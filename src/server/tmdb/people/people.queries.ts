@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { fetchPersonFn, fetchPopularPeopleFn } from "~/server/tmdb/people";
+import { fetchPersonFn, fetchPopularPeopleFn } from "./people.fns";
 
 export const personQueryOptions = (id: string) =>
   queryOptions({

@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import z from "zod";
-import { tmdbFetch } from "./client";
+import { tmdbFetch } from "../client";
 
 export const fetchCollectionFn = createServerFn({
   method: "GET",

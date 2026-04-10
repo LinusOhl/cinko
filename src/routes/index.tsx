@@ -9,7 +9,7 @@ import {
   playingMoviesQueryOptions,
   popularMoviesQueryOptions,
   topMoviesQueryOptions,
-} from "~/queries/movies";
+} from "~/server/tmdb/movies/movies.queries";
 
 export const Route = createFileRoute("/")({
   loader: ({ context }) =>

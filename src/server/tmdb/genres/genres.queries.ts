@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { fetchMovieGenresFn, fetchTVGenresFn } from "~/server/tmdb/genres";
+import { fetchMovieGenresFn, fetchTVGenresFn } from "./genres.fns";
 
 export const movieGenresQueryOptions = () =>
   queryOptions({
