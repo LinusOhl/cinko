@@ -44,11 +44,13 @@ function IndexView() {
       </Box>
 
       <Box>
-        <CustomLink to="/" c={"white"} preload={false}>
-          <Title order={2} mb={"xs"} display={"inline"}>
-            Top rated movies
-          </Title>
-        </CustomLink>
+        <div style={{ width: "fit-content" }}>
+          <CustomLink to="/" c={"white"} preload={false}>
+            <Title order={2} mb={"xs"}>
+              Top rated movies
+            </Title>
+          </CustomLink>
+        </div>
 
         <Carousel
           slideGap={"md"}
@@ -64,11 +66,13 @@ function IndexView() {
       </Box>
 
       <Box>
-        <CustomLink to="/" c={"white"} preload={false}>
-          <Title order={2} mb={"xs"}>
-            Popular movies
-          </Title>
-        </CustomLink>
+        <div style={{ width: "fit-content" }}>
+          <CustomLink to="/" c={"white"} preload={false}>
+            <Title order={2} mb={"xs"}>
+              Popular movies
+            </Title>
+          </CustomLink>
+        </div>
 
         <Carousel
           slideGap={"md"}
