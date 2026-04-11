@@ -32,7 +32,15 @@ function RouteComponent() {
               />
 
               <Stack gap={"xs"}>
-                <Text fw={500}>{cast.name}</Text>
+                <CustomLink
+                  to="/people/$personId"
+                  params={{ personId: cast.id.toString() }}
+                  preload={"intent"}
+                  c={"white"}
+                  fw={500}
+                >
+                  {cast.name}
+                </CustomLink>
                 <Text>{cast.character}</Text>
               </Stack>
             </Group>
