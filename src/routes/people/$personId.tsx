@@ -95,8 +95,12 @@ function RouteComponent() {
 
         <Tabs defaultValue={"cast"} variant="outline" color="cinkoBlue">
           <Tabs.List grow>
-            <Tabs.Tab value="cast">Cast</Tabs.Tab>
-            <Tabs.Tab value="crew">Crew</Tabs.Tab>
+            <Tabs.Tab value="cast">
+              Cast ({person.movie_credits.cast.length})
+            </Tabs.Tab>
+            <Tabs.Tab value="crew">
+              Crew ({Array.from(cleanCrewCredits.values()).length})
+            </Tabs.Tab>
           </Tabs.List>
 
           <Tabs.Panel value="cast">
