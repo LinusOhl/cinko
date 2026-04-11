@@ -35,7 +35,7 @@ function RouteComponent() {
                 <CustomLink
                   to="/people/$personId"
                   params={{ personId: cast.id.toString() }}
-                  preload={"intent"}
+                  preload={false}
                   c={"white"}
                   fw={500}
                 >
