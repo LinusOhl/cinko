@@ -15,12 +15,12 @@ export const LargeMovieSlide = ({ movie }: LargeMovieSlideProps) => {
         <BackgroundImage
           src={`${IMAGES_BASE_URL}/original/${movie.backdrop_path}`}
           h={560}
-          radius={"sm"}
+          radius="sm"
         >
           <Box className={classes.shadowBox} />
 
-          <Box p={"xs"} className={classes.infoBox}>
-            <Text fz={"h2"} ff={"heading"} fw={700}>
+          <Box p="xs" className={classes.infoBox}>
+            <Text fz="h2" ff="heading" fw={700}>
               {movie.title}
             </Text>
 

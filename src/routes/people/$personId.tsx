@@ -31,15 +31,15 @@ function RouteComponent() {
   );
 
   return (
-    <Stack my={"xl"}>
+    <Stack my="xl">
       <Group align="flex-start" wrap="nowrap">
         <Image
           src={`${IMAGES_BASE_URL}/h632/${person.profile_path}`}
           w={312}
-          radius={"md"}
+          radius="md"
         />
 
-        <Stack gap={"lg"}>
+        <Stack gap="lg">
           <Title order={1}>{person.name}</Title>
 
           <Spoiler maxHeight={220} showLabel="Show more" hideLabel="Hide">
@@ -47,29 +47,29 @@ function RouteComponent() {
           </Spoiler>
 
           <SimpleGrid cols={3}>
-            <Paper bg={"dark"} p={"xs"}>
-              <Stack ta={"center"} gap={"xs"}>
-                <Text tt={"uppercase"}>Known for</Text>
-                <Text fw={600} fz={"lg"}>
+            <Paper bg="dark" p="xs">
+              <Stack ta="center" gap="xs">
+                <Text tt="uppercase">Known for</Text>
+                <Text fw={600} fz="lg">
                   {person.known_for_department}
                 </Text>
               </Stack>
             </Paper>
 
-            <Paper bg={"dark"} p={"xs"}>
-              <Stack ta={"center"} gap={"xs"}>
-                <Text tt={"uppercase"}>Birthday</Text>
-                <Text fw={600} fz={"lg"}>
+            <Paper bg="dark" p="xs">
+              <Stack ta="center" gap="xs">
+                <Text tt="uppercase">Birthday</Text>
+                <Text fw={600} fz="lg">
                   {person.birthday}
                 </Text>
               </Stack>
             </Paper>
 
             {person.deathday && (
-              <Paper bg={"dark"} p={"xs"}>
-                <Stack ta={"center"} gap={"xs"}>
-                  <Text tt={"uppercase"}>Died</Text>
-                  <Text fw={600} fz={"lg"}>
+              <Paper bg="dark" p="xs">
+                <Stack ta="center" gap="xs">
+                  <Text tt="uppercase">Died</Text>
+                  <Text fw={600} fz="lg">
                     {person.deathday}
                   </Text>
                 </Stack>
@@ -77,10 +77,10 @@ function RouteComponent() {
             )}
 
             {person.also_known_as.length > 0 && (
-              <Paper bg={"dark"} p={"xs"}>
-                <Stack ta={"center"} gap={"xs"}>
-                  <Text tt={"uppercase"}>AKA.</Text>
-                  <Text fw={600} fz={"lg"}>
+              <Paper bg="dark" p="xs">
+                <Stack ta="center" gap="xs">
+                  <Text tt="uppercase">AKA.</Text>
+                  <Text fw={600} fz="lg">
                     {person.also_known_as[0]}
                   </Text>
                 </Stack>
@@ -93,7 +93,7 @@ function RouteComponent() {
       <Stack>
         <Title order={2}>Credits</Title>
 
-        <Tabs defaultValue={"cast"} variant="outline" color="cinkoBlue">
+        <Tabs defaultValue="cast" variant="outline" color="cinkoBlue">
           <Tabs.List grow>
             <Tabs.Tab value="cast">
               Cast ({person.movie_credits.cast.length})
@@ -104,7 +104,7 @@ function RouteComponent() {
           </Tabs.List>
 
           <Tabs.Panel value="cast">
-            <Flex gap={"sm"} wrap={"wrap"}>
+            <Flex gap="sm" wrap="wrap">
               {person.movie_credits.cast.map((movie) => (
                 <MovieCredit
                   key={movie.id}
@@ -118,7 +118,7 @@ function RouteComponent() {
           </Tabs.Panel>
 
           <Tabs.Panel value="crew">
-            <Flex gap={"sm"} wrap={"wrap"}>
+            <Flex gap="sm" wrap="wrap">
               {Array.from(cleanCrewCredits.values()).map((movie) => (
                 <MovieCredit
                   key={movie.id}

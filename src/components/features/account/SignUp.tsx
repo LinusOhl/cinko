@@ -74,7 +74,7 @@ export const SignUpButton = () => {
         }}
       >
         <form onSubmit={form.onSubmit(handleSignUp)}>
-          <Stack gap={"xs"}>
+          <Stack gap="xs">
             <TextInput
               key={form.key("email")}
               label="Email"
@@ -101,7 +101,7 @@ export const SignUpButton = () => {
 
             {error && (
               <Alert
-                title={"Error!"}
+                title="Error!"
                 variant="light"
                 color="cinkoRed"
                 icon={<IconAlertHexagon />}

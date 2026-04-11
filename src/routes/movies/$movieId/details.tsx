@@ -17,7 +17,7 @@ function RouteComponent() {
 
   return (
     <Stack>
-      <Group gap={"xs"}>
+      <Group gap="xs">
         <Title order={2}>Cast</Title>
         <Text>({movie.credits.cast.length})</Text>
       </Group>
@@ -28,7 +28,7 @@ function RouteComponent() {
             <Group>
               <Avatar
                 src={`${IMAGES_BASE_URL}/w185/${cast.profile_path}`}
-                size={"xl"}
+                size="xl"
               />
 
               <Stack gap={"xs"}>
@@ -36,7 +36,7 @@ function RouteComponent() {
                   to="/people/$personId"
                   params={{ personId: cast.id.toString() }}
                   preload={false}
-                  c={"white"}
+                  c="white"
                   fw={500}
                 >
                   {cast.name}
@@ -52,9 +52,9 @@ function RouteComponent() {
         <CustomLink
           to="/movies/$movieId/credits"
           params={{ movieId }}
-          c={"white"}
+          c="white"
           fw={700}
-          fz={"lg"}
+          fz="lg"
         >
           All cast & crew
         </CustomLink>

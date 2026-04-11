@@ -3,7 +3,7 @@ import { getEmptyIcon, getFullIcon } from "./helpers";
 
 export const RateMovie = () => {
   return (
-    <Stack align="center" gap={"xs"}>
+    <Stack align="center" gap="xs">
       <Text fw={500}>Rate movie</Text>
 
       <Rating

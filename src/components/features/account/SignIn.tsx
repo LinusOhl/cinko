@@ -72,7 +72,7 @@ export const SignInButton = () => {
         <Divider label="or" />
 
         <form onSubmit={form.onSubmit(handleEmailSignIn)}>
-          <Stack gap={"xs"}>
+          <Stack gap="xs">
             <TextInput
               key={form.key("email")}
               label="Email"
@@ -87,7 +87,7 @@ export const SignInButton = () => {
 
             {error && (
               <Alert
-                title={"Error!"}
+                title="Error!"
                 variant="light"
                 color="cinkoRed"
                 icon={<IconAlertHexagon />}

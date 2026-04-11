@@ -42,14 +42,14 @@ function RouteComponent() {
 
   return (
     <>
-      <Stack mb={"xl"}>
+      <Stack mb="xl">
         <MovieBanner movie={movie} />
 
-        <Group align="flex-start" wrap="nowrap" mt={"xl"}>
+        <Group align="flex-start" wrap="nowrap" mt="xl">
           <Stack>
             <MoviePoster posterPath={movie.poster_path} width={250} />
 
-            <Stack gap={"sm"}>
+            <Stack gap="sm">
               <RateMovie />
 
               {watchlistItem ? (
@@ -62,11 +62,11 @@ function RouteComponent() {
 
           <Stack>
             <Stack gap={0}>
-              <Title order={1} c={"white"} style={{ textWrap: "balance" }}>
+              <Title order={1} c="white" style={{ textWrap: "balance" }}>
                 {movie.title}
               </Title>
 
-              <Group gap={"xs"}>
+              <Group gap="xs">
                 <Text size="sm">{movieReleaseYear}</Text>
 
                 <IconCircleFilled size={6} />
@@ -88,11 +88,11 @@ function RouteComponent() {
               </Group>
             </Stack>
 
-            <Text fs={"italic"}>{movie.tagline}</Text>
+            <Text fs="italic">{movie.tagline}</Text>
 
             <Text>{movie.overview}</Text>
 
-            <Stack gap={"xs"}>
+            <Stack gap="xs">
               <Group>
                 {directors.length > 1 ? (
                   <Text fw={700}>Directors</Text>

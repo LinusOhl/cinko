@@ -71,26 +71,26 @@ function RouteComponent() {
   };
 
   return (
-    <Stack h={"100vh"} p={"xs"} gap={"xl"} justify="center">
+    <Stack h="100vh" p="xs" gap="xl" justify="center">
       <Title order={1} fz={96} styles={{ root: { textAlign: "center" } }}>
         CINKO
       </Title>
 
-      <Stack gap={"xs"}>
+      <Stack gap="xs">
         <Group justify="space-between">
           <Text fw={500} fz={24}>
             Sign up
           </Text>
 
-          <CustomLink to="/signin" c={"cinkoYellow"}>
+          <CustomLink to="/signin" c="cinkoYellow">
             Already have an account?
           </CustomLink>
         </Group>
 
-        <Card p={"lg"} radius={"md"} shadow="md" withBorder>
-          <Stack gap={"md"}>
+        <Card p="lg" radius="md" shadow="md" withBorder>
+          <Stack gap="md">
             {error && (
-              <Alert title="Error" color="cinkoRed" radius={"sm"}>
+              <Alert title="Error" color="cinkoRed" radius="sm">
                 {error}
               </Alert>
             )}
@@ -100,7 +100,7 @@ function RouteComponent() {
                 handleSignUp(values.name, values.email, values.password),
               )}
             >
-              <Stack gap={"sm"}>
+              <Stack gap="sm">
                 <TextInput
                   key={form.key("name")}
                   label="Name"

@@ -14,7 +14,7 @@ export const MovieBanner = ({ movie }: MovieBannerProps) => {
         src={`${IMAGES_BASE_URL}/w1280/${movie.backdrop_path}`}
         fallbackSrc="https://placehold.co/1280x720"
         alt={movie.title || "Movie backdrop"}
-        radius={"md"}
+        radius="md"
         loading="lazy"
         classNames={{ root: classes.imageRoot }}
       />

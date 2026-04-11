@@ -35,7 +35,7 @@ export const MovieCredit = ({
         />
       ) : (
         <Box
-          bg={"dark"}
+          bg="dark"
           w={96}
           style={{ cursor: "pointer" }}
           onClick={() =>
@@ -45,7 +45,7 @@ export const MovieCredit = ({
             })
           }
         >
-          <Text ta={"center"}>{title}</Text>
+          <Text ta="center">{title}</Text>
         </Box>
       )}
     </Tooltip>

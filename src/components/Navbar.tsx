@@ -14,8 +14,8 @@ export const Navbar = () => {
 
   return (
     <>
-      <Group p={"xs"} justify="space-between">
-        <CustomLink to="/" c={"white"} fz={"h1"} fw={700} ff={"heading"}>
+      <Group p="xs" justify="space-between">
+        <CustomLink to="/" c="white" fz="h1" fw={700} ff="heading">
           CINKO
         </CustomLink>
 

@@ -61,24 +61,24 @@ function RouteComponent() {
   };
 
   return (
-    <Stack h={"100vh"} p={"xs"} gap={"xl"} justify="center">
+    <Stack h="100vh" p="xs" gap="xl" justify="center">
       <Title order={1} fz={96} styles={{ root: { textAlign: "center" } }}>
         CINKO
       </Title>
 
-      <Stack gap={"xs"}>
+      <Stack gap="xs">
         <Group justify="space-between">
           <Text fw={500} fz={24}>
             Sign in
           </Text>
 
-          <CustomLink c={"cinkoYellow"} to="/signup">
+          <CustomLink c="cinkoYellow" to="/signup">
             Need an account?
           </CustomLink>
         </Group>
 
-        <Card p={"lg"} radius={"md"} shadow="md" withBorder>
-          <Stack gap={"md"}>
+        <Card p="lg" radius="md" shadow="md" withBorder>
+          <Stack gap="md">
             <Button
               variant="light"
               color="cinkoBlue"
@@ -95,7 +95,7 @@ function RouteComponent() {
                 title="Error"
                 variant="light"
                 color="red"
-                radius={"md"}
+                radius="md"
                 icon={<IconExclamationCircle size={18} />}
               >
                 {error}
@@ -107,7 +107,7 @@ function RouteComponent() {
                 handleEmailSignIn(values.email, values.password),
               )}
             >
-              <Stack gap={"sm"}>
+              <Stack gap="sm">
                 <TextInput
                   key={form.key("email")}
                   label="Email"

@@ -27,12 +27,12 @@ function IndexView() {
   const { data: playingMovies } = useSuspenseQuery(playingMoviesQueryOptions());
 
   return (
-    <Stack gap={"xl"} my={"xl"}>
+    <Stack gap="xl" my="xl">
       <Box>
         <Carousel
           height={560}
-          slideGap={"md"}
-          slideSize={"100%"}
+          slideGap="md"
+          slideSize="100%"
           emblaOptions={{ loop: true, dragFree: false, align: "center" }}
         >
           {playingMovies.results
@@ -45,16 +45,16 @@ function IndexView() {
 
       <Box>
         <div style={{ width: "fit-content" }}>
-          <CustomLink to="/" c={"white"} preload={false}>
-            <Title order={2} mb={"xs"}>
+          <CustomLink to="/" c="white" preload={false}>
+            <Title order={2} mb="xs">
               Top rated movies
             </Title>
           </CustomLink>
         </div>
 
         <Carousel
-          slideGap={"md"}
-          slideSize={"10%"}
+          slideGap="md"
+          slideSize="10%"
           emblaOptions={{ dragFree: true }}
         >
           {topMovies.results.map((movie) => (
@@ -67,16 +67,16 @@ function IndexView() {
 
       <Box>
         <div style={{ width: "fit-content" }}>
-          <CustomLink to="/" c={"white"} preload={false}>
-            <Title order={2} mb={"xs"}>
+          <CustomLink to="/" c="white" preload={false}>
+            <Title order={2} mb="xs">
               Popular movies
             </Title>
           </CustomLink>
         </div>
 
         <Carousel
-          slideGap={"md"}
-          slideSize={"10%"}
+          slideGap="md"
+          slideSize="10%"
           emblaOptions={{ dragFree: true }}
         >
           {popularMovies.results.map((movie) => (

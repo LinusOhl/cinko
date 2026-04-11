@@ -47,17 +47,17 @@ function RouteComponent() {
   );
 
   return (
-    <Stack gap={"xl"}>
+    <Stack gap="xl">
       <CustomLink
         to="/movies/$movieId/details"
         params={{ movieId }}
-        c={"white"}
+        c="white"
         fw={700}
       >
         Return to details
       </CustomLink>
 
-      <Stack gap={"sm"}>
+      <Stack gap="sm">
         <Title order={2}>Cast</Title>
 
         <Grid justify="space-between">
@@ -71,21 +71,21 @@ function RouteComponent() {
                       : null
                   }
                   name={cast.name}
-                  size={"xl"}
+                  size="xl"
                 />
 
-                <Stack gap={"xs"}>
+                <Stack gap="xs">
                   <CustomLink
                     to="/people/$personId"
                     params={{ personId: `${cast.id}` }}
                     preload={false}
                     fw={600}
-                    c={"white"}
+                    c="white"
                   >
                     {cast.name}
                   </CustomLink>
 
-                  <Text c={"cinkoGrey.2"} lineClamp={1}>
+                  <Text c="cinkoGrey.2" lineClamp={1}>
                     {cast.character}
                   </Text>
                 </Stack>
@@ -95,13 +95,13 @@ function RouteComponent() {
         </Grid>
       </Stack>
 
-      <Stack gap={"sm"}>
+      <Stack gap="sm">
         <Title order={2}>Crew</Title>
 
         <Stack>
           {Object.entries(organizedCrew).map((entry) => (
             <>
-              <Title key={entry[0]} order={3} c={"cinkoGrey.3"}>
+              <Title key={entry[0]} order={3} c="cinkoGrey.3">
                 {entry[0]}
               </Title>
 
@@ -116,21 +116,21 @@ function RouteComponent() {
                             : null
                         }
                         name={member.name}
-                        size={"xl"}
+                        size="xl"
                       />
 
-                      <Stack gap={"xs"}>
+                      <Stack gap="xs">
                         <CustomLink
                           to="/people/$personId"
                           params={{ personId: `${member.id}` }}
                           preload={false}
                           fw={600}
-                          c={"white"}
+                          c="white"
                         >
                           {member.name}
                         </CustomLink>
 
-                        <Text c={"cinkoGrey.2"} lineClamp={1}>
+                        <Text c="cinkoGrey.2" lineClamp={1}>
                           {member.jobs.join(", ")}
                         </Text>
                       </Stack>
