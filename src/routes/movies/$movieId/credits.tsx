@@ -63,7 +63,7 @@ function RouteComponent() {
         <Grid justify="space-between">
           {movie.credits.cast.map((cast) => (
             <Grid.Col key={cast.id} span={6}>
-              <Group>
+              <Group wrap="nowrap">
                 <Avatar
                   src={
                     cast.profile_path
@@ -84,7 +84,10 @@ function RouteComponent() {
                   >
                     {cast.name}
                   </CustomLink>
-                  <Text c={"cinkoGrey.2"}>{cast.character}</Text>
+
+                  <Text c={"cinkoGrey.2"} lineClamp={1}>
+                    {cast.character}
+                  </Text>
                 </Stack>
               </Group>
             </Grid.Col>
@@ -104,8 +107,8 @@ function RouteComponent() {
 
               <Grid justify="space-between">
                 {entry[1].map((member) => (
-                  <Grid.Col key={member.id + member.credit_id} span={6}>
-                    <Group>
+                  <Grid.Col key={`${member.id} + ${member.credit_id}`} span={6}>
+                    <Group wrap="nowrap">
                       <Avatar
                         src={
                           member.profile_path
@@ -126,7 +129,10 @@ function RouteComponent() {
                         >
                           {member.name}
                         </CustomLink>
-                        <Text c={"cinkoGrey.2"}>{member.jobs.join(", ")}</Text>
+
+                        <Text c={"cinkoGrey.2"} lineClamp={1}>
+                          {member.jobs.join(", ")}
+                        </Text>
                       </Stack>
                     </Group>
                   </Grid.Col>
