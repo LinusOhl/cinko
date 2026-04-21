@@ -108,10 +108,22 @@ model WatchlistItem {
 }
 
 model Rating {
-  id        String   @id @default(uuid())
-  userId    String
-  movieId   Int
-  score     Float
+  id      String @id @default(uuid())
+  userId  String
+  movieId Int
+
+  // Scores
+  actingScore           Float
+  directionScore        Float
+  storyScore            Float
+  writingScore          Float
+  soundScore            Float
+  musicScore            Float
+  visualEffectsScore    Float
+  cinematographyScore   Float
+  editingScore          Float
+  productionDesignScore Float
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
