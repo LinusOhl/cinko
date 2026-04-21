@@ -1,4 +1,12 @@
-import { Badge, Group, Stack, Text, Title } from "@mantine/core";
+import {
+  Accordion,
+  Badge,
+  Group,
+  Progress,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
 import { IconCircleFilled } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
@@ -40,6 +48,14 @@ function RouteComponent() {
     (k) => k.job === "Writer" || k.job === "Screenplay",
   );
 
+  const technicalScores = [
+    { label: "Cinematography", score: 100 },
+    { label: "Editing", score: 60 },
+    { label: "Production Design", score: 80 },
+    { label: "Sound", score: 20 },
+    { label: "Visual Effects", score: 40 },
+  ];
+
   return (
     <>
       <Stack mb="xl">
@@ -48,6 +64,41 @@ function RouteComponent() {
         <Group align="flex-start" wrap="nowrap" mt="xl">
           <Stack>
             <MoviePoster posterPath={movie.poster_path} width={250} />
+
+            <Stack gap={"xs"}>
+              <Stack gap="xs">
+                <Text fz="sm">Acting/Performance</Text>
+                <Progress value={60} size="xs" color="cyan" />
+              </Stack>
+              <Stack gap="xs">
+                <Text fz="sm">Direction</Text>
+                <Progress value={80} size="xs" color="green" />
+              </Stack>
+              <Stack gap="xs">
+                <Text fz="sm">Writing</Text>
+                <Progress value={20} size="xs" color="grape" />
+              </Stack>
+              <Stack gap="xs">
+                <Text fz="sm">Music</Text>
+                <Progress value={100} size="xs" color="pink" />
+              </Stack>
+
+              <Accordion order={3}>
+                <Accordion.Item value="technical-scores">
+                  <Accordion.Control>Technical Scores</Accordion.Control>
+                  <Accordion.Panel>
+                    <Stack gap="xs">
+                      {technicalScores.map((t) => (
+                        <Stack key={t.label} gap="xs">
+                          <Text fz="sm">{t.label}</Text>
+                          <Progress value={t.score} size="xs" color="orange" />
+                        </Stack>
+                      ))}
+                    </Stack>
+                  </Accordion.Panel>
+                </Accordion.Item>
+              </Accordion>
+            </Stack>
 
             <Stack gap="sm">
               <RateMovie />
