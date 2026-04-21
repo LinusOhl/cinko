@@ -65,7 +65,7 @@ function RouteComponent() {
           <Stack>
             <MoviePoster posterPath={movie.poster_path} width={250} />
 
-            <Stack gap={"xs"}>
+            <Stack gap="xs">
               <Stack gap="xs">
                 <Text fz="sm">Acting/Performance</Text>
                 <Progress value={60} size="xs" color="cyan" />
