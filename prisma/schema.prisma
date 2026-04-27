@@ -115,14 +115,13 @@ model Rating {
   // Scores
   actingScore           Float
   directionScore        Float
-  storyScore            Float
-  writingScore          Float
-  soundScore            Float
   musicScore            Float
-  visualEffectsScore    Float
+  writingScore          Float
   cinematographyScore   Float
   editingScore          Float
   productionDesignScore Float
+  soundScore            Float
+  visualEffectsScore    Float
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
