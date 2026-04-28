@@ -122,6 +122,7 @@ model Rating {
   productionDesignScore Float
   soundScore            Float
   visualEffectsScore    Float
+  overallScore          Float
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
