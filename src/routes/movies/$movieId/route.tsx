@@ -75,12 +75,12 @@ function RouteComponent() {
                 <Progress value={80} size="xs" color="green" />
               </Stack>
               <Stack gap="xs">
-                <Text fz="sm">Writing</Text>
-                <Progress value={20} size="xs" color="grape" />
-              </Stack>
-              <Stack gap="xs">
                 <Text fz="sm">Music</Text>
                 <Progress value={100} size="xs" color="pink" />
+              </Stack>
+              <Stack gap="xs">
+                <Text fz="sm">Story & Writing</Text>
+                <Progress value={20} size="xs" color="grape" />
               </Stack>
 
               <Accordion order={3}>
