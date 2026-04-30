@@ -1,13 +1,28 @@
 import { prisma } from "~/lib/prisma";
+import type { TMDBMovie, TMDBMovieDetails } from "~/types/tmdb";
 
-export const rateMovie = (
+export const rateMovie = async (
   ratings: Record<string, number>,
-  movieId: number,
+  movie: TMDBMovie | TMDBMovieDetails,
   userId: string,
 ) => {
-  const overallScore =
+  const foundMovie = await prisma.movie.upsert({
+    create: {
+      id: movie.id,
+      title: movie.title,
+      posterPath: movie.poster_path || null,
+    },
+    update: {},
+    where: {
+      id: movie.id,
+    },
+  });
+
+  const avgScore =
     Object.values(ratings).reduce((acc, cur) => acc + cur) /
     Object.keys(ratings).length;
+
+  const overallScore = Number(avgScore.toFixed(1));
 
   return prisma.rating.upsert({
     create: {
@@ -21,7 +36,7 @@ export const rateMovie = (
       visualEffectsScore: ratings.visualEffects,
       writingScore: ratings.writing,
       overallScore,
-      movieId,
+      movieId: foundMovie.id,
       userId,
     },
     update: {
@@ -37,7 +52,7 @@ export const rateMovie = (
       overallScore,
     },
     where: {
-      userId_movieId: { movieId, userId },
+      userId_movieId: { movieId: foundMovie.id, userId },
     },
   });
 };
