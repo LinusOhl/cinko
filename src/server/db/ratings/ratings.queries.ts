@@ -1,6 +1,6 @@
+import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "~/router";
 import { rateMovieFn } from "./ratings.fns";
-import { useMutation } from "@tanstack/react-query";
 
 export const useRateMovieMutation = () => {
   return useMutation({
