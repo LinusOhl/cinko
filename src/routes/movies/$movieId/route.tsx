@@ -101,7 +101,7 @@ function RouteComponent() {
             </Stack>
 
             <Stack gap="sm">
-              <RateMovie />
+              <RateMovie movie={movie} />
 
               {watchlistItem ? (
                 <RemoveFromWatchlistButton movieId={Number(movieId)} />
