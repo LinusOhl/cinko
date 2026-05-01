@@ -25,11 +25,9 @@ export const Route = createFileRoute("/movies/$movieId")({
       movieId: z.string().parse(params.movieId),
     }),
   },
-  loader: ({ params: { movieId }, context: { queryClient } }) =>
-    Promise.all([
-      queryClient.ensureQueryData(movieQueryOptions(movieId)),
-      queryClient.ensureQueryData(watchlistItemQueryOptions(Number(movieId))),
-    ]),
+  loader: async ({ params: { movieId }, context: { queryClient } }) => {
+    await queryClient.ensureQueryData(movieQueryOptions(movieId));
+  },
   component: RouteComponent,
 });
 
@@ -66,6 +64,17 @@ function RouteComponent() {
             <MoviePoster posterPath={movie.poster_path} width={250} />
 
             <Stack gap="xs">
+              <Group justify="space-between" align="flex-start">
+                <Stack ta="center" gap="xs">
+                  <Text fw={600}>Overall score</Text>
+                  <Text fz="h1">3.9/5</Text>
+                </Stack>
+                <Stack ta="center" gap="xs">
+                  <Text fw={600}>Your score</Text>
+                  <Text fz="h1">4.3/5</Text>
+                </Stack>
+              </Group>
+
               <Stack gap="xs">
                 <Text fz="sm">Acting/Performance</Text>
                 <Progress value={60} size="xs" color="cyan" />
@@ -85,7 +94,7 @@ function RouteComponent() {
 
               <Accordion order={3}>
                 <Accordion.Item value="technical-scores">
-                  <Accordion.Control>Technical Scores</Accordion.Control>
+                  <Accordion.Control>Technical scores</Accordion.Control>
                   <Accordion.Panel>
                     <Stack gap="xs">
                       {technicalScores.map((t) => (

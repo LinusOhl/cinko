@@ -6,8 +6,11 @@ import { IMAGES_BASE_URL } from "~/helpers";
 import { movieQueryOptions } from "~/server/tmdb/movies/movies.queries";
 
 export const Route = createFileRoute("/movies/$movieId/details")({
-  loader: ({ context, params }) =>
-    context.queryClient.ensureQueryData(movieQueryOptions(params.movieId)),
+  loader: async ({ context, params }) => {
+    await context.queryClient.ensureQueryData(
+      movieQueryOptions(params.movieId),
+    );
+  },
   component: RouteComponent,
 });
 
