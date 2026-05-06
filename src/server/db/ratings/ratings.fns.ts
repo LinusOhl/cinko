@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import z from "zod";
 import { authMiddleware } from "~/middlewares/auth-middleware";
 import type { TMDBMovie, TMDBMovieDetails } from "~/types/tmdb";
-import { rateMovie } from "./ratings.prisma";
+import { getUserRating, rateMovie } from "./ratings.prisma";
 
 export const rateMovieFn = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
@@ -20,4 +20,17 @@ export const rateMovieFn = createServerFn({ method: "POST" })
     const userId = context.user.id;
 
     return rateMovie(data.ratings, data.movie, userId);
+  });
+
+export const getUserRatingFn = createServerFn({ method: "GET" })
+  .middleware([authMiddleware])
+  .inputValidator(z.number())
+  .handler(({ data, context }) => {
+    if (!context.user) {
+      return null;
+    }
+
+    const userId = context.user.id;
+
+    return getUserRating(data, userId);
   });

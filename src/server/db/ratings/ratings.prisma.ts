@@ -56,3 +56,11 @@ export const rateMovie = async (
     },
   });
 };
+
+export const getUserRating = (movieId: number, userId: string) => {
+  return prisma.rating.findUnique({
+    where: {
+      userId_movieId: { movieId, userId },
+    },
+  });
+};
