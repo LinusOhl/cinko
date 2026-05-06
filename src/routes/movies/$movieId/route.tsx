@@ -16,6 +16,7 @@ import { MoviePoster } from "~/components/features/movies/MoviePoster";
 import { RateMovie } from "~/components/features/ratings/RateMovie/RateMovie";
 import { AddToWatchlistButton } from "~/components/features/watchlist/AddToWatchlistButton";
 import { RemoveFromWatchlistButton } from "~/components/features/watchlist/RemoveFromWatchlistButton";
+import { userRatingQueryOptions } from "~/server/db/ratings/ratings.queries";
 import { watchlistItemQueryOptions } from "~/server/db/watchlist/watchlist.queries";
 import { movieQueryOptions } from "~/server/tmdb/movies/movies.queries";
 
@@ -37,6 +38,9 @@ function RouteComponent() {
   const { data: movie } = useSuspenseQuery(movieQueryOptions(movieId));
   const { data: watchlistItem } = useSuspenseQuery(
     watchlistItemQueryOptions(Number(movieId)),
+  );
+  const { data: userRating } = useSuspenseQuery(
+    userRatingQueryOptions(Number(movieId)),
   );
 
   const movieReleaseYear = movie.release_date.slice(0, 4);
@@ -71,7 +75,11 @@ function RouteComponent() {
                 </Stack>
                 <Stack ta="center" gap="xs">
                   <Text fw={600}>Your score</Text>
-                  <Text fz="h1">4.3/5</Text>
+                  {userRating ? (
+                    <Text fz="h1">{userRating.overallScore}/5</Text>
+                  ) : (
+                    <Text fz="h1">?/5</Text>
+                  )}
                 </Stack>
               </Group>
 
