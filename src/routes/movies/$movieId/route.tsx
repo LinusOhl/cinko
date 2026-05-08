@@ -1,22 +1,14 @@
-import {
-  Accordion,
-  Badge,
-  Group,
-  Progress,
-  Stack,
-  Text,
-  Title,
-} from "@mantine/core";
+import { Badge, Group, Stack, Text, Title } from "@mantine/core";
 import { IconCircleFilled } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { z } from "zod";
 import { MovieBanner } from "~/components/features/movies/MovieBanner";
 import { MoviePoster } from "~/components/features/movies/MoviePoster";
+import { MovieRatings } from "~/components/features/ratings/MovieRatings/MovieRatings";
 import { RateMovie } from "~/components/features/ratings/RateMovie/RateMovie";
 import { AddToWatchlistButton } from "~/components/features/watchlist/AddToWatchlistButton";
 import { RemoveFromWatchlistButton } from "~/components/features/watchlist/RemoveFromWatchlistButton";
-import { userRatingQueryOptions } from "~/server/db/ratings/ratings.queries";
 import { watchlistItemQueryOptions } from "~/server/db/watchlist/watchlist.queries";
 import { movieQueryOptions } from "~/server/tmdb/movies/movies.queries";
 
@@ -39,9 +31,6 @@ function RouteComponent() {
   const { data: watchlistItem } = useSuspenseQuery(
     watchlistItemQueryOptions(Number(movieId)),
   );
-  const { data: userRating } = useSuspenseQuery(
-    userRatingQueryOptions(Number(movieId)),
-  );
 
   const movieReleaseYear = movie.release_date.slice(0, 4);
   const stars = movie.credits.cast.slice(0, 3);
@@ -49,14 +38,6 @@ function RouteComponent() {
   const writers = movie.credits.crew.filter(
     (k) => k.job === "Writer" || k.job === "Screenplay",
   );
-
-  const technicalScores = [
-    { label: "Cinematography", score: 100 },
-    { label: "Editing", score: 60 },
-    { label: "Production Design", score: 80 },
-    { label: "Sound", score: 20 },
-    { label: "Visual Effects", score: 40 },
-  ];
 
   return (
     <>
@@ -67,55 +48,7 @@ function RouteComponent() {
           <Stack>
             <MoviePoster posterPath={movie.poster_path} width={250} />
 
-            <Stack gap="xs">
-              <Group justify="space-between" align="flex-start">
-                <Stack ta="center" gap="xs">
-                  <Text fw={600}>Overall score</Text>
-                  <Text fz="h1">3.9/5</Text>
-                </Stack>
-                <Stack ta="center" gap="xs">
-                  <Text fw={600}>Your score</Text>
-                  {userRating ? (
-                    <Text fz="h1">{userRating.overallScore}/5</Text>
-                  ) : (
-                    <Text fz="h1">?/5</Text>
-                  )}
-                </Stack>
-              </Group>
-
-              <Stack gap="xs">
-                <Text fz="sm">Acting/Performance</Text>
-                <Progress value={60} size="xs" color="cyan" />
-              </Stack>
-              <Stack gap="xs">
-                <Text fz="sm">Direction</Text>
-                <Progress value={80} size="xs" color="green" />
-              </Stack>
-              <Stack gap="xs">
-                <Text fz="sm">Music</Text>
-                <Progress value={100} size="xs" color="pink" />
-              </Stack>
-              <Stack gap="xs">
-                <Text fz="sm">Story & Writing</Text>
-                <Progress value={20} size="xs" color="grape" />
-              </Stack>
-
-              <Accordion order={3}>
-                <Accordion.Item value="technical-scores">
-                  <Accordion.Control>Technical scores</Accordion.Control>
-                  <Accordion.Panel>
-                    <Stack gap="xs">
-                      {technicalScores.map((t) => (
-                        <Stack key={t.label} gap="xs">
-                          <Text fz="sm">{t.label}</Text>
-                          <Progress value={t.score} size="xs" color="orange" />
-                        </Stack>
-                      ))}
-                    </Stack>
-                  </Accordion.Panel>
-                </Accordion.Item>
-              </Accordion>
-            </Stack>
+            <MovieRatings movieId={Number(movieId)} />
 
             <Stack gap="sm">
               <RateMovie movie={movie} />
@@ -197,6 +130,8 @@ function RouteComponent() {
                 ))}
               </Group>
             </Stack>
+
+            {/* TODO: fill this space with something! */}
           </Stack>
         </Group>
       </Stack>
