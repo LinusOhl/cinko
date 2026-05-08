@@ -2,7 +2,6 @@ import { Group, Stack, Tabs, Text, useMantineTheme } from "@mantine/core";
 import { IconStarFilled } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { userRatingQueryOptions } from "~/server/db/ratings/ratings.queries";
-import { getRatingColor } from "./helpers";
 import { RatingScores } from "./MovieRatings.parts";
 
 interface MovieRatingsProps {
@@ -50,7 +49,7 @@ export const MovieRatings = ({ movieId }: MovieRatingsProps) => {
                     align="center"
                     justify="center"
                     gap="0.2rem"
-                    bg={getRatingColor(userRating.overallScore)}
+                    bg="white"
                     bdrs="md"
                   >
                     <IconStarFilled
