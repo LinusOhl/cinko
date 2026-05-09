@@ -64,3 +64,12 @@ export const getUserRating = (movieId: number, userId: string) => {
     },
   });
 };
+
+export const getGlobalRatings = (movieId: number) => {
+  return prisma.rating.aggregate({
+    _avg: { overallScore: true },
+    where: {
+      movieId,
+    },
+  });
+};

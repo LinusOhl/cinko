@@ -1,6 +1,10 @@
 import { queryOptions, useMutation } from "@tanstack/react-query";
 import { queryClient } from "~/router";
-import { getUserRatingFn, rateMovieFn } from "./ratings.fns";
+import {
+  getGlobalRatingsFn,
+  getUserRatingFn,
+  rateMovieFn,
+} from "./ratings.fns";
 
 export const useRateMovieMutation = () => {
   return useMutation({
@@ -16,4 +20,10 @@ export const userRatingQueryOptions = (movieId: number) =>
   queryOptions({
     queryKey: ["user-rating", movieId],
     queryFn: () => getUserRatingFn({ data: movieId }),
+  });
+
+export const globalRatingsQueryOptions = (movieId: number) =>
+  queryOptions({
+    queryKey: ["global-ratings", movieId],
+    queryFn: () => getGlobalRatingsFn({ data: movieId }),
   });
