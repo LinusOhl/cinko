@@ -19,7 +19,7 @@ export const Route = createFileRoute("/movies/$movieId")({
     }),
   },
   loader: async ({ params: { movieId }, context: { queryClient } }) => {
-    await queryClient.ensureQueryData(movieQueryOptions(movieId));
+    await queryClient.ensureQueryData(movieQueryOptions(movieId, ["credits"]));
   },
   component: RouteComponent,
 });
@@ -27,15 +27,17 @@ export const Route = createFileRoute("/movies/$movieId")({
 function RouteComponent() {
   const { movieId } = Route.useParams();
 
-  const { data: movie } = useSuspenseQuery(movieQueryOptions(movieId));
+  const { data: movie } = useSuspenseQuery(
+    movieQueryOptions(movieId, ["credits"]),
+  );
   const { data: watchlistItem } = useSuspenseQuery(
     watchlistItemQueryOptions(Number(movieId)),
   );
 
   const movieReleaseYear = movie.release_date.slice(0, 4);
-  const stars = movie.credits.cast.slice(0, 3);
-  const directors = movie.credits.crew.filter((k) => k.job === "Director");
-  const writers = movie.credits.crew.filter(
+  const stars = movie.credits?.cast.slice(0, 3);
+  const directors = movie.credits?.crew.filter((k) => k.job === "Director");
+  const writers = movie.credits?.crew.filter(
     (k) => k.job === "Writer" || k.job === "Screenplay",
   );
 
@@ -95,37 +97,37 @@ function RouteComponent() {
 
             <Stack gap="xs">
               <Group>
-                {directors.length > 1 ? (
+                {directors && directors.length > 1 ? (
                   <Text fw={700}>Directors</Text>
                 ) : (
                   <Text fw={700}>Director</Text>
                 )}
 
-                {directors.map((director) => (
+                {directors?.map((director) => (
                   <Text key={director.id}>{director.name}</Text>
                 ))}
               </Group>
 
               <Group>
-                {writers.length > 1 ? (
+                {writers && writers.length > 1 ? (
                   <Text fw={700}>Writers</Text>
                 ) : (
                   <Text fw={700}>Writer</Text>
                 )}
 
-                {writers.map((writer) => (
+                {writers?.map((writer) => (
                   <Text key={writer.id}>{writer.name}</Text>
                 ))}
               </Group>
 
               <Group>
-                {stars.length > 1 ? (
+                {stars && stars.length > 1 ? (
                   <Text fw={700}>Stars</Text>
                 ) : (
                   <Text fw={700}>Star</Text>
                 )}
 
-                {stars.map((star) => (
+                {stars?.map((star) => (
                   <Text key={star.id}>{star.name}</Text>
                 ))}
               </Group>

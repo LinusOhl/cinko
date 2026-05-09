@@ -8,7 +8,7 @@ import { movieQueryOptions } from "~/server/tmdb/movies/movies.queries";
 export const Route = createFileRoute("/movies/$movieId/details")({
   loader: async ({ context, params }) => {
     await context.queryClient.ensureQueryData(
-      movieQueryOptions(params.movieId),
+      movieQueryOptions(params.movieId, ["credits"]),
     );
   },
   component: RouteComponent,
@@ -16,17 +16,19 @@ export const Route = createFileRoute("/movies/$movieId/details")({
 
 function RouteComponent() {
   const { movieId } = Route.useParams();
-  const { data: movie } = useSuspenseQuery(movieQueryOptions(movieId));
+  const { data: movie } = useSuspenseQuery(
+    movieQueryOptions(movieId, ["credits"]),
+  );
 
   return (
     <Stack>
       <Group gap="xs">
         <Title order={2}>Cast</Title>
-        <Text>({movie.credits.cast.length})</Text>
+        <Text>({movie.credits?.cast.length})</Text>
       </Group>
 
       <Grid justify="space-between">
-        {movie.credits.cast.slice(0, 10).map((cast) => (
+        {movie.credits?.cast.slice(0, 10).map((cast) => (
           <Grid.Col key={cast.id} span={6}>
             <Group>
               <Avatar

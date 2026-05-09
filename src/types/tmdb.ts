@@ -76,7 +76,7 @@ export type TMDBMovie = {
   video: boolean;
   vote_average: number;
   vote_count: number;
-  credits: Credits;
+  credits?: Credits;
 };
 
 export type TMDBMovieDetails = Omit<TMDBMovie, "genre_ids"> & {

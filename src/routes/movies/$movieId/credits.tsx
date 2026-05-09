@@ -8,15 +8,19 @@ import type { Crew } from "~/types/tmdb";
 
 export const Route = createFileRoute("/movies/$movieId/credits")({
   loader: ({ context, params }) =>
-    context.queryClient.ensureQueryData(movieQueryOptions(params.movieId)),
+    context.queryClient.ensureQueryData(
+      movieQueryOptions(params.movieId, ["credits"]),
+    ),
   component: RouteComponent,
 });
 
 function RouteComponent() {
   const { movieId } = Route.useParams();
-  const { data: movie } = useSuspenseQuery(movieQueryOptions(movieId));
+  const { data: movie } = useSuspenseQuery(
+    movieQueryOptions(movieId, ["credits"]),
+  );
 
-  const organizedCrew = movie.credits.crew.reduce<Record<string, Crew[]>>(
+  const organizedCrew = movie.credits?.crew.reduce<Record<string, Crew[]>>(
     (acc, item) => {
       const department = item.department;
 
@@ -61,7 +65,7 @@ function RouteComponent() {
         <Title order={2}>Cast</Title>
 
         <Grid justify="space-between">
-          {movie.credits.cast.map((cast) => (
+          {movie.credits?.cast.map((cast) => (
             <Grid.Col key={cast.id} span={6}>
               <Group wrap="nowrap">
                 <Avatar
@@ -99,47 +103,51 @@ function RouteComponent() {
         <Title order={2}>Crew</Title>
 
         <Stack>
-          {Object.entries(organizedCrew).map((entry) => (
-            <>
-              <Title key={entry[0]} order={3} c="cinkoGrey.3">
-                {entry[0]}
-              </Title>
+          {organizedCrew &&
+            Object.entries(organizedCrew).map((entry) => (
+              <>
+                <Title key={entry[0]} order={3} c="cinkoGrey.3">
+                  {entry[0]}
+                </Title>
 
-              <Grid justify="space-between">
-                {entry[1].map((member) => (
-                  <Grid.Col key={`${member.id} + ${member.credit_id}`} span={6}>
-                    <Group wrap="nowrap">
-                      <Avatar
-                        src={
-                          member.profile_path
-                            ? `${IMAGES_BASE_URL}/w185/${member.profile_path}`
-                            : null
-                        }
-                        name={member.name}
-                        size="xl"
-                      />
+                <Grid justify="space-between">
+                  {entry[1].map((member) => (
+                    <Grid.Col
+                      key={`${member.id} + ${member.credit_id}`}
+                      span={6}
+                    >
+                      <Group wrap="nowrap">
+                        <Avatar
+                          src={
+                            member.profile_path
+                              ? `${IMAGES_BASE_URL}/w185/${member.profile_path}`
+                              : null
+                          }
+                          name={member.name}
+                          size="xl"
+                        />
 
-                      <Stack gap="xs">
-                        <CustomLink
-                          to="/people/$personId"
-                          params={{ personId: `${member.id}` }}
-                          preload={false}
-                          fw={600}
-                          c="white"
-                        >
-                          {member.name}
-                        </CustomLink>
+                        <Stack gap="xs">
+                          <CustomLink
+                            to="/people/$personId"
+                            params={{ personId: `${member.id}` }}
+                            preload={false}
+                            fw={600}
+                            c="white"
+                          >
+                            {member.name}
+                          </CustomLink>
 
-                        <Text c="cinkoGrey.2" lineClamp={1}>
-                          {member.jobs.join(", ")}
-                        </Text>
-                      </Stack>
-                    </Group>
-                  </Grid.Col>
-                ))}
-              </Grid>
-            </>
-          ))}
+                          <Text c="cinkoGrey.2" lineClamp={1}>
+                            {member.jobs.join(", ")}
+                          </Text>
+                        </Stack>
+                      </Group>
+                    </Grid.Col>
+                  ))}
+                </Grid>
+              </>
+            ))}
         </Stack>
       </Stack>
     </Stack>
