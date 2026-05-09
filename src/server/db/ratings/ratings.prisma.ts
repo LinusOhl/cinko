@@ -67,7 +67,19 @@ export const getUserRating = (movieId: number, userId: string) => {
 
 export const getGlobalRatings = (movieId: number) => {
   return prisma.rating.aggregate({
-    _avg: { overallScore: true },
+    _avg: {
+      overallScore: true,
+      actingScore: true,
+      cinematographyScore: true,
+      directionScore: true,
+      editingScore: true,
+      musicScore: true,
+      productionDesignScore: true,
+      soundScore: true,
+      visualEffectsScore: true,
+      writingScore: true,
+    },
+    _count: { _all: true },
     where: {
       movieId,
     },

@@ -71,17 +71,23 @@ export const MovieRatings = ({ movieId }: MovieRatingsProps) => {
         </Tabs.List>
 
         <Tabs.Panel value="global">
-          <RatingScores
-            actingScore={3}
-            cinematographyScore={3}
-            directionScore={3}
-            editingScore={3}
-            musicScore={3}
-            productionDesignScore={3}
-            soundScore={3}
-            visualEffectsScore={3}
-            writingScore={3}
-          />
+          {globalRatings._count._all > 0 ? (
+            <RatingScores
+              actingScore={globalRatings._avg.actingScore || 0}
+              cinematographyScore={globalRatings._avg.cinematographyScore || 0}
+              directionScore={globalRatings._avg.directionScore || 0}
+              editingScore={globalRatings._avg.editingScore || 0}
+              musicScore={globalRatings._avg.musicScore || 0}
+              productionDesignScore={
+                globalRatings._avg.productionDesignScore || 0
+              }
+              soundScore={globalRatings._avg.soundScore || 0}
+              visualEffectsScore={globalRatings._avg.visualEffectsScore || 0}
+              writingScore={globalRatings._avg.writingScore || 0}
+            />
+          ) : (
+            <Text>Waiting for more ratings.</Text>
+          )}
         </Tabs.Panel>
 
         <Tabs.Panel value="user">
