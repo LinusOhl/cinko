@@ -78,11 +78,9 @@ export const MovieRatings = ({ movieId }: MovieRatingsProps) => {
               directionScore={globalRatings._avg.directionScore || 0}
               editingScore={globalRatings._avg.editingScore || 0}
               musicScore={globalRatings._avg.musicScore || 0}
-              productionDesignScore={
-                globalRatings._avg.productionDesignScore || 0
-              }
+              aestheticsScore={globalRatings._avg.aestheticsScore || 0}
               soundScore={globalRatings._avg.soundScore || 0}
-              visualEffectsScore={globalRatings._avg.visualEffectsScore || 0}
+              effectsScore={globalRatings._avg.effectsScore || 0}
               writingScore={globalRatings._avg.writingScore || 0}
             />
           ) : (
@@ -99,9 +97,9 @@ export const MovieRatings = ({ movieId }: MovieRatingsProps) => {
                 directionScore={userRating.directionScore}
                 editingScore={userRating.editingScore}
                 musicScore={userRating.musicScore}
-                productionDesignScore={userRating.productionDesignScore}
+                aestheticsScore={userRating.aestheticsScore}
                 soundScore={userRating.soundScore}
-                visualEffectsScore={userRating.visualEffectsScore}
+                effectsScore={userRating.effectsScore}
                 writingScore={userRating.writingScore}
               />
             ) : (

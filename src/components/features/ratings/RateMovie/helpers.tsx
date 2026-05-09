@@ -13,7 +13,7 @@ export const ratingCategories = [
   { key: "writing", label: "Story & Writing", color: "grape" },
   { key: "cinematography", label: "Cinematography", color: "orange" },
   { key: "editing", label: "Editing", color: "indigo" },
-  { key: "productionDesign", label: "Production Design", color: "yellow" },
+  { key: "aesthetics", label: "Aesthetics", color: "yellow" },
   { key: "sound", label: "Sound", color: "red" },
-  { key: "visualEffects", label: "Visual Effects", color: "violet" },
+  { key: "effects", label: "Effects", color: "violet" },
 ];

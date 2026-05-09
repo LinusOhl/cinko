@@ -28,9 +28,9 @@ interface RatingScoresProps {
   writingScore: number;
   cinematographyScore: number;
   editingScore: number;
-  productionDesignScore: number;
+  aestheticsScore: number;
   soundScore: number;
-  visualEffectsScore: number;
+  effectsScore: number;
 }
 
 export const RatingScores = ({
@@ -40,9 +40,9 @@ export const RatingScores = ({
   writingScore,
   cinematographyScore,
   editingScore,
-  productionDesignScore,
+  aestheticsScore,
   soundScore,
-  visualEffectsScore,
+  effectsScore,
 }: RatingScoresProps) => {
   return (
     <Stack gap="xs">
@@ -79,8 +79,8 @@ export const RatingScores = ({
                 color="indigo"
               />
               <RatingScore
-                label="Production Design"
-                score={productionDesignScore * 2 * 10}
+                label="Aesthetics"
+                score={aestheticsScore * 2 * 10}
                 color="yellow"
               />
               <RatingScore
@@ -89,8 +89,8 @@ export const RatingScores = ({
                 color="red"
               />
               <RatingScore
-                label="Visual Effects"
-                score={visualEffectsScore * 2 * 10}
+                label="Effects"
+                score={effectsScore * 2 * 10}
                 color="violet"
               />
             </Stack>
