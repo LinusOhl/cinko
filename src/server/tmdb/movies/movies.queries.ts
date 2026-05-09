@@ -7,10 +7,10 @@ import {
   fetchUpcomingMoviesFn,
 } from "./movies.fns";
 
-export const movieQueryOptions = (id: string) =>
+export const movieQueryOptions = (id: string, appendToResponse?: string[]) =>
   queryOptions({
-    queryKey: ["movie", id],
-    queryFn: () => fetchMovieFn({ data: { id } }),
+    queryKey: ["movie", id, appendToResponse],
+    queryFn: () => fetchMovieFn({ data: { id, appendToResponse } }),
     staleTime: 5 * 60 * 1000, // 5 minutes
     gcTime: 10 * 60 * 1000, // 10 minutes
   });

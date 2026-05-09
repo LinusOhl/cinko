@@ -10,11 +10,20 @@ import type {
 import { tmdbFetch } from "../client";
 
 export const fetchMovieFn = createServerFn({ method: "GET" })
-  .inputValidator(z.object({ id: z.string() }))
+  .inputValidator(
+    z.object({
+      id: z.string(),
+      appendToResponse: z.array(z.string()).optional(),
+    }),
+  )
   .handler(async ({ data }) => {
-    const searchParams = "?append_to_response=credits";
+    const { id, appendToResponse } = data;
 
-    return tmdbFetch<TMDBMovieDetails>(`/movie/${data.id}${searchParams}`);
+    const searchParams = appendToResponse?.length
+      ? `?append_to_response=${appendToResponse?.join(",")}`
+      : "";
+
+    return tmdbFetch<TMDBMovieDetails>(`/movie/${id}${searchParams}`);
   });
 
 export const fetchPopularMoviesFn = createServerFn({ method: "GET" }).handler(
