@@ -145,7 +145,7 @@ function RouteComponent() {
             </Stack>
 
             <Stack>
-              <Title order={3}>Images</Title>
+              <Title order={2}>Images</Title>
 
               <SimpleGrid cols={3}>
                 {movie.images?.backdrops.slice(0, 6).map((image) => (
