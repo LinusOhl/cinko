@@ -61,6 +61,15 @@ type Credits = {
   crew: Crew[];
 };
 
+type Image = {
+  aspect_ratio: number;
+  height: number;
+  iso_3166_1: string;
+  iso_639_1: string;
+  file_path: string;
+  width: number;
+};
+
 export type TMDBMovie = {
   id: number;
   adult: boolean;
@@ -77,6 +86,11 @@ export type TMDBMovie = {
   vote_average: number;
   vote_count: number;
   credits?: Credits;
+  images?: {
+    backdrops: Image[];
+    posters: Image[];
+    logos: Image[];
+  };
 };
 
 export type TMDBMovieDetails = Omit<TMDBMovie, "genre_ids"> & {
