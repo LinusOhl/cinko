@@ -1,4 +1,12 @@
-import { Badge, Group, Stack, Text, Title } from "@mantine/core";
+import {
+  Badge,
+  Group,
+  Image,
+  SimpleGrid,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
 import { IconCircleFilled } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
@@ -9,6 +17,7 @@ import { MovieRatings } from "~/components/features/ratings/MovieRatings/MovieRa
 import { RateMovie } from "~/components/features/ratings/RateMovie/RateMovie";
 import { AddToWatchlistButton } from "~/components/features/watchlist/AddToWatchlistButton";
 import { RemoveFromWatchlistButton } from "~/components/features/watchlist/RemoveFromWatchlistButton";
+import { IMAGES_BASE_URL } from "~/helpers";
 import { watchlistItemQueryOptions } from "~/server/db/watchlist/watchlist.queries";
 import { movieQueryOptions } from "~/server/tmdb/movies/movies.queries";
 
@@ -19,7 +28,9 @@ export const Route = createFileRoute("/movies/$movieId")({
     }),
   },
   loader: async ({ params: { movieId }, context: { queryClient } }) => {
-    await queryClient.ensureQueryData(movieQueryOptions(movieId, ["credits"]));
+    await queryClient.ensureQueryData(
+      movieQueryOptions(movieId, ["credits", "images"]),
+    );
   },
   component: RouteComponent,
 });
@@ -28,7 +39,7 @@ function RouteComponent() {
   const { movieId } = Route.useParams();
 
   const { data: movie } = useSuspenseQuery(
-    movieQueryOptions(movieId, ["credits"]),
+    movieQueryOptions(movieId, ["credits", "images"]),
   );
   const { data: watchlistItem } = useSuspenseQuery(
     watchlistItemQueryOptions(Number(movieId)),
@@ -63,7 +74,7 @@ function RouteComponent() {
             </Stack>
           </Stack>
 
-          <Stack>
+          <Stack gap="lg">
             <Stack gap={0}>
               <Title order={1} c="white" style={{ textWrap: "balance" }}>
                 {movie.title}
@@ -133,7 +144,21 @@ function RouteComponent() {
               </Group>
             </Stack>
 
-            {/* TODO: fill this space with something! */}
+            <Stack>
+              <Title order={3}>Images</Title>
+
+              <SimpleGrid cols={3}>
+                {movie.images?.backdrops.slice(0, 6).map((image) => (
+                  <Image
+                    key={image.file_path}
+                    src={`${IMAGES_BASE_URL}/w300/${image.file_path}`}
+                    radius="sm"
+                    loading="lazy"
+                    styles={{ root: { aspectRatio: image.aspect_ratio } }}
+                  />
+                ))}
+              </SimpleGrid>
+            </Stack>
           </Stack>
         </Group>
       </Stack>
