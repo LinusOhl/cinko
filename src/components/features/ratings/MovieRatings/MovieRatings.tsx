@@ -1,7 +1,10 @@
 import { Group, Stack, Tabs, Text, useMantineTheme } from "@mantine/core";
 import { IconStarFilled } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { userRatingQueryOptions } from "~/server/db/ratings/ratings.queries";
+import {
+  globalRatingsQueryOptions,
+  userRatingQueryOptions,
+} from "~/server/db/ratings/ratings.queries";
 import { RatingScores } from "./MovieRatings.parts";
 
 interface MovieRatingsProps {
@@ -11,6 +14,9 @@ interface MovieRatingsProps {
 export const MovieRatings = ({ movieId }: MovieRatingsProps) => {
   const theme = useMantineTheme();
 
+  const { data: globalRatings } = useSuspenseQuery(
+    globalRatingsQueryOptions(movieId),
+  );
   const { data: userRating } = useSuspenseQuery(
     userRatingQueryOptions(movieId),
   );
@@ -33,7 +39,10 @@ export const MovieRatings = ({ movieId }: MovieRatingsProps) => {
                 <IconStarFilled color={theme.black} size={theme.fontSizes.sm} />
 
                 <Text fz="h5" fw={600} c="black">
-                  3.9/5
+                  {globalRatings._avg.overallScore
+                    ? globalRatings._avg.overallScore
+                    : "?"}
+                  /5
                 </Text>
               </Group>
             </Stack>
@@ -41,49 +50,22 @@ export const MovieRatings = ({ movieId }: MovieRatingsProps) => {
 
           <Tabs.Tab value="user">
             <Stack ta="center" gap="xs">
-              {userRating ? (
-                <>
-                  <Text fw={700}>Your rating</Text>
+              <Text fw={700}>Your rating</Text>
 
-                  <Group
-                    align="center"
-                    justify="center"
-                    gap="0.2rem"
-                    bg="white"
-                    bdrs="md"
-                  >
-                    <IconStarFilled
-                      color={theme.black}
-                      size={theme.fontSizes.sm}
-                    />
+              <Group
+                align="center"
+                justify="center"
+                gap="0.2rem"
+                bg="white"
+                bdrs="md"
+              >
+                <IconStarFilled color={theme.black} size={theme.fontSizes.sm} />
 
-                    <Text fz="h5" fw={600} c="black">
-                      {userRating.overallScore}/5
-                    </Text>
-                  </Group>
-                </>
-              ) : (
-                <>
-                  <Text fw={700}>Your rating</Text>
-
-                  <Group
-                    align="center"
-                    justify="center"
-                    gap="0.2rem"
-                    bg="white"
-                    bdrs="md"
-                  >
-                    <IconStarFilled
-                      color={theme.black}
-                      size={theme.fontSizes.sm}
-                    />
-
-                    <Text fz="h5" fw={600} c="black">
-                      ?/5
-                    </Text>
-                  </Group>
-                </>
-              )}
+                <Text fz="h5" fw={600} c="black">
+                  {userRating ? userRating.overallScore : "?"}
+                  /5
+                </Text>
+              </Group>
             </Stack>
           </Tabs.Tab>
         </Tabs.List>
