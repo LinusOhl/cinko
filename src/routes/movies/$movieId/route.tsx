@@ -6,15 +6,18 @@ import {
   Stack,
   Text,
   Title,
+  useMantineTheme,
 } from "@mantine/core";
-import { IconCircleFilled } from "@tabler/icons-react";
+import { IconChevronRight, IconCircleFilled } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { z } from "zod";
+import { CustomLink } from "~/components/CustomLink";
 import { MovieBanner } from "~/components/features/movies/MovieBanner";
 import { MoviePoster } from "~/components/features/movies/MoviePoster";
 import { MovieRatings } from "~/components/features/ratings/MovieRatings/MovieRatings";
 import { RateMovie } from "~/components/features/ratings/RateMovie/RateMovie";
+import { Review } from "~/components/features/reviews/Review/Review";
 import { AddToWatchlistButton } from "~/components/features/watchlist/AddToWatchlistButton";
 import { RemoveFromWatchlistButton } from "~/components/features/watchlist/RemoveFromWatchlistButton";
 import { IMAGES_BASE_URL } from "~/helpers";
@@ -37,6 +40,8 @@ export const Route = createFileRoute("/movies/$movieId")({
 
 function RouteComponent() {
   const { movieId } = Route.useParams();
+
+  const theme = useMantineTheme();
 
   const { data: movie } = useSuspenseQuery(
     movieQueryOptions(movieId, ["credits", "images"]),
@@ -161,6 +166,19 @@ function RouteComponent() {
             </Stack>
           </Stack>
         </Group>
+
+        <Stack mt="xl">
+          <CustomLink to="/" fz="h2" ff="heading" fw={700} c="white">
+            <Group gap="xs">
+              Reviews
+              <IconChevronRight color={theme.colors.cinkoYellow[6]} />
+            </Group>
+          </CustomLink>
+
+          <SimpleGrid cols={2}>
+            <Review />
+          </SimpleGrid>
+        </Stack>
       </Stack>
 
       <Outlet />
