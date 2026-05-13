@@ -5,7 +5,6 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  Title,
   useMantineTheme,
 } from "@mantine/core";
 import { IconChevronRight } from "@tabler/icons-react";
