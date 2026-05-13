@@ -138,6 +138,7 @@ model Review {
   id        String   @id @default(uuid())
   userId    String
   movieId   Int
+  title     String
   body      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
