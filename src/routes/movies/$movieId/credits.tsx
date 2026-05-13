@@ -1,4 +1,13 @@
-import { Avatar, Grid, Group, Stack, Text, Title } from "@mantine/core";
+import {
+  Avatar,
+  Grid,
+  Group,
+  Stack,
+  Text,
+  Title,
+  useMantineTheme,
+} from "@mantine/core";
+import { IconChevronLeft } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { CustomLink } from "~/components/CustomLink";
@@ -16,6 +25,9 @@ export const Route = createFileRoute("/movies/$movieId/credits")({
 
 function RouteComponent() {
   const { movieId } = Route.useParams();
+
+  const theme = useMantineTheme();
+
   const { data: movie } = useSuspenseQuery(
     movieQueryOptions(movieId, ["credits"]),
   );
@@ -55,10 +67,15 @@ function RouteComponent() {
       <CustomLink
         to="/movies/$movieId/details"
         params={{ movieId }}
-        c="white"
+        fz="h4"
+        ff="heading"
         fw={700}
+        c="white"
       >
-        Return to details
+        <Group gap="xs">
+          <IconChevronLeft color={theme.white} />
+          Return to movie details
+        </Group>
       </CustomLink>
 
       <Stack gap="sm">
