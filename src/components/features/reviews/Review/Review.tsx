@@ -27,15 +27,23 @@ export const Review = ({ title, author, simplified }: ReviewProps) => {
   return (
     <Paper p="xs" shadow="md">
       <Stack gap="xs">
-        <Group align="center" gap="0.4rem">
-          <IconStarFilled
-            color={theme.colors.cinkoYellow[6]}
-            size={theme.fontSizes.md}
-          />
+        <Group justify="space-between">
+          <Group align="center" gap="0.4rem">
+            <IconStarFilled
+              color={theme.colors.cinkoYellow[6]}
+              size={theme.fontSizes.md}
+            />
 
-          <Text fz="h4" fw={600} c="white">
-            4.3/5
-          </Text>
+            <Text fz="h4" fw={600} c="white">
+              4.3/5
+            </Text>
+          </Group>
+
+          <Group>
+            <Avatar>{author}</Avatar>
+
+            <Text>{author}</Text>
+          </Group>
         </Group>
 
         <Text fz="xl" fw={600}>
@@ -51,25 +59,17 @@ export const Review = ({ title, author, simplified }: ReviewProps) => {
 
         {!simplified ? (
           <>
-            <Group justify="space-between">
-              <Group>
-                <ActionIcon.Group>
-                  <ActionIcon variant="default" size="lg">
-                    <IconThumbUp size={20} />
-                  </ActionIcon>
-                  <ActionIcon variant="default" size="lg">
-                    <IconThumbDown size={20} />
-                  </ActionIcon>
-                </ActionIcon.Group>
+            <Group>
+              <ActionIcon.Group>
+                <ActionIcon variant="default" size="lg">
+                  <IconThumbUp size={20} />
+                </ActionIcon>
+                <ActionIcon variant="default" size="lg">
+                  <IconThumbDown size={20} />
+                </ActionIcon>
+              </ActionIcon.Group>
 
-                <Text>31,284 likes</Text>
-              </Group>
-
-              <Group>
-                <Avatar>{author}</Avatar>
-
-                <Text>{author}</Text>
-              </Group>
+              <Text>31,284 likes</Text>
             </Group>
 
             <Accordion>

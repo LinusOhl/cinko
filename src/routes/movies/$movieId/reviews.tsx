@@ -1,5 +1,13 @@
-import { Center, Pagination, Stack } from "@mantine/core";
+import {
+  Center,
+  Group,
+  Pagination,
+  Stack,
+  useMantineTheme,
+} from "@mantine/core";
+import { IconChevronLeft } from "@tabler/icons-react";
 import { createFileRoute } from "@tanstack/react-router";
+import { CustomLink } from "~/components/CustomLink";
 import { Review } from "~/components/features/reviews/Review/Review";
 
 export const Route = createFileRoute("/movies/$movieId/reviews")({
@@ -7,6 +15,10 @@ export const Route = createFileRoute("/movies/$movieId/reviews")({
 });
 
 function RouteComponent() {
+  const { movieId } = Route.useParams();
+
+  const theme = useMantineTheme();
+
   const tempData = [
     { title: "5/5 would watch again", author: "Simon Belmont" },
     { title: "I liked the good parts!", author: "Luke Skywalker" },
@@ -16,19 +28,35 @@ function RouteComponent() {
   ];
 
   return (
-    <Stack mb="xl">
-      {tempData.map((t) => (
-        <Review
-          key={t.author}
-          author={t.author}
-          title={t.title}
-          simplified={false}
-        />
-      ))}
+    <Stack mb="xl" gap="xl">
+      <CustomLink
+        to="/movies/$movieId/details"
+        params={{ movieId }}
+        fz="h4"
+        ff="heading"
+        fw={700}
+        c="white"
+      >
+        <Group gap="xs">
+          <IconChevronLeft color={theme.white} />
+          Return to movie details
+        </Group>
+      </CustomLink>
 
-      <Center>
-        <Pagination total={10} color="cinkoBlue.6" />
-      </Center>
+      <Stack>
+        {tempData.map((t) => (
+          <Review
+            key={t.author}
+            author={t.author}
+            title={t.title}
+            simplified={false}
+          />
+        ))}
+
+        <Center>
+          <Pagination total={10} color="cinkoBlue.6" />
+        </Center>
+      </Stack>
     </Stack>
   );
 }
