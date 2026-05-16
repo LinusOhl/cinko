@@ -10,8 +10,8 @@ import {
 import { IconChevronRight } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { CustomLink } from "~/components/CustomLink";
-import { Review } from "~/components/features/reviews/Review/Review";
+import { Review } from "~/components/reviews/Review";
+import { CustomLink } from "~/components/shared/CustomLink";
 import { IMAGES_BASE_URL } from "~/helpers";
 import { movieQueryOptions } from "~/server/tmdb/movies/movies.queries";
 

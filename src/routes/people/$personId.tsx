@@ -12,7 +12,7 @@ import {
 } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { MovieCredit } from "~/components/features/movies/MovieCredit";
+import { MovieCredit } from "~/components/movies/MovieCredit";
 import { IMAGES_BASE_URL } from "~/helpers";
 import { personQueryOptions } from "~/server/tmdb/people/people.queries";
 

@@ -9,7 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import type { ReactNode } from "react";
-import { Navbar } from "~/components/Navbar";
+import { Navbar } from "~/components/shared/Navbar";
 import { theme } from "~/config/theme";
 
 import "@mantine/core/styles.css";

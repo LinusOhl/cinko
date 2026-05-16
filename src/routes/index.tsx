@@ -2,9 +2,9 @@ import { Carousel, CarouselSlide } from "@mantine/carousel";
 import { Box, Stack, Title } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { CustomLink } from "~/components/CustomLink";
-import { LargeMovieSlide } from "~/components/features/movies/LargeMovieSlide";
-import { MovieCard } from "~/components/features/movies/MovieCard";
+import { LargeMovieSlide } from "~/components/movies/LargeMovieSlide";
+import { MovieCard } from "~/components/movies/MovieCard";
+import { CustomLink } from "~/components/shared/CustomLink";
 import {
   playingMoviesQueryOptions,
   popularMoviesQueryOptions,

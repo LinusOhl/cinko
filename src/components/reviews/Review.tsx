@@ -13,7 +13,7 @@ import {
   IconThumbDown,
   IconThumbUp,
 } from "@tabler/icons-react";
-import { RatingScores } from "../../ratings/MovieRatings/MovieRatings.parts";
+import { RatingScores } from "../ratings/MovieRatings.parts";
 
 interface ReviewProps {
   title: string;

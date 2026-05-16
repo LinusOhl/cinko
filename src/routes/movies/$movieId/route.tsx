@@ -3,12 +3,12 @@ import { IconCircleFilled } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { z } from "zod";
-import { MovieBanner } from "~/components/features/movies/MovieBanner";
-import { MoviePoster } from "~/components/features/movies/MoviePoster";
-import { MovieRatings } from "~/components/features/ratings/MovieRatings/MovieRatings";
-import { RateMovie } from "~/components/features/ratings/RateMovie/RateMovie";
-import { AddToWatchlistButton } from "~/components/features/watchlist/AddToWatchlistButton";
-import { RemoveFromWatchlistButton } from "~/components/features/watchlist/RemoveFromWatchlistButton";
+import { MovieBanner } from "~/components/movies/MovieBanner";
+import { MoviePoster } from "~/components/movies/MoviePoster";
+import { MovieRatings } from "~/components/ratings/MovieRatings";
+import { RateMovie } from "~/components/ratings/RateMovie";
+import { AddToWatchlistButton } from "~/components/watchlist/AddToWatchlistButton";
+import { RemoveFromWatchlistButton } from "~/components/watchlist/RemoveFromWatchlistButton";
 import { watchlistItemQueryOptions } from "~/server/db/watchlist/watchlist.queries";
 import { movieQueryOptions } from "~/server/tmdb/movies/movies.queries";
 

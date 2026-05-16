@@ -12,7 +12,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { useRateMovieMutation } from "~/server/db/ratings/ratings.queries";
 import type { TMDBMovieDetails } from "~/types/tmdb";
-import { ratingCategories, scoreMarks } from "./helpers";
+import { ratingCategories, scoreMarks } from "./RateMovie.helpers";
 
 interface RateMovieProps {
   movie: TMDBMovieDetails;

@@ -13,7 +13,7 @@ import { schemaResolver, useForm } from "@mantine/form";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import z from "zod";
-import { CustomLink } from "~/components/CustomLink";
+import { CustomLink } from "~/components/shared/CustomLink";
 import { authClient } from "~/lib/auth-client";
 
 const SignUpSchema = z

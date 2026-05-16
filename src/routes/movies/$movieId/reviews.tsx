@@ -7,8 +7,8 @@ import {
 } from "@mantine/core";
 import { IconChevronLeft } from "@tabler/icons-react";
 import { createFileRoute } from "@tanstack/react-router";
-import { CustomLink } from "~/components/CustomLink";
-import { Review } from "~/components/features/reviews/Review/Review";
+import { Review } from "~/components/reviews/Review";
+import { CustomLink } from "~/components/shared/CustomLink";
 
 export const Route = createFileRoute("/movies/$movieId/reviews")({
   component: RouteComponent,
