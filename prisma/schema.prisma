@@ -27,6 +27,7 @@ model User {
   ratings        Rating[]
   watchlistItems WatchlistItem[]
   reviews        Review[]
+  votes          Vote[]
 
   @@unique([email])
   @@map("user")
@@ -143,9 +144,23 @@ model Review {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user  User  @relation(fields: [userId], references: [id])
-  movie Movie @relation(fields: [movieId], references: [id])
+  user  User   @relation(fields: [userId], references: [id])
+  movie Movie  @relation(fields: [movieId], references: [id])
+  votes Vote[]
 
   @@unique([userId, movieId])
   @@map("review")
+}
+
+model Vote {
+  id       String @id @default(uuid())
+  userId   String
+  reviewId String
+  value    Int    @db.SmallInt
+
+  user   User   @relation(fields: [userId], references: [id])
+  review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, reviewId])
+  @@map("vote")
 }
